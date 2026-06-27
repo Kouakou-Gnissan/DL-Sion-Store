@@ -41,6 +41,7 @@ body {
   color: var(--text);
   font-size: 14px;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 a {
   text-decoration: none;
@@ -524,13 +525,14 @@ header {
 ══════════════════════════════════════════ */
 .hero {
   max-width: 1280px;
-  margin: 18px auto;
+  margin: 20px auto;
   padding: 0 20px;
   display: grid;
   grid-template-columns: 1fr 280px;
   gap: 14px;
   align-items: start;
 }
+
 .hero-main {
   position: relative;
   border-radius: 14px;
@@ -2088,6 +2090,7 @@ footer {
 }
 @media (max-width: 768px) {
   .header-top {
+    padding: 12px 10px;
     flex-wrap: wrap;
     gap: 10px;
   }
@@ -2111,8 +2114,17 @@ footer {
   body {
     padding-bottom: 56px;
   }
+
+  .hero {
+    margin: 10px auto;
+    padding: 0 10px;
+  }
+
   .banner-strip {
     grid-template-columns: 1fr;
+    margin: 10px auto;
+    padding: 0 10px;
+    gap: 10px;
   }
   .feat-inner {
     grid-template-columns: 1fr 1fr;
@@ -2120,6 +2132,12 @@ footer {
   .footer-main {
     grid-template-columns: 1fr;
   }
+
+  .promo-banner {
+    margin: 10px auto;
+    padding: 0 10px;
+  }
+
   .promo-inner {
     flex-direction: column;
     text-align: center;
@@ -2133,6 +2151,25 @@ footer {
   .hero-content {
     padding: 28px 24px;
   }
+  .section {
+    padding: 0 10px;
+  }
+  .reviews-inner {
+    padding: 0 10px;
+  }
+
+  .feat-inner {
+    padding: 0 10px;
+  }
+
+  .brands {
+    padding: 0 10px;
+  }
+
+  .footer-newsletter {
+    padding: 20px 10px;
+  }
+
   .newsletter-inner {
     flex-direction: column;
   }
