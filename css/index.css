@@ -2078,6 +2078,9 @@ footer {
   .hero-side {
     display: none;
   }
+
+
+
   .footer-main {
     grid-template-columns: 1fr 1fr;
   }
@@ -2099,6 +2102,9 @@ footer {
     flex: 0 0 100%;
     max-width: 100%;
   }
+  .search-bar .label-search {
+    display: none;
+  }
   .header-phone {
     display: none;
   }
@@ -2118,6 +2124,9 @@ footer {
   .hero {
     margin: 10px auto;
     padding: 0 10px;
+  }
+  .scroll-btn {
+    display: none;
   }
 
   .banner-strip {
