@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - DL Sion Store</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background: #c0392b;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        button {
+            background: white;
+            color: #c0392b;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏪 DL Sion Store.ci - Administration</h1>
+            <button onclick="logout()">Se déconnecter</button>
+        </div>
+        
+        <div class="card">
+            <h2>Bienvenue sur votre dashboard admin !</h2>
+            <p>Vous êtes connecté en tant que Super Admin.</p>
+            <p>Votre UUID est bien présent dans la table admin_users ✅</p>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = "https://yrdjnsteaoajypgzqrbs.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyZGpuc3RlYW9hanlwZ3pxcmJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1NzYwMDQsImV4cCI6MjA5NjE1MjAwNH0.CtraI2nEk7qPGYtHt7BOKFIrfTCU_NoXG7jP6_2lxZY";
+        const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        async function logout() {
+            await sb.auth.signOut();
+            window.location.href = "login.html";
+        }
+
+        // Vérifier la session
+        sb.auth.getSession().then(({ data: { session } }) => {
+            if (!session) {
+                window.location.href = "login.html";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,shrink-to-fit=no"
+    />
+    <title>Toutes les catégories — DL Sion Store.ci</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    />
+    <link rel="stylesheet" href="css/categories.css" />
+  </head>
+  <body>
+    <!-- ANNOUNCE -->
+    <div class="announce-bar">
+      <div class="announce-track">
+        <span>🚚 Livraison rapide Abidjan &amp; intérieur</span>
+        <span>💳 Paiement à la livraison disponible</span>
+        <span>📱 07 59 80 80 91 – Support 24h/7</span>
+        <span>✅ Garantie SAV sur tous les produits</span>
+        <span>🎁 Réductions sur achats multiples</span>
+        <span>🚚 Livraison rapide Abidjan &amp; intérieur</span>
+        <span>💳 Paiement à la livraison disponible</span>
+        <span>📱 07 59 80 80 91 – Support 24h/7</span>
+        <span>✅ Garantie SAV sur tous les produits</span>
+        <span>🎁 Réductions sur achats multiples</span>
+      </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+      <div class="header-top">
+        <div class="logo">
+          <div class="logo-icon" onclick="openDrawer()">
+            <svg viewBox="0 0 24 24">
+              <path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+            </svg>
+          </div>
+          <div>
+            <div class="logo-text">DL Sion <span>Store.ci</span></div>
+            <div class="logo-sub">N°1 Achat en ligne Côte d'Ivoire</div>
+          </div>
+        </div>
+        <div class="search-bar">
+          <input
+            type="text"
+            placeholder="Rechercher un produit, une marque…"
+            id="headerSearchInput"
+          />
+          <button onclick="doHeaderSearch()">
+            <i class="ti ti-search"></i> Rechercher
+          </button>
+        </div>
+        <div class="header-actions">
+          <a href="#" class="action-btn" style="display: none"
+            ><i class="ti ti-heart"></i><span>Favoris</span></a
+          >
+          <a href="#" class="action-btn" onclick="toggleCart(); return false;">
+            <i class="ti ti-shopping-cart"></i><span>Panier</span>
+            <span class="cart-badge" id="cartBadge">0</span>
+          </a>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <div class="nav-inner">
+          <button class="hamburger" onclick="openDrawer()">
+            <i class="ti ti-menu-2"></i> Catégories
+          </button>
+          <a href="index.html" class="nav-link">Accueil</a>
+          <div id="navCategoriesLinks" style="display: flex"></div>
+          <a href="categories.html" class="nav-link active"
+            >Toutes les catégories</a
+          >
+          <a href="#" class="nav-link nav-promo"
+            ><i class="ti ti-tag"></i> Promos</a
+          >
+          <span class="nav-phone"
+            ><i class="ti ti-phone-call"></i> (+225) 07 59 80 80 91</span
+          >
+        </div>
+      </nav>
+    </header>
+
+    <!-- DRAWER -->
+    <div
+      class="drawer-overlay"
+      id="drawerOverlay"
+      onclick="closeDrawer()"
+    ></div>
+    <div class="drawer" id="drawer">
+      <div class="drawer-head">
+        <div class="drawer-logo">DL Sion <span>Store.ci</span></div>
+        <button class="drawer-close" onclick="closeDrawer()">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+      <div class="drawer-search">
+        <div class="drawer-search-inner">
+          <input type="text" placeholder="Rechercher…" />
+          <button><i class="ti ti-search"></i></button>
+        </div>
+      </div>
+      <a href="index.html" class="drawer-link"
+        ><i class="ti ti-home"></i> Accueil</a
+      >
+      <div id="drawerCategoriesLinks"></div>
+    </div>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+      <a href="index.html">Accueil</a>
+      <i class="ti ti-chevron-right"></i>
+      <span>Toutes les catégories</span>
+    </div>
+
+    <!-- CATEGORIES HERO -->
+    <div class="cats-hero">
+      <div class="cats-hero-inner">
+        <div class="cats-hero-badge">
+          <i class="ti ti-category" style="font-size: 11px"></i> Catalogue
+          complet
+        </div>
+        <h1 class="cats-hero-title">Explorez toutes nos <em>catégories</em></h1>
+        <p class="cats-hero-sub">
+          Téléphones, informatique, électroménager, TV &amp; audio — tout ce
+          qu'il vous faut à Abidjan
+        </p>
+      </div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+      <div class="cats-toolbar">
+        <div class="cats-count" id="catsCount">Chargement des catégories…</div>
+        <div class="cats-search-mini">
+          <i class="ti ti-search"></i>
+          <input
+            type="text"
+            id="catFilterInput"
+            placeholder="Filtrer une catégorie…"
+            oninput="filterCategories()"
+          />
+        </div>
+      </div>
+
+      <div class="cats-grid" id="catsGrid">
+        <!-- Skeletons affichés pendant le chargement -->
+        <div class="cat-skeleton">
+          <div class="skel-img"></div>
+          <div class="skel-body">
+            <div class="skel-line" style="width: 70%"></div>
+            <div class="skel-line" style="width: 90%"></div>
+          </div>
+        </div>
+        <div class="cat-skeleton">
+          <div class="skel-img"></div>
+          <div class="skel-body">
+            <div class="skel-line" style="width: 70%"></div>
+            <div class="skel-line" style="width: 90%"></div>
+          </div>
+        </div>
+        <div class="cat-skeleton">
+          <div class="skel-img"></div>
+          <div class="skel-body">
+            <div class="skel-line" style="width: 70%"></div>
+            <div class="skel-line" style="width: 90%"></div>
+          </div>
+        </div>
+        <div class="cat-skeleton">
+          <div class="skel-img"></div>
+          <div class="skel-body">
+            <div class="skel-line" style="width: 70%"></div>
+            <div class="skel-line" style="width: 90%"></div>
+          </div>
+        </div>
+        <div class="cat-skeleton">
+          <div class="skel-img"></div>
+          <div class="skel-body">
+            <div class="skel-line" style="width: 70%"></div>
+            <div class="skel-line" style="width: 90%"></div>
+          </div>
+        </div>
+        <div class="cat-skeleton">
+          <div class="skel-img"></div>
+          <div class="skel-body">
+            <div class="skel-line" style="width: 70%"></div>
+            <div class="skel-line" style="width: 90%"></div>
+          </div>
+        </div>
+        <div class="cat-skeleton">
+          <div class="skel-img"></div>
+          <div class="skel-body">
+            <div class="skel-line" style="width: 70%"></div>
+            <div class="skel-line" style="width: 90%"></div>
+          </div>
+        </div>
+        <div class="cat-skeleton">
+          <div class="skel-img"></div>
+          <div class="skel-body">
+            <div class="skel-line" style="width: 70%"></div>
+            <div class="skel-line" style="width: 90%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /container -->
+
+    <!-- BRANDS -->
+    <div class="brands">
+      <div class="brands-label">Nos marques partenaires</div>
+      <div class="brands-track-wrap">
+        <div class="brands-track" id="brandsTrack">
+          <div class="brand-item">Chargement…</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURES BAR -->
+    <div class="features-bar">
+      <div class="feat-inner">
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-truck"></i></div>
+          <div>
+            <div class="feat-title">Livraison rapide</div>
+            <div class="feat-desc">24h à Abidjan · 48h à l'intérieur</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-cash"></i></div>
+          <div>
+            <div class="feat-title">Paiement à la livraison</div>
+            <div class="feat-desc">Cash, Wave, Orange Money</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-shield-check"></i></div>
+          <div>
+            <div class="feat-title">Produits garantis</div>
+            <div class="feat-desc">Authenticité certifiée</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-headset"></i></div>
+          <div>
+            <div class="feat-title">Support 24h/7</div>
+            <div class="feat-desc">07 59 80 80 91</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-logo">DL Sion <span>Store.ci</span></div>
+      <div>
+        © 2025 DL Sion Store.ci — Abidjan, Côte d'Ivoire | Tous droits réservés
+      </div>
+    </footer>
+
+    <!-- MOBILE NAV -->
+    <nav class="mobile-nav">
+      <ul>
+        <li>
+          <a href="index.html"
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" /></svg
+            >Accueil</a
+          >
+        </li>
+        <li>
+          <a href="catalogue.html"
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" /></svg
+            >Chercher</a
+          >
+        </li>
+        <li>
+          <a href="categories.html" class="active"
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <line x1="8" y1="6" x2="21" y2="6" />
+              <line x1="8" y1="12" x2="21" y2="12" />
+              <line x1="8" y1="18" x2="21" y2="18" />
+              <line x1="3" y1="6" x2="3.01" y2="6" />
+              <line x1="3" y1="12" x2="3.01" y2="12" />
+              <line x1="3" y1="18" x2="3.01" y2="18" /></svg
+            >Catégories</a
+          >
+        </li>
+        <li>
+          <a href="catalogue.html">
+            <svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+            Catalogue
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            onclick="
+              toggleCart();
+              return false;
+            "
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path
+                d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+              /></svg
+            >Panier</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!-- CART SIDEBAR -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+      <div class="cart-header">
+        <div class="cart-header-title">
+          <i class="ti ti-shopping-cart"></i> Mon panier
+        </div>
+        <button class="cart-close" onclick="toggleCart()">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+      <div class="cart-body" id="cartBody">
+        <div class="cart-empty">
+          <i class="ti ti-shopping-cart"></i>
+          <p>Votre panier est vide</p>
+        </div>
+      </div>
+      <div class="cart-footer" id="cartFooter" style="display: none">
+        <div class="cart-total-row">
+          <span class="cart-total-label">Total</span>
+          <span class="cart-total-amount" id="cartTotal">0 F CFA</span>
+        </div>
+        <button class="btn-checkout" onclick="window.location.href='commande.html'">
+          <i class="ti ti-credit-card"></i> Passer la commande
+        </button>
+      </div>
+    </div>
+
+    <!-- WHATSAPP + TOAST -->
+    <a href="https://wa.me/2250759808091" class="wa-btn" target="_blank"
+      ><i class="ti ti-brand-whatsapp"></i
+    ></a>
+    <div class="toast" id="toast">
+      <i class="ti ti-check"></i><span id="toastMsg">Message</span>
+    </div>
+
+    <script src="js/categories.js"></script>
+  </body>
+</html>

@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+    />
+    <title>Gestion Catalogue — DL Sion Store.ci Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    />
+    <link rel="stylesheet" href="css/gestion-catalogue.css" />
+  </head>
+  <body>
+    <!-- Mobile Menu Button -->
+    <button
+      class="mobile-menu-btn"
+      id="mobileMenuBtn"
+      onclick="toggleMobileMenu()"
+    >
+      <i class="ti ti-menu-2"></i>
+    </button>
+    <div
+      class="sidebar-overlay"
+      id="sidebarOverlay"
+      onclick="closeMobileMenu()"
+    ></div>
+
+    <div class="admin-layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+          <div class="logo-text">DL Sion<span>Store.ci</span></div>
+          <div class="logo-sub">Administration</div>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="nav-section">Principal</div>
+          <a href="dashboard.html" class="nav-link"
+            ><i class="ti ti-dashboard"></i> Tableau de bord</a
+          >
+          <a href="commandes.html" class="nav-link"
+            ><i class="ti ti-shopping-cart"></i> Commandes</a
+          >
+          <a href="gestion-catalogue.html" class="nav-link active"
+            ><i class="ti ti-packages"></i> Catalogue</a
+          >
+          <div class="nav-section">Gestion</div>
+          <a href="clients.html" class="nav-link"
+            ><i class="ti ti-users"></i> Clients</a
+          >
+          <a href="marques.html" class="nav-link"
+            ><i class="ti ti-certificate"></i> Marques</a
+          >
+          <a href="comptes.html" class="nav-link"
+            ><i class="ti ti-user-shield"></i> Comptes admin</a
+          >
+        </nav>
+        <div class="sidebar-footer">
+          <div class="sidebar-user">
+            <div class="user-avatar" id="userAvatar">A</div>
+            <div>
+              <div class="user-name" id="userName">Administrateur</div>
+              <div class="user-role" id="userRole">admin</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <div class="main">
+        <div class="topbar">
+          <div class="topbar-title">
+            <i
+              class="ti ti-packages"
+              style="color: var(--primary); margin-right: 8px"
+            ></i
+            >Gestion du Catalogue
+          </div>
+          <div class="topbar-actions">
+            <button class="btn btn-ghost btn-sm" onclick="refreshAll()">
+              <i class="ti ti-refresh"></i> Actualiser
+            </button>
+            <a href="../index.html" class="btn btn-ghost btn-sm" target="_blank"
+              ><i class="ti ti-external-link"></i> Voir la boutique</a
+            >
+          </div>
+        </div>
+
+        <div class="content">
+          <!-- TABS -->
+          <div class="tabs">
+            <div
+              class="tab active"
+              onclick="switchTab('products')"
+              id="tab-products"
+            >
+              <i class="ti ti-box"></i> Produits
+              <span class="tab-badge" id="badge-products">0</span>
+            </div>
+            <div
+              class="tab"
+              onclick="switchTab('categories')"
+              id="tab-categories"
+            >
+              <i class="ti ti-category"></i> Catégories
+              <span class="tab-badge" id="badge-categories">0</span>
+            </div>
+            <div
+              class="tab"
+              onclick="switchTab('subcategories')"
+              id="tab-subcategories"
+            >
+              <i class="ti ti-category-2"></i> Sous-catégories
+              <span class="tab-badge" id="badge-subcategories">0</span>
+            </div>
+          </div>
+
+          <!-- ══ PRODUITS ══ -->
+          <div id="panel-products">
+            <div class="toolbar">
+              <div class="search-box">
+                <i class="ti ti-search"></i
+                ><input
+                  type="text"
+                  placeholder="Rechercher un produit…"
+                  id="searchProducts"
+                  oninput="filterProducts()"
+                />
+              </div>
+              <select
+                class="filter-select"
+                id="filterCat"
+                onchange="filterProducts()"
+              >
+                <option value="">Toutes catégories</option>
+              </select>
+              <select
+                class="filter-select"
+                id="filterSubcat"
+                onchange="filterProducts()"
+              >
+                <option value="">Toutes sous-cat.</option>
+              </select>
+              <select
+                class="filter-select"
+                id="filterBrand"
+                onchange="filterProducts()"
+              >
+                <option value="">Toutes marques</option>
+              </select>
+              <select
+                class="filter-select"
+                id="filterStatus"
+                onchange="filterProducts()"
+              >
+                <option value="">Tous statuts</option>
+                <option value="active">Actifs</option>
+                <option value="inactive">Inactifs</option>
+                <option value="featured">Vedettes</option>
+              </select>
+              <button class="btn btn-primary" onclick="openProductModal()">
+                <i class="ti ti-plus"></i> Nouveau produit
+              </button>
+            </div>
+            <div class="table-wrap" style="position: relative">
+              <div class="loading-overlay" id="loadingProducts">
+                <div class="spinner"></div>
+              </div>
+              <div class="table-header">
+                <span class="table-title">Liste des produits</span>
+                <span class="table-count" id="countProducts">0 produit</span>
+              </div>
+              <div style="overflow-x: auto">
+                <table>
+                  <thead>
+                    <tr>
+                      <th style="width: 50px">Image</th>
+                      <th>Nom / Référence</th>
+                      <th>Catégorie</th>
+                      <th>Marque</th>
+                      <th>Prix</th>
+                      <th>Statut</th>
+                      <th style="width: 90px; text-align: right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="productsBody"></tbody>
+                </table>
+              </div>
+              <div class="table-pagination">
+                <span class="page-info" id="pageInfoProducts"></span>
+                <div class="page-btns" id="pageBtnsProducts"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ══ CATÉGORIES ══ -->
+          <div id="panel-categories" style="display: none">
+            <div class="toolbar">
+              <div class="search-box">
+                <i class="ti ti-search"></i
+                ><input
+                  type="text"
+                  placeholder="Rechercher une catégorie…"
+                  id="searchCategories"
+                  oninput="filterCategories()"
+                />
+              </div>
+              <button class="btn btn-primary" onclick="openCategoryModal()">
+                <i class="ti ti-plus"></i> Nouvelle catégorie
+              </button>
+            </div>
+            <div class="table-wrap" style="position: relative">
+              <div class="loading-overlay" id="loadingCategories">
+                <div class="spinner"></div>
+              </div>
+              <div class="table-header">
+                <span class="table-title">Catégories principales</span>
+                <span class="table-count" id="countCategories"
+                  >0 catégorie</span
+                >
+              </div>
+              <div style="overflow-x: auto">
+                <table>
+                  <thead>
+                    <tr>
+                      <th style="width: 50px">Image</th>
+                      <th>Nom</th>
+                      <th>Slug</th>
+                      <th>Sous-catégories</th>
+                      <th>Produits</th>
+                      <th style="width: 90px; text-align: right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="categoriesBody"></tbody>
+                </table>
+              </div>
+              <div class="table-pagination">
+                <span class="page-info" id="pageInfoCategories"></span>
+                <div class="page-btns" id="pageBtnsCategories"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ══ SOUS-CATÉGORIES ══ -->
+          <div id="panel-subcategories" style="display: none">
+            <div class="toolbar">
+              <div class="search-box">
+                <i class="ti ti-search"></i
+                ><input
+                  type="text"
+                  placeholder="Rechercher une sous-catégorie…"
+                  id="searchSubcategories"
+                  oninput="filterSubcategories()"
+                />
+              </div>
+              <select
+                class="filter-select"
+                id="filterParentCat"
+                onchange="filterSubcategories()"
+              >
+                <option value="">Toutes catégories</option>
+              </select>
+              <button class="btn btn-primary" onclick="openSubcategoryModal()">
+                <i class="ti ti-plus"></i> Nouvelle sous-catégorie
+              </button>
+            </div>
+            <div class="table-wrap" style="position: relative">
+              <div class="loading-overlay" id="loadingSubcategories">
+                <div class="spinner"></div>
+              </div>
+              <div class="table-header">
+                <span class="table-title">Sous-catégories</span>
+                <span class="table-count" id="countSubcategories"
+                  >0 sous-catégorie</span
+                >
+              </div>
+              <div style="overflow-x: auto">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Nom</th>
+                      <th>Catégorie parente</th>
+                      <th>Slug</th>
+                      <th>Produits</th>
+                      <th style="width: 90px; text-align: right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="subcategoriesBody"></tbody>
+                </table>
+              </div>
+              <div class="table-pagination">
+                <span class="page-info" id="pageInfoSubcategories"></span>
+                <div class="page-btns" id="pageBtnsSubcategories"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /content -->
+      </div>
+      <!-- /main -->
+    </div>
+    <!-- /layout -->
+
+    <!-- ══ MODAL PRODUIT ══ -->
+    <div class="modal-overlay" id="modalProduct">
+      <div class="modal modal-lg">
+        <div class="modal-header">
+          <div class="modal-title">
+            <i class="ti ti-box"></i>
+            <span id="modalProductTitle">Nouveau produit</span>
+          </div>
+          <button class="modal-close" onclick="closeModal('modalProduct')">
+            <i class="ti ti-x"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="productId" />
+          <div class="form-grid">
+            <div class="form-group full">
+              <label class="form-label"
+                >Nom du produit <span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="productNom"
+                placeholder="Ex: HP EliteBook 840 G10"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Référence</label>
+              <input
+                type="text"
+                class="form-control"
+                id="productRef"
+                placeholder="Ex: HP-EB840-G10"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Ancien prix (F CFA)</label>
+              <input
+                type="number"
+                class="form-control"
+                id="productPrixAncien"
+                placeholder="Ex: 500000"
+              />
+              <span class="form-hint">Laisser vide si pas de promotion</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label"
+                >Prix Actuel (F CFA) <span class="req">*</span></label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="productPrix"
+                placeholder="Ex: 485000"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label"
+                >Catégorie <span class="req">*</span></label
+              >
+              <select
+                class="form-control"
+                id="productCategorie"
+                onchange="loadSubcatsForProduct()"
+              >
+                <option value="">Sélectionner une catégorie</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Sous-catégorie</label>
+              <select class="form-control" id="productSousCategorie">
+                <option value="">Aucune</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Marque</label>
+              <select class="form-control" id="productBrand">
+                <option value="">Sélectionner une marque</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Description</label>
+              <textarea
+                class="form-control"
+                id="productDescription"
+                placeholder="Description complète du produit…"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Image principale</label>
+              <div class="img-upload-zone" id="mainImgZone">
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="mainImgInput"
+                  onchange="previewMainImage(event)"
+                />
+                <div id="mainImgPreviewWrap">
+                  <div class="img-upload-icon">
+                    <i class="ti ti-photo-up"></i>
+                  </div>
+                  <div class="img-upload-text">
+                    Cliquer ou glisser une image
+                  </div>
+                  <div class="img-upload-hint">JPG, PNG, WEBP — max 2 Mo</div>
+                </div>
+              </div>
+              <div class="upload-progress" id="mainImgProgress">
+                <div class="progress-bar">
+                  <div
+                    class="progress-fill"
+                    id="mainImgProgressFill"
+                    style="width: 0%"
+                  ></div>
+                </div>
+                <div class="progress-label" id="mainImgProgressLabel">
+                  Upload en cours…
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Galerie (jusqu'à 4 images)</label>
+              <div class="img-gallery-grid" id="galleryGrid">
+                <div class="img-gallery-slot" id="slot-0">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onchange="previewGalleryImage(event, 0)"
+                  /><i class="ti ti-plus"></i><span class="slot-badge">1</span>
+                </div>
+                <div class="img-gallery-slot" id="slot-1">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onchange="previewGalleryImage(event, 1)"
+                  /><i class="ti ti-plus"></i><span class="slot-badge">2</span>
+                </div>
+                <div class="img-gallery-slot" id="slot-2">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onchange="previewGalleryImage(event, 2)"
+                  /><i class="ti ti-plus"></i><span class="slot-badge">3</span>
+                </div>
+                <div class="img-gallery-slot" id="slot-3">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onchange="previewGalleryImage(event, 3)"
+                  /><i class="ti ti-plus"></i><span class="slot-badge">4</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Statut</label>
+              <div class="form-switch">
+                <label class="switch"
+                  ><input type="checkbox" id="productActive" checked /><span
+                    class="switch-slider"
+                  ></span
+                ></label>
+                <span class="switch-label"
+                  >Produit actif (visible en boutique)</span
+                >
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Mise en avant</label>
+              <div class="form-switch">
+                <label class="switch"
+                  ><input type="checkbox" id="productFeatured" /><span
+                    class="switch-slider"
+                  ></span
+                ></label>
+                <span class="switch-label"
+                  >Afficher en vedette sur l'accueil</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeModal('modalProduct')">
+            Annuler
+          </button>
+          <button
+            class="btn btn-primary"
+            id="btnSaveProduct"
+            onclick="saveProduct()"
+          >
+            <i class="ti ti-device-floppy"></i> Enregistrer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ MODAL CATÉGORIE ══ -->
+    <div class="modal-overlay" id="modalCategory">
+      <div class="modal">
+        <div class="modal-header">
+          <div class="modal-title">
+            <i class="ti ti-category"></i>
+            <span id="modalCategoryTitle">Nouvelle catégorie</span>
+          </div>
+          <button class="modal-close" onclick="closeModal('modalCategory')">
+            <i class="ti ti-x"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="categoryId" />
+          <div class="form-grid">
+            <div class="form-group full">
+              <label class="form-label"
+                >Nom de la catégorie <span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="categoryNom"
+                placeholder="Ex: PC Portables"
+                oninput="autoSlug('categoryNom', 'categorySlug')"
+              />
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Slug <span class="req">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                id="categorySlug"
+                placeholder="Ex: pc-portables"
+              />
+              <span class="form-hint"
+                >Identifiant URL unique (généré automatiquement)</span
+              >
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Description</label>
+              <textarea
+                class="form-control"
+                id="categoryDescription"
+                placeholder="Description de la catégorie…"
+              ></textarea>
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Image d'illustration</label>
+              <div class="img-upload-zone" id="catImgZone">
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="catImgInput"
+                  onchange="previewCatImage(event)"
+                />
+                <div id="catImgPreviewWrap">
+                  <div class="img-upload-icon">
+                    <i class="ti ti-photo-up"></i>
+                  </div>
+                  <div class="img-upload-text">
+                    Cliquer ou glisser une image
+                  </div>
+                  <div class="img-upload-hint">
+                    JPG, PNG, WEBP — max 2 Mo — recommandé 800×400px
+                  </div>
+                </div>
+              </div>
+              <div class="upload-progress" id="catImgProgress">
+                <div class="progress-bar">
+                  <div
+                    class="progress-fill"
+                    id="catImgProgressFill"
+                    style="width: 0%"
+                  ></div>
+                </div>
+                <div class="progress-label" id="catImgProgressLabel">
+                  Upload en cours…
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeModal('modalCategory')">
+            Annuler
+          </button>
+          <button
+            class="btn btn-primary"
+            id="btnSaveCategory"
+            onclick="saveCategory()"
+          >
+            <i class="ti ti-device-floppy"></i> Enregistrer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ MODAL SOUS-CATÉGORIE ══ -->
+    <div class="modal-overlay" id="modalSubcategory">
+      <div class="modal">
+        <div class="modal-header">
+          <div class="modal-title">
+            <i class="ti ti-category-2"></i>
+            <span id="modalSubcategoryTitle">Nouvelle sous-catégorie</span>
+          </div>
+          <button class="modal-close" onclick="closeModal('modalSubcategory')">
+            <i class="ti ti-x"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="subcategoryId" />
+          <div class="form-grid">
+            <div class="form-group full">
+              <label class="form-label"
+                >Catégorie parente <span class="req">*</span></label
+              >
+              <select class="form-control" id="subcategoryParent">
+                <option value="">Sélectionner une catégorie principale</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label class="form-label"
+                >Nom de la sous-catégorie <span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="subcategoryNom"
+                placeholder="Ex: PC Gaming"
+                oninput="autoSlug('subcategoryNom', 'subcategorySlug')"
+              />
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Slug <span class="req">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                id="subcategorySlug"
+                placeholder="Ex: pc-gaming"
+              />
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Description</label>
+              <textarea
+                class="form-control"
+                id="subcategoryDescription"
+                placeholder="Description de la sous-catégorie…"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-ghost"
+            onclick="closeModal('modalSubcategory')"
+          >
+            Annuler
+          </button>
+          <button
+            class="btn btn-primary"
+            id="btnSaveSubcategory"
+            onclick="saveSubcategory()"
+          >
+            <i class="ti ti-device-floppy"></i> Enregistrer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ MODAL CONFIRMATION ══ -->
+    <div class="modal-overlay" id="modalConfirm">
+      <div class="modal confirm-modal">
+        <div class="modal-body" style="padding: 28px 24px">
+          <div class="confirm-icon">
+            <i class="ti ti-trash" id="confirmIcon"></i>
+          </div>
+          <div class="confirm-text">
+            <div class="confirm-title" id="confirmTitle">
+              Confirmer la suppression
+            </div>
+            <div class="confirm-desc" id="confirmDesc">
+              Cette action est irréversible.
+            </div>
+          </div>
+          <div
+            class="confirm-warning"
+            id="confirmWarning"
+            style="display: none"
+          >
+            <i class="ti ti-alert-triangle"></i>
+            <span id="confirmWarningText"></span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeModal('modalConfirm')">
+            Annuler
+          </button>
+          <button
+            class="btn"
+            id="btnConfirmDelete"
+            style="background: var(--danger); color: #fff"
+          >
+            <i class="ti ti-trash"></i> Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOASTS -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/gestion-catalogue.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1550 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,shrink-to-fit=no"
+    />
+    <title>Switch TP-Link 8 ports LS1008 — DL Sion Store.ci</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    />
+    <link rel="stylesheet" href="css/product.css" />
+  </head>
+  <body>
+    <!-- ANNOUNCE -->
+    <div class="announce-bar">
+      <div class="announce-track">
+        <span>🚚 Livraison rapide Abidjan &amp; intérieur</span>
+        <span>💳 Paiement à la livraison disponible</span>
+        <span>📱 07 59 80 80 91 – Support 24h/7</span>
+        <span>✅ Garantie SAV sur tous les produits</span>
+        <span>🎁 Réductions sur achats multiples</span>
+        <span>🚚 Livraison rapide Abidjan &amp; intérieur</span>
+        <span>💳 Paiement à la livraison disponible</span>
+        <span>📱 07 59 80 80 91 – Support 24h/7</span>
+        <span>✅ Garantie SAV sur tous les produits</span>
+        <span>🎁 Réductions sur achats multiples</span>
+      </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+      <div class="header-top">
+        <div class="logo">
+          <div class="logo-icon" onclick="openDrawer()">
+            <svg viewBox="0 0 24 24">
+              <path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+            </svg>
+          </div>
+          <div>
+            <div class="logo-text">DL Sion <span>Store.ci</span></div>
+            <div class="logo-sub">N°1 Achat en ligne Côte d'Ivoire</div>
+          </div>
+        </div>
+        <div class="search-bar">
+          <input
+            type="text"
+            placeholder="Rechercher un produit, une marque…"
+            id="headerSearchInput"
+          />
+          <button onclick="doHeaderSearch()">
+            <i class="ti ti-search"></i> Rechercher
+          </button>
+        </div>
+        <div class="header-actions">
+          <a href="#" class="action-btn" style="display: none"
+            ><i class="ti ti-heart"></i><span>Favoris</span></a
+          >
+          <a href="#" class="action-btn" onclick="toggleCart(); return false;">
+            <i class="ti ti-shopping-cart"></i><span>Panier</span>
+            <span class="cart-badge" id="cartBadge">0</span>
+          </a>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <div class="nav-inner">
+          <button class="hamburger" onclick="openDrawer()">
+            <i class="ti ti-menu-2"></i> Catégories
+          </button>
+          <a href="index.html" class="nav-link">Accueil</a>
+          <div id="navCategoriesLinks" style="display: flex"></div>
+          <a href="#" class="nav-link nav-promo"
+            ><i class="ti ti-tag"></i> Promos</a
+          >
+          <span class="nav-phone"
+            ><i class="ti ti-phone-call"></i> (+225) 07 59 80 80 91</span
+          >
+        </div>
+      </nav>
+    </header>
+
+    <!-- DRAWER -->
+    <div
+      class="drawer-overlay"
+      id="drawerOverlay"
+      onclick="closeDrawer()"
+    ></div>
+    <div class="drawer" id="drawer">
+      <div class="drawer-head">
+        <div class="drawer-logo">DL Sion <span>Store.ci</span></div>
+        <button class="drawer-close" onclick="closeDrawer()">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+      <div class="drawer-search">
+        <div class="drawer-search-inner">
+          <input type="text" placeholder="Rechercher…" id="drawerSearchInput" />
+          <button onclick="doDrawerSearch()"><i class="ti ti-search"></i></button>
+        </div>
+      </div>
+      <a href="index.html" class="drawer-link"
+        ><i class="ti ti-home"></i> Accueil</a
+      >
+      <div id="drawerCategoriesLinks"></div>
+    </div>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb" id="breadcrumb">
+      <a href="index.html">Accueil</a>
+      <i class="ti ti-chevron-right"></i>
+      <span
+        class="skeleton"
+        style="width: 80px; height: 12px; display: inline-block"
+      ></span>
+    </div>
+
+    <!-- PRODUCT PAGE -->
+    <div class="product-page" id="productPage" style="display: none">
+      <!-- MAIN BLOCK -->
+      <div class="product-main">
+        <!-- GALLERY -->
+        <div class="gallery">
+          <div class="gallery-main" id="galleryMain">
+            <img src="" alt="" id="mainImg" />
+            <span
+              class="gallery-badge"
+              id="galleryBadgePromo"
+              style="display: none"
+            ></span>
+            <span class="gallery-badge-new" id="galleryBadgeStock"></span>
+          </div>
+          <div class="gallery-thumbs" id="galleryThumbs"></div>
+          <div class="gallery-zoom-hint">
+            <i class="ti ti-zoom-in" style="font-size: 13px"></i> Survolez pour
+            agrandir
+          </div>
+        </div>
+
+        <!-- PRODUCT INFO -->
+        <div class="product-info">
+          <div class="prod-brand-row">
+            <span class="prod-brand-badge" id="prodBrand"></span>
+            <span class="prod-ref" id="prodRef"></span>
+          </div>
+
+          <h1 class="prod-title" id="prodTitle"></h1>
+
+          <div class="prod-rating">
+            <span class="rating-stars" id="ratingStars">★★★★★</span>
+            <span class="rating-score" id="ratingScore">0.0</span>
+            <span class="rating-count" id="ratingCount">0 avis</span>
+            <span class="rating-divider"></span>
+            <span class="prod-sold-count" id="prodCategoryTag"
+              ><i class="ti ti-tag"></i> —</span
+            >
+          </div>
+
+          <!-- PRICE -->
+          <div class="price-block">
+            <div class="price-main">
+              <span class="price-new" id="priceNew">0</span>
+              <span class="price-currency">F CFA</span>
+              <span
+                class="price-old"
+                id="priceOld"
+                style="display: none"
+              ></span>
+            </div>
+            <div class="price-saving" id="priceSaving" style="display: none">
+              <i class="ti ti-discount"></i> <span id="priceSavingText"></span>
+            </div>
+          </div>
+
+          <!-- STOCK -->
+          <div class="stock-row" id="stockRow">
+            <span class="stock-dot"></span>
+            <span class="stock-label" id="stockLabel">—</span>
+          </div>
+
+          <!-- QTY + CTA -->
+          <div class="qty-cta">
+            <div class="qty-label">Quantité</div>
+            <div class="qty-row">
+              <div class="qty-ctrl">
+                <button class="qty-btn" onclick="changeQty(-1)">
+                  <i class="ti ti-minus" style="font-size: 14px"></i>
+                </button>
+                <input
+                  type="number"
+                  class="qty-num"
+                  id="qtyInput"
+                  value="1"
+                  min="1"
+                  max="50"
+                  onchange="updateTotal()"
+                />
+                <button class="qty-btn" onclick="changeQty(1)">
+                  <i class="ti ti-plus" style="font-size: 14px"></i>
+                </button>
+              </div>
+              <div class="qty-total">
+                Total : <span id="totalPrice">0 F CFA</span>
+              </div>
+            </div>
+            <div class="cta-group">
+              <button
+                class="btn-order-main"
+                id="btnOrderMain"
+                onclick="addToCart()"
+              >
+                <i class="ti ti-shopping-cart" style="font-size: 16px"></i>
+                Commander
+              </button>
+              <a href="#" class="btn-wa" id="btnWa" target="_blank">
+                <i class="ti ti-brand-whatsapp"></i> Via WhatsApp
+              </a>
+            </div>
+            <button class="btn-wishlist" style="display: none;" onclick="toggleWishlist()">
+              <i class="ti ti-heart" id="wishIcon"></i> Ajouter aux favoris
+            </button>
+          </div>
+
+          <!-- TRUST -->
+          <div class="trust-grid">
+            <div class="trust-item">
+              <div class="trust-icon"><i class="ti ti-shield-check"></i></div>
+              <div class="trust-text">
+                <div class="ttitle" id="trustAuthTitle">
+                  Produit authentique
+                </div>
+                <div class="tsub" id="trustAuthSub">Garantie origine</div>
+              </div>
+            </div>
+            <div class="trust-item">
+              <div class="trust-icon"><i class="ti ti-refresh"></i></div>
+              <div class="trust-text">
+                <div class="ttitle">Retour sous 7 jours</div>
+                <div class="tsub">Si défaut constaté</div>
+              </div>
+            </div>
+            <div class="trust-item">
+              <div class="trust-icon"><i class="ti ti-credit-card"></i></div>
+              <div class="trust-text">
+                <div class="ttitle">Paiement à la livraison</div>
+                <div class="tsub">Cash, Wave ou Orange Money</div>
+              </div>
+            </div>
+            <div class="trust-item">
+              <div class="trust-icon"><i class="ti ti-headset"></i></div>
+              <div class="trust-text">
+                <div class="ttitle">Support 24h/7</div>
+                <div class="tsub">07 59 80 80 91</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DELIVERY -->
+          <div class="delivery-box">
+            <div class="delivery-title">
+              <i class="ti ti-truck"></i> Livraison &amp; Disponibilité
+            </div>
+            <div class="delivery-row">
+              <div class="delivery-ico"><i class="ti ti-map-pin"></i></div>
+              <div class="delivery-info">
+                <div class="dlabel">Abidjan — Livraison express</div>
+                <div class="dsub" id="deliveryAbidjanSub">
+                  Commandez avant 14h → livré rapidement
+                </div>
+                <div class="dprice" id="deliveryPriceText">
+                  Calcul des frais…
+                </div>
+              </div>
+            </div>
+            <div class="delivery-row">
+              <div class="delivery-ico">
+                <i class="ti ti-building-store"></i>
+              </div>
+              <div class="delivery-info">
+                <div class="dlabel">Retrait en boutique</div>
+                <div class="dsub">Abidjan Plateau, RDC — Lun–Sam 8h à 18h</div>
+                <div class="dprice" style="color: var(--green)">
+                  Gratuit · Disponible immédiatement
+                </div>
+              </div>
+            </div>
+            <div class="delivery-row">
+              <div class="delivery-ico"><i class="ti ti-world"></i></div>
+              <div class="delivery-info">
+                <div class="dlabel">Intérieur du pays</div>
+                <div class="dsub">
+                  San Pedro, Bouaké, Yamoussoukro et toutes villes
+                </div>
+                <div class="dprice" id="deliveryInteriorText">
+                  Délai 2–4 jours ouvrés
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="product-tabs">
+        <div class="tabs-nav">
+          <button class="tab-btn active" onclick="switchTab(this, 'desc')">
+            Description
+          </button>
+          <button class="tab-btn" onclick="switchTab(this, 'specs')">
+            Spécifications techniques
+          </button>
+          <button class="tab-btn" onclick="switchTab(this, 'reviews')">
+            Avis clients
+            <span
+              id="reviewsTabCount"
+              style="
+                background: var(--y);
+                color: var(--night);
+                font-size: 10px;
+                padding: 2px 6px;
+                border-radius: 100px;
+                margin-left: 4px;
+              "
+              >0</span
+            >
+          </button>
+        </div>
+
+        <!-- Description -->
+        <div class="tab-panel active" id="panel-desc">
+          <p class="desc-lead" id="descLead">Chargement de la description…</p>
+        </div>
+
+        <!-- Specs -->
+        <div class="tab-panel" id="panel-specs">
+          <table class="specs-table" id="specsTable">
+            <tr>
+              <td colspan="2" style="text-align: center; color: var(--t3)">
+                Aucune spécification renseignée pour ce produit.
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- Reviews -->
+        <div class="tab-panel" id="panel-reviews">
+          <div class="reviews-summary" id="reviewsSummary">
+            <div class="reviews-big">
+              <div class="score" id="reviewsBigScore">0.0</div>
+              <span class="stars" id="reviewsBigStars">★★★★★</span>
+              <div class="total" id="reviewsBigTotal">0 avis vérifiés</div>
+            </div>
+            <div class="reviews-bars" id="reviewsBars"></div>
+          </div>
+          <div class="review-list" id="reviewList">
+            <p style="color: var(--t3); text-align: center; padding: 20px">
+              Chargement des avis…
+            </p>
+          </div>
+
+          <!-- Formulaire dépôt avis -->
+          <div
+            style="
+              margin-top: 28px;
+              padding-top: 24px;
+              border-top: 1px solid var(--border);
+            "
+          >
+            <div class="desc-section-title">Laisser un avis</div>
+            <div style="display: grid; gap: 10px; max-width: 480px">
+              <input
+                type="text"
+                id="reviewName"
+                placeholder="Votre nom"
+                class="form-control-review"
+              />
+              <input
+                type="text"
+                id="reviewEmail"
+                placeholder="Votre adresse mail"
+                class="form-control-review"
+              />
+
+              <select id="reviewRating" class="form-control-review">
+                <option value="5">★★★★★ — Excellent</option>
+                <option value="4">★★★★☆ — Très bien</option>
+                <option value="3">★★★☆☆ — Correct</option>
+                <option value="2">★★☆☆☆ — Décevant</option>
+                <option value="1">★☆☆☆☆ — Mauvais</option>
+              </select>
+              <input
+                type="text"
+                id="reviewTitle"
+                placeholder="Titre du commentaire…"
+                class="form-control-review"
+              />
+              <textarea
+                id="reviewBody"
+                placeholder="Votre commentaire…"
+                rows="3"
+                class="form-control-review"
+              ></textarea>
+
+              <button
+                class="btn-order-main"
+                style="width: fit-content; padding: 10px 22px"
+                onclick="submitReview()"
+              >
+                <i class="ti ti-send" style="font-size: 14px"></i> Envoyer mon
+                avis
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RELATED -->
+      <div class="related">
+        <div class="section-head">
+          <h2 class="section-title">Vous aimerez aussi</h2>
+          <a href="#" class="see-all"
+            >Voir plus <i class="ti ti-arrow-right"></i
+          ></a>
+        </div>
+        <div class="scroll-wrap">
+          <button
+            class="scroll-btn scroll-prev"
+            onclick="scrollLeft('related')"
+          >
+            <i class="ti ti-chevron-left"></i>
+          </button>
+          <div class="prod-scroll" id="related">
+            <p style="color: var(--t3); padding: 20px">
+              Chargement des produits similaires…
+            </p>
+          </div>
+          <button
+            class="scroll-btn scroll-next"
+            onclick="scrollRight('related')"
+          >
+            <i class="ti ti-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- /product-page -->
+
+    <!-- LOADING STATE -->
+    <div
+      id="loadingState"
+      style="
+        max-width: 1280px;
+        margin: 60px auto;
+        padding: 0 20px;
+        text-align: center;
+      "
+    >
+      <div
+        class="spinner-big"
+        style="
+          width: 40px;
+          height: 40px;
+          border: 4px solid var(--border);
+          border-top-color: var(--y);
+          border-radius: 50%;
+          animation: spin 0.8s linear infinite;
+          margin: 0 auto 16px;
+        "
+      ></div>
+      <p style="color: var(--t3)">Chargement du produit…</p>
+    </div>
+
+    <!-- NOT FOUND STATE -->
+    <div
+      id="notFoundState"
+      style="
+        max-width: 600px;
+        margin: 60px auto;
+        padding: 0 20px;
+        text-align: center;
+        display: none;
+      "
+    >
+      <i
+        class="ti ti-mood-sad"
+        style="
+          font-size: 48px;
+          color: var(--t3);
+          display: block;
+          margin-bottom: 12px;
+        "
+      ></i>
+      <h2
+        style="font-family: var(--fh); color: var(--night); margin-bottom: 8px"
+      >
+        Produit introuvable
+      </h2>
+      <p style="color: var(--t3); margin-bottom: 20px">
+        Ce produit n'existe plus ou a été retiré du catalogue.
+      </p>
+      <a
+        href="index.html"
+        class="btn-order-main"
+        style="display: inline-flex; padding: 12px 24px"
+        >Retour à l'accueil</a
+      >
+    </div>
+
+    <!-- FEATURES BAR -->
+    <div class="features-bar">
+      <div class="feat-inner">
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-truck"></i></div>
+          <div>
+            <div class="feat-title">Livraison rapide</div>
+            <div class="feat-desc">24h à Abidjan · 48h à l'intérieur</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-cash"></i></div>
+          <div>
+            <div class="feat-title">Paiement à la livraison</div>
+            <div class="feat-desc">Cash, Wave, Orange Money</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-shield-check"></i></div>
+          <div>
+            <div class="feat-title">Produits garantis</div>
+            <div class="feat-desc">Authenticité certifiée</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-headset"></i></div>
+          <div>
+            <div class="feat-title">Support 24h/7</div>
+            <div class="feat-desc">07 59 80 80 91</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER COMPACT -->
+    <footer>
+      <div class="footer-logo">DL Sion <span>Store.ci</span></div>
+      <div>
+        © 2025 DL Sion Store.ci — Abidjan, Côte d'Ivoire | Tous droits réservés
+      </div>
+    </footer>
+
+    <!-- STICKY MOBILE CTA -->
+    <div class="sticky-cta" id="stickyCta">
+      <div class="sticky-cta-inner">
+        <div class="sticky-price" id="stickyPrice">0 F <span>CFA</span></div>
+        <button class="sticky-btn" onclick="addToCart()">
+          <i class="ti ti-shopping-cart"></i> Commander
+        </button>
+        <a href="#" class="sticky-wa" id="stickyWa" target="_blank"
+          ><i class="ti ti-brand-whatsapp"></i
+        ></a>
+      </div>
+    </div>
+
+
+        <!-- MOBILE NAV -->
+    <nav class="mobile-nav">
+      <ul>
+        <li>
+          <a href="index.html"
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" /></svg
+            >Accueil</a
+          >
+        </li>
+        <li>
+          <a href="catalogue.html"
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" /></svg
+            >Chercher</a
+          >
+        </li>
+        <li>
+          <a href="categories.html" 
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <line x1="8" y1="6" x2="21" y2="6" />
+              <line x1="8" y1="12" x2="21" y2="12" />
+              <line x1="8" y1="18" x2="21" y2="18" />
+              <line x1="3" y1="6" x2="3.01" y2="6" />
+              <line x1="3" y1="12" x2="3.01" y2="12" />
+              <line x1="3" y1="18" x2="3.01" y2="18" /></svg
+            >Catégories</a
+          >
+        </li>
+        <li>
+          <a href="catalogue.html" class="active"> 
+            <svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+            Catalogue
+          </a>
+        </li>
+        <li>
+          <a
+            href="cart.html"
+
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path
+                d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+              /></svg
+            >Panier</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+
+    <!-- CART SIDEBAR -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+      <div class="cart-header">
+        <div class="cart-header-title">
+          <i class="ti ti-shopping-cart"></i> Mon panier
+        </div>
+        <button class="cart-close" onclick="toggleCart()">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+      <div class="cart-body" id="cartBody">
+        <div class="cart-empty">
+          <i class="ti ti-shopping-cart"></i>
+          <p>Votre panier est vide</p>
+        </div>
+      </div>
+      <div class="cart-footer" id="cartFooter" style="display: none">
+        <div class="cart-total-row">
+          <span class="cart-total-label">Total</span>
+          <span class="cart-total-amount" id="cartTotal">0 F CFA</span>
+        </div>
+        <button class="btn-checkout" onclick="window.location.href='commande.html'">
+          <i class="ti ti-credit-card"></i> Passer la commande
+        </button>
+      </div>
+    </div>
+
+    <!-- WA + TOAST -->
+    <a href="#" class="wa-btn" id="floatingWaBtn" target="_blank"
+      ><i class="ti ti-brand-whatsapp"></i
+    ></a>
+    <div class="toast" id="toast">
+      <i class="ti ti-check"></i><span id="toastMsg">Produit ajouté</span>
+    </div>
+
+    <style>
+      .form-control-review {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 13px;
+        font-family: var(--fb);
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .form-control-review:focus {
+        border-color: var(--y);
+      }
+
+    </style>
+
+    <script>
+      // ══════════════════════════════════════════════════════════
+      // CONFIG SUPABASE
+      // ══════════════════════════════════════════════════════════
+      const SUPA_URL = "https://yrdjnsteaoajypgzqrbs.supabase.co";
+      const SUPA_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyZGpuc3RlYW9hanlwZ3pxcmJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1NzYwMDQsImV4cCI6MjA5NjE1MjAwNH0.CtraI2nEk7qPGYtHt7BOKFIrfTCU_NoXG7jP6_2lxZY";
+      const H = {
+        apikey: SUPA_KEY,
+        Authorization: `Bearer ${SUPA_KEY}`,
+        "Content-Type": "application/json",
+      };
+
+      async function sbGet(endpoint) {
+        const r = await fetch(`${SUPA_URL}/rest/v1/${endpoint}`, {
+          headers: H,
+        });
+        if (!r.ok)
+          throw new Error(`Supabase error ${r.status}: ${await r.text()}`);
+        return r.json();
+      }
+      async function sbPost(table, data) {
+        const r = await fetch(`${SUPA_URL}/rest/v1/${table}`, {
+          method: "POST",
+          headers: { ...H, Prefer: "return=representation" },
+          body: JSON.stringify(data),
+        });
+        if (!r.ok)
+          throw new Error(`Supabase error ${r.status}: ${await r.text()}`);
+        return r.json();
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // ÉTAT GLOBAL
+      // ══════════════════════════════════════════════════════════
+      let product = null;
+      let cart = JSON.parse(localStorage.getItem("dls_cart") || "[]");
+      let wishlisted = false;
+      let settingsMap = {};
+      const WHATSAPP_NUMBER = "2250759808091";
+
+      function fmt(n) {
+        return Number(n || 0).toLocaleString("fr-FR");
+      }
+
+      function getProductIdFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("id") || params.get("ref") || null;
+      }
+
+      // ── MIGRATION PANIER ──────────────────────────────────────────
+      function migrateCartImages() {
+        let hasChanges = false;
+        cart = cart.map(item => {
+          if (!item.image) {
+            item.image = 'https://placehold.co/60x60/E5E7EB/9CA3AF?text=?';
+            hasChanges = true;
+          }
+          return item;
+        });
+        if (hasChanges) {
+          localStorage.setItem("dls_cart", JSON.stringify(cart));
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // CHARGEMENT SETTINGS (livraison)
+      // ══════════════════════════════════════════════════════════
+      async function loadSettings() {
+        try {
+          const rows = await sbGet("settings?select=cle,valeur");
+          rows.forEach((r) => (settingsMap[r.cle] = r.valeur));
+        } catch (e) {
+          console.error("loadSettings:", e);
+          settingsMap = {
+            livraison_prix_fixe: "1500",
+            livraison_gratuite_seuil: "100000",
+            livraison_delai_abidjan: "24h",
+            livraison_delai_interieur: "2-4 jours",
+          };
+        }
+      }
+
+      function renderDeliveryInfo() {
+        const prixFixe = Number(settingsMap.livraison_prix_fixe || 1500);
+        const seuilGratuit = Number(
+          settingsMap.livraison_gratuite_seuil || 100000,
+        );
+        const delaiAbidjan = settingsMap.livraison_delai_abidjan || "24h";
+        const delaiInterieur =
+          settingsMap.livraison_delai_interieur || "2-4 jours";
+
+        document.getElementById("deliveryAbidjanSub").textContent =
+          `Commandez avant 14h → livré en ${delaiAbidjan}`;
+        document.getElementById("deliveryInteriorText").textContent =
+          `Délai ${delaiInterieur}`;
+
+        const qty = parseInt(document.getElementById("qtyInput")?.value) || 1;
+        const orderTotal = product ? product.prix * qty : 0;
+
+        const priceTextEl = document.getElementById("deliveryPriceText");
+        if (orderTotal >= seuilGratuit) {
+          priceTextEl.textContent = `Livraison gratuite (commande ≥ ${fmt(seuilGratuit)} F CFA)`;
+          priceTextEl.style.color = "var(--green)";
+        } else {
+          const remaining = seuilGratuit - orderTotal;
+          priceTextEl.textContent = `Frais de livraison : ${fmt(prixFixe)} F CFA · Encore ${fmt(remaining)} F pour la livraison gratuite`;
+          priceTextEl.style.color = "var(--green)";
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // CHARGEMENT PRODUIT PRINCIPAL
+      // ══════════════════════════════════════════════════════════
+      async function loadProduct() {
+        const id = getProductIdFromUrl();
+
+        if (!id) {
+          showNotFound();
+          return;
+        }
+
+        try {
+          const isUuid =
+            /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+              id,
+            );
+          const filter = isUuid
+            ? `id=eq.${id}`
+            : `reference=eq.${encodeURIComponent(id)}`;
+
+          const rows = await sbGet(
+            `v_products_full?${filter}&is_active=eq.true&limit=1`,
+          );
+
+          if (!rows.length) {
+            showNotFound();
+            return;
+          }
+
+          product = rows[0];
+          renderProduct();
+          document.title = `${product.nom} — DL Sion Store.ci`;
+
+          await Promise.all([
+            loadReviews(product.id),
+            loadRelatedProducts(product),
+            loadNavCategories(),
+          ]);
+
+          document.getElementById("loadingState").style.display = "none";
+          document.getElementById("productPage").style.display = "block";
+        } catch (e) {
+          console.error("loadProduct:", e);
+          showNotFound();
+        }
+      }
+
+      function showNotFound() {
+        document.getElementById("loadingState").style.display = "none";
+        document.getElementById("notFoundState").style.display = "block";
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // RENDU PRODUIT
+      // ══════════════════════════════════════════════════════════
+      function renderProduct() {
+        // Breadcrumb
+        const bc = document.getElementById("breadcrumb");
+        let bcHtml = `<a href="index.html">Accueil</a><i class="ti ti-chevron-right"></i>`;
+        if (product.categorie_nom) {
+          bcHtml += `<a href="catalogue.html?categorie=${product.categorie_slug}">${product.categorie_nom}</a><i class="ti ti-chevron-right"></i>`;
+        }
+        if (product.sous_categorie_nom) {
+          bcHtml += `<a href="catalogue.html?sous_categorie=${product.sous_categorie_slug}">${product.sous_categorie_nom}</a><i class="ti ti-chevron-right"></i>`;
+        }
+        bcHtml += `<span>${product.nom}</span>`;
+        bc.innerHTML = bcHtml;
+
+        // Gallery
+        const images = [
+          product.image_principale,
+          ...(product.images_galerie || []),
+        ].filter(Boolean);
+        if (images.length === 0)
+          images.push(
+            "https://placehold.co/600x600/E5E7EB/9CA3AF?text=Image+non+disponible",
+          );
+
+        document.getElementById("mainImg").src = images[0];
+        document.getElementById("mainImg").alt = product.nom;
+
+        const thumbsWrap = document.getElementById("galleryThumbs");
+        if (images.length > 1) {
+          thumbsWrap.innerHTML = images
+            .map(
+              (url, i) => `
+      <div class="gallery-thumb ${i === 0 ? "active" : ""}" onclick="changeImg(${i}, this)">
+        <img src="${url}" alt="Vue ${i + 1}">
+      </div>`,
+            )
+            .join("");
+          window.__galleryImages = images;
+        } else {
+          thumbsWrap.style.display = "none";
+        }
+
+        // Badge promo
+        const badgePromo = document.getElementById("galleryBadgePromo");
+        if (product.pct_reduction > 0) {
+          badgePromo.textContent = `-${product.pct_reduction}%`;
+          badgePromo.style.display = "inline-flex";
+        }
+
+        // Badge stock (galerie)
+        const stockLabels = {
+          in_stock: "En stock",
+          low_stock: "Stock limité",
+          out_of_stock: "Épuisé",
+        };
+        document.getElementById("galleryBadgeStock").textContent =
+          stockLabels[product.statut_stock] || "En stock";
+
+        // Brand + ref
+        document.getElementById("prodBrand").textContent =
+          product.brand_nom || "DL Sion";
+        document.getElementById("prodRef").textContent = product.reference
+          ? `Réf : ${product.reference}`
+          : "";
+
+        // Title
+        document.getElementById("prodTitle").textContent = product.nom;
+
+        // Rating
+        const avg = parseFloat(product.rating_avg) || 0;
+        const fullStars = Math.round(avg);
+        document.getElementById("ratingStars").textContent =
+          "★".repeat(fullStars) + "☆".repeat(5 - fullStars);
+        document.getElementById("ratingScore").textContent = avg.toFixed(1);
+        document.getElementById("ratingCount").textContent =
+          `${product.rating_count} avis`;
+        document.getElementById("prodCategoryTag").innerHTML =
+          `<i class="ti ti-tag"></i> ${product.categorie_nom || product.sous_categorie_nom || "Catalogue"}`;
+
+        // Price
+        document.getElementById("priceNew").textContent = fmt(product.prix);
+        if (product.prix_ancien && product.prix_ancien > product.prix) {
+          document.getElementById("priceOld").textContent =
+            `${fmt(product.prix_ancien)} F`;
+          document.getElementById("priceOld").style.display = "inline";
+          const saving = product.prix_ancien - product.prix;
+          document.getElementById("priceSavingText").textContent =
+            `Vous économisez ${fmt(saving)} F CFA (${product.pct_reduction}% de réduction)`;
+          document.getElementById("priceSaving").style.display = "flex";
+        }
+
+        // Stock
+        const stockRow = document.getElementById("stockRow");
+        const stockLabel = document.getElementById("stockLabel");
+        const stockClassMap = {
+          in_stock: "stock-in",
+          low_stock: "stock-low",
+          out_of_stock: "stock-out",
+        };
+        stockRow.className = `stock-row ${stockClassMap[product.statut_stock] || "stock-in"}`;
+        stockLabel.textContent =
+          stockLabels[product.statut_stock] || "En stock";
+
+        // Désactiver commande si épuisé
+        const btnOrder = document.getElementById("btnOrderMain");
+        if (product.statut_stock === "out_of_stock") {
+          btnOrder.disabled = true;
+          btnOrder.style.opacity = "0.5";
+          btnOrder.style.cursor = "not-allowed";
+          btnOrder.innerHTML = '<i class="ti ti-ban"></i> Produit épuisé';
+        }
+
+        // WhatsApp link
+        const waMessage = encodeURIComponent(
+          `Bonjour, je veux commander : ${product.nom} (Réf: ${product.reference || "N/A"})`,
+        );
+        const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${waMessage}`;
+        document.getElementById("btnWa").href = waUrl;
+        document.getElementById("stickyWa").href = waUrl;
+        document.getElementById("floatingWaBtn").href =
+          `https://wa.me/${WHATSAPP_NUMBER}`;
+
+        // Trust : authenticité par marque
+        document.getElementById("trustAuthTitle").textContent =
+          "Produit authentique";
+        document.getElementById("trustAuthSub").textContent = product.brand_nom
+          ? `Garantie origine ${product.brand_nom}`
+          : "Garantie origine certifiée";
+
+        // Description
+        document.getElementById("descLead").textContent =
+          product.description ||
+          "Aucune description disponible pour ce produit.";
+
+        // Specs groupées
+        renderSpecs(product.specifications || []);
+
+        // Totaux initiaux
+        updateTotal();
+        renderDeliveryInfo();
+      }
+
+      function changeImg(idx, el) {
+        document.getElementById("mainImg").src = window.__galleryImages[idx];
+        document
+          .querySelectorAll(".gallery-thumb")
+          .forEach((t) => t.classList.remove("active"));
+        el.classList.add("active");
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // SPECS GROUPÉES
+      // ══════════════════════════════════════════════════════════
+      function renderSpecs(specs) {
+        const table = document.getElementById("specsTable");
+        if (!specs.length) {
+          table.innerHTML = `<tr><td colspan="2" style="text-align:center;color:var(--t3)">Aucune spécification renseignée pour ce produit.</td></tr>`;
+          return;
+        }
+
+        const groups = {};
+        specs.forEach((s) => {
+          const g = s.groupe || "Caractéristiques";
+          if (!groups[g]) groups[g] = [];
+          groups[g].push(s);
+        });
+
+        let html = "";
+        Object.keys(groups).forEach((groupName) => {
+          html += `<tr class="specs-group-title"><td colspan="2">${groupName}</td></tr>`;
+          groups[groupName].forEach((s) => {
+            html += `<tr><td>${s.label}</td><td>${s.value}</td></tr>`;
+          });
+        });
+        table.innerHTML = html;
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // AVIS CLIENTS
+      // ══════════════════════════════════════════════════════════
+      async function loadReviews(productId) {
+        try {
+          const reviews = await sbGet(
+            `product_reviews?product_id=eq.${productId}&is_approved=eq.true&order=created_at.desc&limit=20`,
+          );
+          renderReviews(reviews);
+        } catch (e) {
+          console.error("loadReviews:", e);
+          document.getElementById("reviewList").innerHTML =
+            `<p style="color:var(--t3);text-align:center;padding:20px">Impossible de charger les avis.</p>`;
+        }
+      }
+
+      function renderReviews(reviews) {
+        document.getElementById("reviewsTabCount").textContent = reviews.length;
+
+        if (!reviews.length) {
+          document.getElementById("reviewsBigScore").textContent = "—";
+          document.getElementById("reviewsBigStars").textContent = "☆☆☆☆☆";
+          document.getElementById("reviewsBigTotal").textContent =
+            "Aucun avis pour le moment";
+          document.getElementById("reviewsBars").innerHTML = "";
+          document.getElementById("reviewList").innerHTML =
+            `<p style="color:var(--t3);text-align:center;padding:30px">Soyez le premier à donner votre avis sur ce produit !</p>`;
+          return;
+        }
+
+        const avg = reviews.reduce((s, r) => s + r.rating, 0) / reviews.length;
+        const fullStars = Math.round(avg);
+        document.getElementById("reviewsBigScore").textContent = avg.toFixed(1);
+        document.getElementById("reviewsBigStars").textContent =
+          "★".repeat(fullStars) + "☆".repeat(5 - fullStars);
+        document.getElementById("reviewsBigTotal").textContent =
+          `${reviews.length} avis vérifiés`;
+
+        const counts = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+        reviews.forEach(
+          (r) => (counts[r.rating] = (counts[r.rating] || 0) + 1),
+        );
+        let barsHtml = "";
+        for (let star = 5; star >= 1; star--) {
+          const pct = reviews.length
+            ? Math.round((counts[star] / reviews.length) * 100)
+            : 0;
+          barsHtml += `
+      <div class="bar-row">
+        <span class="bar-label">${star}<i class="ti ti-star-filled"></i></span>
+        <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+        <span class="bar-count">${counts[star]}</span>
+      </div>`;
+        }
+        document.getElementById("reviewsBars").innerHTML = barsHtml;
+
+        const colors = ["var(--navy)", "#0F2239", "#162D4A"];
+        document.getElementById("reviewList").innerHTML = reviews
+          .map((r, i) => {
+            const initial = (r.reviewer_name || "?").charAt(0).toUpperCase();
+            const date = new Date(r.created_at).toLocaleDateString("fr-FR", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            });
+            const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
+            return `
+      <div class="review-item">
+        <div class="review-item-top">
+          <div class="reviewer-avatar" style="background:${colors[i % colors.length]}">${initial}</div>
+          <div>
+            <div class="reviewer-name">${escapeHtml(r.reviewer_name)}</div>
+            <div class="reviewer-date">${date}</div>
+            ${r.is_verified ? '<div class="reviewer-verified"><i class="ti ti-circle-check"></i> Achat vérifié</div>' : ""}
+          </div>
+        </div>
+        <div class="review-stars-small">${stars}</div>
+        <div class="review-text-body">${escapeHtml(r.body)}</div>
+        <div class="review-useful">Utile ? <button class="useful-btn" onclick="markHelpful('${r.id}', this)"><i class="ti ti-thumb-up"></i> Oui (${r.helpful_count || 0})</button><button class="useful-btn">Non</button></div>
+      </div>`;
+          })
+          .join("");
+      }
+
+      async function markHelpful(reviewId, btn) {
+        try {
+          const rows = await sbGet(
+            `product_reviews?id=eq.${reviewId}&select=helpful_count`,
+          );
+          const current = rows[0]?.helpful_count || 0;
+          await fetch(`${SUPA_URL}/rest/v1/product_reviews?id=eq.${reviewId}`, {
+            method: "PATCH",
+            headers: H,
+            body: JSON.stringify({ helpful_count: current + 1 }),
+          });
+          btn.innerHTML = `<i class="ti ti-thumb-up"></i> Oui (${current + 1})`;
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      async function submitReview() {
+        const name = document.getElementById("reviewName").value.trim();
+        const email = document.getElementById("reviewEmail").value.trim();
+        const rating = parseInt(document.getElementById("reviewRating").value);
+        const title = document.getElementById("reviewTitle").value.trim();
+        const body = document.getElementById("reviewBody").value.trim();
+
+        if (!name || !body) {
+          showToast("Merci de remplir votre nom et votre commentaire");
+          return;
+        }
+
+        try {
+          await fetch(`${SUPA_URL}/rest/v1/product_reviews`, {
+            method: "POST",
+            headers: { ...H, Prefer: "return=representation" },
+            body: JSON.stringify({
+              product_id: product.id,
+              reviewer_name: name,
+              reviewer_email: email,
+              rating: rating,
+              title: title,
+              body: body,
+              is_verified: false,
+              is_approved: false,
+            }),
+          });
+
+          showToast("✅ Merci ! Votre avis sera publié après modération.");
+
+          document.getElementById("reviewName").value = "";
+          document.getElementById("reviewEmail").value = "";
+          document.getElementById("reviewTitle").value = "";
+          document.getElementById("reviewBody").value = "";
+        } catch (e) {
+          console.error("submitReview:", e);
+          showToast("Erreur lors de l'envoi de votre avis");
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // PRODUITS SIMILAIRES
+      // ══════════════════════════════════════════════════════════
+      async function loadRelatedProducts(prod) {
+        const wrap = document.getElementById("related");
+        const TARGET = 6;
+        let results = [];
+
+        try {
+          if (prod.categorie_id) {
+            const sameCat = await sbGet(
+              `v_products_full?categorie_id=eq.${prod.categorie_id}&id=neq.${prod.id}&is_active=eq.true&limit=${TARGET}`,
+            );
+            results = sameCat;
+          }
+
+          if (results.length < TARGET) {
+            const need = TARGET - results.length;
+            const excludeIds = [prod.id, ...results.map((r) => r.id)];
+            const featured = await sbGet(
+              `v_products_full?is_featured=eq.true&is_active=eq.true&id=not.in.(${excludeIds.join(",")})&limit=${need}`,
+            );
+            results = [...results, ...featured];
+          }
+
+          if (!results.length) {
+            wrap.innerHTML = `<p style="color:var(--t3);padding:20px">Aucun produit similaire disponible.</p>`;
+            return;
+          }
+
+          wrap.innerHTML = results.map(renderRelatedCard).join("");
+        } catch (e) {
+          console.error("loadRelatedProducts:", e);
+          wrap.innerHTML = `<p style="color:var(--t3);padding:20px">Impossible de charger les produits similaires.</p>`;
+        }
+      }
+
+      function renderRelatedCard(p) {
+        const img =
+          p.image_principale ||
+          "https://placehold.co/400x400/E5E7EB/9CA3AF?text=Produit";
+        const badge =
+          p.pct_reduction > 0
+            ? `<span class="prod-badge">-${p.pct_reduction}%</span>`
+            : "";
+        const oldPrice = p.prix_ancien
+          ? `<span class="price-old-sm">${fmt(p.prix_ancien)} F</span>`
+          : "";
+        return `
+    <div class="prod-card" onclick="window.location.href='product.html?id=${p.id}'" style="cursor:pointer">
+      <div class="prod-img-wrap">
+        <img src="${img}" alt="${escapeHtml(p.nom)}">
+        ${badge}
+      </div>
+      <div class="prod-info">
+        <div class="prod-brand-sm">${escapeHtml(p.brand_nom || "")}</div>
+        <h3>${escapeHtml(p.nom)}</h3>
+        <div class="prod-prices">
+          <span class="price-new-sm">${fmt(p.prix)} F</span>
+          ${oldPrice}
+        </div>
+        <button class="btn-order-sm" onclick="event.stopPropagation();quickAdd('${p.id}','${escapeHtml(p.nom)}',${p.prix},'${img}')">Commander</button>
+      </div>
+    </div>`;
+      }
+
+      function quickAdd(id, nom, prix, image) {
+        const ex = cart.find((x) => x.id === id);
+        if (ex) ex.qty++;
+        else cart.push({ id, name: nom, price: prix, image: image, qty: 1 });
+        localStorage.setItem("dls_cart", JSON.stringify(cart));
+        showToast(`"${nom.substring(0, 30)}…" ajouté au panier`);
+        updateCartBadge();
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // NAVBAR + DRAWER CATÉGORIES (accordéon avec sous-catégories)
+      // ══════════════════════════════════════════════════════════
+      async function loadNavCategories() {
+        try {
+          const cats = await sbGet(
+            "categories?select=id,nom,slug,parent_id&order=nom.asc",
+          );
+          const mainCats = cats.filter((c) => !c.parent_id);
+          const subCats = cats.filter((c) => c.parent_id);
+
+          document.getElementById("navCategoriesLinks").innerHTML = mainCats
+            .slice(0, 5)
+            .map(
+              (c) =>
+                `<a href="catalogue.html?categorie=${c.slug}" class="nav-link">${escapeHtml(c.nom)}</a>`,
+            )
+            .join("");
+
+          document.getElementById("drawerCategoriesLinks").innerHTML = mainCats
+            .map((cat) => {
+              const subs = subCats.filter((s) => s.parent_id === cat.id);
+
+              const subsHTML = subs.length
+                ? subs
+                    .map(
+                      (s) => `
+            <a href="catalogue.html?sous_categorie=${s.slug}" class="drawer-sub-item">
+              <i class="ti ti-point"></i> ${escapeHtml(s.nom)}
+            </a>`,
+                    )
+                    .join("")
+                : `<div class="drawer-sub-empty">Aucune sous-catégorie</div>`;
+
+              return `
+        <div class="drawer-cat">
+          <div class="drawer-cat-head" onclick="toggleDrawerCat(this)">
+            <div class="drawer-cat-head-left">
+              <i class="ti ti-folder cat-icon"></i> ${escapeHtml(cat.nom)}
+            </div>
+            <i class="ti ti-chevron-down arrow"></i>
+          </div>
+          <div class="drawer-sub">
+            <a href="catalogue.html?categorie=${cat.slug}" class="drawer-cat-viewall">
+              <i class="ti ti-apps"></i> Voir tous les produits ${escapeHtml(cat.nom)}
+            </a>
+            ${subsHTML}
+          </div>
+        </div>`;
+            })
+            .join("");
+        } catch (e) {
+          console.error("loadNavCategories:", e);
+        }
+      }
+
+      function toggleDrawerCat(headEl) {
+        const cat = headEl.closest(".drawer-cat");
+        document.querySelectorAll(".drawer-cat.open").forEach((other) => {
+          if (other !== cat) other.classList.remove("open");
+        });
+        cat.classList.toggle("open");
+      }
+
+      function doDrawerSearch() {
+        const q = document.getElementById("drawerSearchInput").value.trim();
+        if (q)
+          window.location.href = `catalogue.html?q=${encodeURIComponent(q)}`;
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // QUANTITÉ / PANIER
+      // ══════════════════════════════════════════════════════════
+      function changeQty(delta) {
+        const inp = document.getElementById("qtyInput");
+        let val = parseInt(inp.value) + delta;
+        if (val < 1) val = 1;
+        if (val > 50) val = 50;
+        inp.value = val;
+        updateTotal();
+      }
+
+      function updateTotal() {
+        if (!product) return;
+        const qty = parseInt(document.getElementById("qtyInput").value) || 1;
+        const total = qty * product.prix;
+        document.getElementById("totalPrice").textContent =
+          fmt(total) + " F CFA";
+        document.getElementById("stickyPrice").innerHTML =
+          fmt(product.prix) + " F <span>CFA</span>";
+        renderDeliveryInfo();
+      }
+
+      function updateCartBadge() {
+        const totalQty = cart.reduce((s, i) => s + (i.qty || 1), 0);
+        document.getElementById("cartBadge").textContent = totalQty;
+        renderCart();
+      }
+
+      function renderCart() {
+        const body = document.getElementById("cartBody");
+        const footer = document.getElementById("cartFooter");
+
+        if (!cart.length) {
+          body.innerHTML = `<div class="cart-empty"><i class="ti ti-shopping-cart"></i><p>Votre panier est vide</p></div>`;
+          footer.style.display = "none";
+          return;
+        }
+
+        footer.style.display = "block";
+        body.innerHTML = cart.map((item, index) => {
+          const imgSrc = item.image || 'https://placehold.co/60x60/E5E7EB/9CA3AF?text=?';
+          return `
+          <div class="cart-item">
+            <div class="cart-item-img">
+              <img src="${imgSrc}" alt="${escapeHtml(item.name)}" onerror="this.src='https://placehold.co/60x60/E5E7EB/9CA3AF?text=?'">
+            </div>
+            <div class="cart-item-info">
+              <div class="cart-item-name">${escapeHtml(item.name)}</div>
+              <div class="cart-item-price">${(item.price * (item.qty || 1)).toLocaleString("fr-FR")} F CFA</div>
+              <div class="cart-qty">
+                <button class="qty-btn" onclick="changeQtyCart(${index}, -1)"><i class="ti ti-minus"></i></button>
+                <span class="qty-num">${item.qty || 1}</span>
+                <button class="qty-btn" onclick="changeQtyCart(${index}, 1)"><i class="ti ti-plus"></i></button>
+                <button class="cart-item-remove" onclick="removeItemCart(${index})"><i class="ti ti-trash"></i></button>
+              </div>
+            </div>
+          </div>
+        `;
+        }).join("");
+
+        const total = cart.reduce((s, i) => s + (i.price * (i.qty || 1)), 0);
+        document.getElementById("cartTotal").innerHTML = `${total.toLocaleString("fr-FR")} F CFA`;
+      }
+
+      function changeQtyCart(index, delta) {
+        const item = cart[index];
+        if (!item) return;
+        item.qty = (item.qty || 1) + delta;
+        if (item.qty <= 0) {
+          cart.splice(index, 1);
+        }
+        localStorage.setItem("dls_cart", JSON.stringify(cart));
+        updateCartBadge();
+      }
+
+      function removeItemCart(index) {
+        cart.splice(index, 1);
+        localStorage.setItem("dls_cart", JSON.stringify(cart));
+        updateCartBadge();
+      }
+
+      function addToCart() {
+        if (!product || product.statut_stock === "out_of_stock") return;
+        const qty = parseInt(document.getElementById("qtyInput").value) || 1;
+        const ex = cart.find((x) => x.id === product.id);
+        if (ex) ex.qty += qty;
+        else
+          cart.push({
+            id: product.id,
+            name: product.nom,
+            price: product.prix,
+            image: product.image_principale || 'https://placehold.co/60x60/E5E7EB/9CA3AF?text=?',
+            qty: qty,
+          });
+        localStorage.setItem("dls_cart", JSON.stringify(cart));
+        updateCartBadge();
+        showToast(
+          `✅ ${qty}× ${product.nom.substring(0, 30)}… ajouté au panier`,
+        );
+      }
+
+      function toggleCart() {
+        document.getElementById("cartOverlay").classList.toggle("open");
+        document.getElementById("cartSidebar").classList.toggle("open");
+      }
+
+      function toggleWishlist() {
+        wishlisted = !wishlisted;
+        const icon = document.getElementById("wishIcon");
+        icon.style.color = wishlisted ? "#DC2626" : "";
+        showToast(wishlisted ? "❤️ Ajouté aux favoris" : "Retiré des favoris");
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // TABS
+      // ══════════════════════════════════════════════════════════
+      function switchTab(btn, id) {
+        document
+          .querySelectorAll(".tab-btn")
+          .forEach((b) => b.classList.remove("active"));
+        document
+          .querySelectorAll(".tab-panel")
+          .forEach((p) => p.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById("panel-" + id).classList.add("active");
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // SCROLL CAROUSEL
+      // ══════════════════════════════════════════════════════════
+      function scrollLeft(id) {
+        document
+          .getElementById(id)
+          .scrollBy({ left: -440, behavior: "smooth" });
+      }
+      function scrollRight(id) {
+        document.getElementById(id).scrollBy({ left: 440, behavior: "smooth" });
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // DRAWER MENU
+      // ══════════════════════════════════════════════════════════
+      function openDrawer() {
+        document.getElementById("drawer").classList.add("open");
+        document.getElementById("drawerOverlay").classList.add("open");
+      }
+      function closeDrawer() {
+        document.getElementById("drawer").classList.remove("open");
+        document.getElementById("drawerOverlay").classList.remove("open");
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // RECHERCHE HEADER
+      // ══════════════════════════════════════════════════════════
+      function doHeaderSearch() {
+        const q = document.getElementById("headerSearchInput").value.trim();
+        if (q)
+          window.location.href = `catalogue.html?q=${encodeURIComponent(q)}`;
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // TOAST
+      // ══════════════════════════════════════════════════════════
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        document.getElementById("toastMsg").textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 3000);
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // UTILITAIRE
+      // ══════════════════════════════════════════════════════════
+      function escapeHtml(str) {
+        if (!str) return "";
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // STICKY CTA MOBILE
+      // ══════════════════════════════════════════════════════════
+      function setupStickyObserver() {
+        const ctaGroup = document.querySelector(".cta-group");
+        if (!ctaGroup) return;
+        const observer = new IntersectionObserver(
+          (entries) => {
+            document.getElementById("stickyCta").style.display = entries[0]
+              .isIntersecting
+              ? "none"
+              : "block";
+          },
+          { threshold: 0.1 },
+        );
+        observer.observe(ctaGroup);
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // INIT
+      // ══════════════════════════════════════════════════════════
+      (async function init() {
+        migrateCartImages();
+        updateCartBadge();
+        renderCart();
+        await loadSettings();
+        await loadProduct();
+        setupStickyObserver();
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,shrink-to-fit=no"
+    />
+    <title>Mon panier — DL Sion Store.ci</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    />
+    <link rel="stylesheet" href="css/cart.css" />
+  </head>
+  <body>
+    <!-- ANNOUNCE -->
+    <div class="announce-bar">
+      <div class="announce-track">
+        <span>🚚 Livraison rapide Abidjan &amp; intérieur</span>
+        <span>💳 Paiement à la livraison disponible</span>
+        <span>📱 07 59 80 80 91 – Support 24h/7</span>
+        <span>✅ Garantie SAV sur tous les produits</span>
+        <span>🎁 Réductions sur achats multiples</span>
+        <span>🚚 Livraison rapide Abidjan &amp; intérieur</span>
+        <span>💳 Paiement à la livraison disponible</span>
+        <span>📱 07 59 80 80 91 – Support 24h/7</span>
+        <span>✅ Garantie SAV sur tous les produits</span>
+        <span>🎁 Réductions sur achats multiples</span>
+      </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+      <div class="header-top">
+        <div class="logo">
+          <div class="logo-icon" onclick="openDrawer()">
+            <svg viewBox="0 0 24 24">
+              <path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+            </svg>
+          </div>
+          <div>
+            <div class="logo-text">DL Sion <span>Store.ci</span></div>
+            <div class="logo-sub">N°1 Achat en ligne Côte d'Ivoire</div>
+          </div>
+        </div>
+        <div class="search-bar">
+          <input
+            type="text"
+            placeholder="Rechercher un produit, une marque…"
+            id="headerSearchInput"
+          />
+          <button onclick="doHeaderSearch()">
+            <i class="ti ti-search"></i> Rechercher
+          </button>
+        </div>
+        <div class="header-actions">
+          <a href="#" class="action-btn" style="display: none"
+            ><i class="ti ti-heart"></i><span>Favoris</span></a
+          >
+          <a href="cart.html" class="action-btn">
+            <i class="ti ti-shopping-cart"></i><span>Panier</span>
+            <span class="cart-badge" id="cartBadge">0</span>
+          </a>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <div class="nav-inner">
+          <button class="hamburger" onclick="openDrawer()">
+            <i class="ti ti-menu-2"></i> Catégories
+          </button>
+          <a href="index.html" class="nav-link">Accueil</a>
+          <div id="navCategoriesLinks" style="display: flex"></div>
+          <a href="categories.html" class="nav-link">Toutes les catégories</a>
+          <a href="#" class="nav-link nav-promo"
+            ><i class="ti ti-tag"></i> Promos</a
+          >
+          <span class="nav-phone"
+            ><i class="ti ti-phone-call"></i> (+225) 07 59 80 80 91</span
+          >
+        </div>
+      </nav>
+    </header>
+
+    <!-- DRAWER -->
+    <div
+      class="drawer-overlay"
+      id="drawerOverlay"
+      onclick="closeDrawer()"
+    ></div>
+    <div class="drawer" id="drawer">
+      <div class="drawer-head">
+        <div class="drawer-logo">DL Sion <span>Store.ci</span></div>
+        <button class="drawer-close" onclick="closeDrawer()">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+      <a href="index.html" class="drawer-link"
+        ><i class="ti ti-home"></i> Accueil</a
+      >
+      <a href="categories.html" class="drawer-link"
+        ><i class="ti ti-category"></i> Toutes les catégories</a
+      >
+      <div id="drawerCategoriesLinks"></div>
+    </div>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+      <a href="index.html">Accueil</a>
+      <i class="ti ti-chevron-right"></i>
+      <span>Mon panier</span>
+    </div>
+
+    <!-- TITLE -->
+    <div class="cart-titlebar">
+      <h1 class="cart-title"><i class="ti ti-shopping-cart"></i> Mon panier</h1>
+    </div>
+
+    <!-- STEPS -->
+    <div class="steps-bar">
+      <div class="step-item active" id="step1">
+        <div class="step-num">1</div>
+        <div class="step-label">Panier</div>
+      </div>
+      <div class="step-sep" id="sep1"></div>
+      <div class="step-item" id="step2">
+        <div class="step-num">2</div>
+        <div class="step-label">Livraison</div>
+      </div>
+      <div class="step-sep" id="sep2"></div>
+      <div class="step-item" id="step3">
+        <div class="step-num">3</div>
+        <div class="step-label">Confirmation</div>
+      </div>
+    </div>
+
+    <!-- ══ LOADING STATE ══ -->
+    <div
+      id="loadingState"
+      style="
+        max-width: 1280px;
+        margin: 40px auto;
+        padding: 0 20px;
+        text-align: center;
+      "
+    >
+      <div
+        style="
+          width: 36px;
+          height: 36px;
+          border: 4px solid var(--border);
+          border-top-color: var(--y);
+          border-radius: 50%;
+          animation: spin 0.8s linear infinite;
+          margin: 0 auto 14px;
+        "
+      ></div>
+      <p style="color: var(--t3)">Chargement de votre panier…</p>
+    </div>
+
+    <!-- ══ CART LAYOUT ══ -->
+    <div class="cart-layout" id="cartLayout" style="display: none">
+      <!-- ITEMS COLUMN -->
+      <div>
+        <div class="cart-items-card">
+          <div class="cart-items-head">
+            <div class="cart-items-title" id="cartItemsTitle">
+              0 article dans votre panier
+            </div>
+            <div class="cart-clear-link" onclick="clearCart()">
+              <i class="ti ti-trash" style="font-size: 13px"></i> Vider le
+              panier
+            </div>
+          </div>
+          <div id="cartItemsContainer"></div>
+        </div>
+
+        <a href="catalogue.html" class="continue-shopping"
+          ><i class="ti ti-arrow-left"></i> Continuer mes achats</a
+        >
+      </div>
+
+      <!-- ORDER SUMMARY -->
+      <div class="order-summary">
+        <div class="summary-head">
+          <div class="summary-head-title">
+            <i class="ti ti-receipt"></i> Résumé de la commande
+          </div>
+        </div>
+        <div class="summary-body">
+          <div class="promo-box">
+            <input type="text" placeholder="Code promo" id="promoInput" />
+            <button onclick="applyPromo()">Appliquer</button>
+          </div>
+
+          <div class="summary-row">
+            <span
+              >Sous-total (<span id="summaryItemCount">0</span> articles)</span
+            >
+            <strong id="summarySubtotal">0 F</strong>
+          </div>
+          <div class="summary-row">
+            <span>Livraison estimée</span>
+            <strong id="summaryDelivery">— F</strong>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-total-row">
+            <span class="summary-total-label">Total</span>
+            <span class="summary-total-amount" id="summaryTotal"
+              >0 <span>F CFA</span></span
+            >
+          </div>
+
+          <div
+            class="free-delivery-hint warning"
+            id="freeDeliveryHint"
+            style="display: none"
+          ></div>
+
+          <button class="btn-checkout-main" onclick="showCheckout()">
+            <i class="ti ti-lock"></i> Passer la commande
+          </button>
+          <a href="#" class="btn-wa-order" id="btnWaOrder" target="_blank">
+            <i class="ti ti-brand-whatsapp"></i> Commander via WhatsApp
+          </a>
+
+          <div class="trust-mini">
+            <div class="trust-mini-item">
+              <i class="ti ti-truck"></i> Livraison rapide à Abidjan
+            </div>
+            <div class="trust-mini-item">
+              <i class="ti ti-cash"></i> Paiement à la livraison
+            </div>
+            <div class="trust-mini-item">
+              <i class="ti ti-shield-check"></i> Produits garantis authentiques
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /cart-layout -->
+
+    <!-- ══ EMPTY CART ══ -->
+    <div
+      class="cart-layout"
+      id="emptyCartLayout"
+      style="display: none; grid-template-columns: 1fr"
+    >
+      <div class="cart-empty">
+        <i class="ti ti-shopping-cart-off"></i>
+        <h2>Votre panier est vide</h2>
+        <p>Découvrez notre catalogue et trouvez le matériel qu'il vous faut.</p>
+        <a href="catalogue.html" class="btn-shop"
+          ><i class="ti ti-apps"></i> Voir le catalogue</a
+        >
+      </div>
+    </div>
+
+    <!-- ══ CHECKOUT FORM SECTION ══ -->
+    <div class="checkout-section" id="checkoutSection">
+      <div class="checkout-form-card">
+        <div class="checkout-form-head">
+          <div class="checkout-form-title">
+            <i class="ti ti-truck-delivery"></i> Informations de livraison
+          </div>
+          <div class="checkout-form-sub">
+            Remplissez vos coordonnées pour finaliser la commande
+          </div>
+        </div>
+        <div class="checkout-form-body">
+          <div class="form-grid-2">
+            <div class="form-group full">
+              <label class="form-label"
+                >Nom complet <span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="custName"
+                placeholder="Ex: Kouamé Brou"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label"
+                >Téléphone <span class="req">*</span></label
+              >
+              <input
+                type="tel"
+                class="form-control"
+                id="custPhone"
+                placeholder="Ex: 07 59 80 80 91"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email (optionnel)</label>
+              <input
+                type="email"
+                class="form-control"
+                id="custEmail"
+                placeholder="exemple@mail.com"
+              />
+            </div>
+            <div class="form-group full">
+              <label class="form-label"
+                >Adresse / Quartier <span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="custAddress"
+                placeholder="Ex: Cocody Angré, Rue des Jardins"
+              />
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Commentaire (optionnel)</label>
+              <textarea
+                class="form-control"
+                id="custComment"
+                placeholder="Précisions sur la livraison, étage, repère…"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="form-label" style="margin-bottom: 10px">
+            Mode de livraison
+          </div>
+          <div class="delivery-options" id="deliveryOptions"></div>
+
+          <div class="payment-note">
+            <i class="ti ti-info-circle"></i>
+            <div class="payment-note-text">
+              <strong>Paiement à la livraison.</strong> Réglez en espèces, via
+              Wave ou Orange Money directement auprès du livreur à la réception
+              de votre commande.
+            </div>
+          </div>
+
+          <button
+            class="btn-submit-order"
+            id="btnSubmitOrder"
+            onclick="submitOrder()"
+          >
+            <i class="ti ti-check"></i> Confirmer ma commande —
+            <span id="submitTotal">0 F</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="checkout-summary-mini">
+        <div class="csm-title">
+          <i class="ti ti-shopping-bag"></i> Votre commande
+        </div>
+        <div id="csmItemsContainer"></div>
+
+        <div class="summary-divider"></div>
+        <div class="summary-row">
+          <span>Sous-total</span><strong id="csmSubtotal">0 F</strong>
+        </div>
+        <div class="summary-row">
+          <span>Livraison</span><strong id="csmDelivery">— F</strong>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-total-row">
+          <span class="summary-total-label">Total</span>
+          <span
+            class="summary-total-amount"
+            id="csmTotal"
+            style="font-size: 20px"
+            >0 <span>F</span></span
+          >
+        </div>
+      </div>
+    </div>
+    <!-- /checkout-section -->
+
+    <!-- FEATURES BAR -->
+    <div class="features-bar">
+      <div class="feat-inner">
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-truck"></i></div>
+          <div>
+            <div class="feat-title">Livraison rapide</div>
+            <div class="feat-desc">24h à Abidjan · 48h à l'intérieur</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-cash"></i></div>
+          <div>
+            <div class="feat-title">Paiement à la livraison</div>
+            <div class="feat-desc">Cash, Wave, Orange Money</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-shield-check"></i></div>
+          <div>
+            <div class="feat-title">Produits garantis</div>
+            <div class="feat-desc">Authenticité certifiée</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-headset"></i></div>
+          <div>
+            <div class="feat-title">Support 24h/7</div>
+            <div class="feat-desc">07 59 80 80 91</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-logo">DL Sion <span>Store.ci</span></div>
+      <div>
+        © 2025 DL Sion Store.ci — Abidjan, Côte d'Ivoire | Tous droits réservés
+      </div>
+    </footer>
+
+    <!-- MOBILE NAV -->
+    <nav class="mobile-nav">
+      <ul>
+        <li>
+          <a href="index.html"
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" /></svg
+            >Accueil</a
+          >
+        </li>
+        <li>
+          <a href="catalogue.html"
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" /></svg
+            >Chercher</a
+          >
+        </li>
+        <li>
+          <a href="categories.html"
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <line x1="8" y1="6" x2="21" y2="6" />
+              <line x1="8" y1="12" x2="21" y2="12" />
+              <line x1="8" y1="18" x2="21" y2="18" />
+              <line x1="3" y1="6" x2="3.01" y2="6" />
+              <line x1="3" y1="12" x2="3.01" y2="12" />
+              <line x1="3" y1="18" x2="3.01" y2="18" /></svg
+            >Catégories</a
+          >
+        </li>
+        <li>
+          <a href="catalogue.html">
+            <svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+            Catalogue
+          </a>
+        </li>
+        <li>
+          <a href="cart.html" class="active"
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path
+                d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+              /></svg
+            >Panier</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!-- WHATSAPP + TOAST -->
+    <a href="https://wa.me/2250759808091" class="wa-btn" target="_blank"
+      ><i class="ti ti-brand-whatsapp"></i
+    ></a>
+    <div class="toast" id="toast">
+      <i class="ti ti-check"></i><span id="toastMsg">Message</span>
+    </div>
+
+    <!-- CONFIRMATION MODAL -->
+    <div class="confirm-overlay" id="confirmOverlay">
+      <div class="confirm-modal">
+        <div class="confirm-icon-big"><i class="ti ti-circle-check"></i></div>
+        <div class="confirm-title-big">Commande confirmée !</div>
+        <div class="confirm-order-num" id="confirmOrderNum">CMD-...</div>
+        <div class="confirm-desc-big">
+          Merci pour votre commande. Notre équipe va vous contacter sous peu au
+          numéro indiqué pour confirmer la livraison.
+        </div>
+        <button
+          class="btn-checkout-main"
+          onclick="window.location.href = 'index.html'"
+        >
+          <i class="ti ti-home"></i> Retour à l'accueil
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // ══════════════════════════════════════════════════════════
+      // CONFIG SUPABASE
+      // ══════════════════════════════════════════════════════════
+      const SUPA_URL = "https://yrdjnsteaoajypgzqrbs.supabase.co";
+      const SUPA_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyZGpuc3RlYW9hanlwZ3pxcmJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1NzYwMDQsImV4cCI6MjA5NjE1MjAwNH0.CtraI2nEk7qPGYtHt7BOKFIrfTCU_NoXG7jP6_2lxZY";
+      const H = {
+        apikey: SUPA_KEY,
+        Authorization: `Bearer ${SUPA_KEY}`,
+        "Content-Type": "application/json",
+      };
+
+      async function sbGet(endpoint) {
+        const r = await fetch(`${SUPA_URL}/rest/v1/${endpoint}`, {
+          headers: H,
+        });
+        if (!r.ok)
+          throw new Error(`Supabase error ${r.status}: ${await r.text()}`);
+        return r.json();
+      }
+      async function sbRpc(fn, params) {
+        const r = await fetch(`${SUPA_URL}/rest/v1/rpc/${fn}`, {
+          method: "POST",
+          headers: H,
+          body: JSON.stringify(params),
+        });
+        if (!r.ok) throw new Error(`RPC error ${r.status}: ${await r.text()}`);
+        return r.json();
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // ÉTAT GLOBAL
+      // ══════════════════════════════════════════════════════════
+      let cart = JSON.parse(localStorage.getItem("dls_cart") || "[]");
+      let settingsMap = {};
+      let currentDeliveryKey = "abidjan";
+      let promoApplied = false;
+      const WHATSAPP_NUMBER = "2250759808091";
+
+      function fmt(n) {
+        return Number(n || 0).toLocaleString("fr-FR");
+      }
+      function escapeHtml(str) {
+        if (!str) return "";
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // CHARGEMENT SETTINGS LIVRAISON
+      // ══════════════════════════════════════════════════════════
+      async function loadSettings() {
+        try {
+          const rows = await sbGet("settings?select=cle,valeur");
+          rows.forEach((r) => (settingsMap[r.cle] = r.valeur));
+        } catch (e) {
+          console.error("loadSettings:", e);
+          settingsMap = {
+            livraison_prix_fixe: "1500",
+            livraison_gratuite_seuil: "100000",
+            livraison_delai_abidjan: "24h",
+            livraison_delai_interieur: "2-4 jours",
+          };
+        }
+      }
+
+      function getDeliveryPrices() {
+        const base = Number(settingsMap.livraison_prix_fixe || 1500);
+        return {
+          abidjan: base,
+          retrait: 0,
+          interieur: base + 2000, // tarif intérieur légèrement supérieur, ajustable en settings plus tard
+        };
+      }
+
+      function getFreeDeliveryThreshold() {
+        return Number(settingsMap.livraison_gratuite_seuil || 100000);
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // VÉRIFICATION STOCK ACTUEL (optionnelle, sécurité)
+      // ══════════════════════════════════════════════════════════
+      async function refreshStockStatus() {
+        if (!cart.length) return;
+        try {
+          const ids = cart.map((i) => i.id).join(",");
+          const rows = await sbGet(
+            `products?id=in.(${ids})&select=id,statut_stock,prix,is_active`,
+          );
+          const map = {};
+          rows.forEach((r) => (map[r.id] = r));
+
+          // Met à jour le panier si un produit a été désactivé ou son prix a changé
+          cart = cart.filter((item) => {
+            const live = map[item.id];
+            if (!live || !live.is_active) return false; // retiré du panier si supprimé/désactivé
+            item.statut_stock = live.statut_stock;
+            item.price = live.prix; // toujours le prix courant en base
+            return true;
+          });
+          localStorage.setItem("dls_cart", JSON.stringify(cart));
+        } catch (e) {
+          console.error("refreshStockStatus:", e);
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // RENDU PANIER
+      // ══════════════════════════════════════════════════════════
+      function renderCart() {
+        document.getElementById("loadingState").style.display = "none";
+
+        if (!cart.length) {
+          document.getElementById("cartLayout").style.display = "none";
+          document.getElementById("checkoutSection").classList.remove("show");
+          document.getElementById("emptyCartLayout").style.display = "grid";
+          updateCartBadge();
+          return;
+        }
+
+        document.getElementById("cartLayout").style.display = "grid";
+        document.getElementById("emptyCartLayout").style.display = "none";
+
+        const container = document.getElementById("cartItemsContainer");
+        container.innerHTML = cart
+          .map((item, idx) => renderCartItem(item, idx))
+          .join("");
+
+        document.getElementById("cartItemsTitle").textContent =
+          `${cart.length} article${cart.length !== 1 ? "s" : ""} dans votre panier`;
+
+        recalcTotals();
+      }
+
+      const STOCK_LABELS = {
+        in_stock: "En stock",
+        low_stock: "Stock limité",
+        out_of_stock: "Épuisé",
+      };
+      const STOCK_CLASS = {
+        in_stock: "in",
+        low_stock: "low",
+        out_of_stock: "out",
+      };
+
+      function renderCartItem(item, idx) {
+        const img =
+          item.image ||
+          "https://placehold.co/200x200/E5E7EB/9CA3AF?text=Produit";
+        const stockClass = STOCK_CLASS[item.statut_stock] || "in";
+        const stockLabel = STOCK_LABELS[item.statut_stock] || "En stock";
+        const lineTotal = item.price * item.qty;
+
+        return `
+    <div class="cart-item" data-idx="${idx}">
+      <div class="ci-img"><img src="${img}" alt="${escapeHtml(item.name)}"></div>
+      <div class="ci-body">
+        <div class="ci-top">
+          <div>
+            <div class="ci-brand">${escapeHtml(item.brand || "")}</div>
+            <div class="ci-name">${escapeHtml(item.name)}</div>
+          </div>
+          <div class="ci-remove" onclick="removeItem(${idx})"><i class="ti ti-trash"></i></div>
+        </div>
+        <div class="ci-stock ${stockClass}"><i class="ti ti-circle-filled"></i> ${stockLabel}</div>
+        <div class="ci-bottom">
+          <div class="ci-qty">
+            <button class="ci-qty-btn" onclick="changeItemQty(${idx},-1)"><i class="ti ti-minus" style="font-size:13px"></i></button>
+            <input type="number" class="ci-qty-num" value="${item.qty}" min="1" onchange="setItemQty(${idx}, this.value)">
+            <button class="ci-qty-btn" onclick="changeItemQty(${idx},1)"><i class="ti ti-plus" style="font-size:13px"></i></button>
+          </div>
+          <div class="ci-price">
+            <div class="ci-price-unit">${fmt(item.price)} F / unité</div>
+            <div class="ci-price-total">${fmt(lineTotal)} F</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // MODIFICATION QUANTITÉS
+      // ══════════════════════════════════════════════════════════
+      function changeItemQty(idx, delta) {
+        let val = cart[idx].qty + delta;
+        if (val < 1) val = 1;
+        cart[idx].qty = val;
+        persistCart();
+        renderCart();
+      }
+      function setItemQty(idx, value) {
+        let val = parseInt(value) || 1;
+        if (val < 1) val = 1;
+        cart[idx].qty = val;
+        persistCart();
+        renderCart();
+      }
+
+      function removeItem(idx) {
+        const row = document.querySelector(`.cart-item[data-idx="${idx}"]`);
+        if (row) {
+          row.style.transition = "opacity .25s, transform .25s";
+          row.style.opacity = "0";
+          row.style.transform = "translateX(-12px)";
+        }
+        setTimeout(() => {
+          cart.splice(idx, 1);
+          persistCart();
+          renderCart();
+          showToast("Article retiré du panier");
+        }, 200);
+      }
+
+      function clearCart() {
+        cart = [];
+        persistCart();
+        renderCart();
+        showToast("Panier vidé");
+      }
+
+      function persistCart() {
+        localStorage.setItem("dls_cart", JSON.stringify(cart));
+        updateCartBadge();
+      }
+
+      function updateCartBadge() {
+        const total = cart.reduce((s, i) => s + i.qty, 0);
+        document.getElementById("cartBadge").textContent = total;
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // CALCUL DES TOTAUX
+      // ══════════════════════════════════════════════════════════
+      function getSubtotal() {
+        return cart.reduce((s, i) => s + i.price * i.qty, 0);
+      }
+
+      function recalcTotals() {
+        const subtotal = getSubtotal();
+        const itemCount = cart.reduce((s, i) => s + i.qty, 0);
+        const threshold = getFreeDeliveryThreshold();
+        const prices = getDeliveryPrices();
+        const deliveryPrice =
+          subtotal >= threshold
+            ? 0
+            : (prices[currentDeliveryKey] ?? prices.abidjan);
+        const total = subtotal + deliveryPrice;
+
+        document.getElementById("summaryItemCount").textContent = itemCount;
+        document.getElementById("summarySubtotal").textContent =
+          fmt(subtotal) + " F";
+        document.getElementById("summaryDelivery").textContent =
+          deliveryPrice === 0 ? "Gratuite" : fmt(deliveryPrice) + " F";
+        document.getElementById("summaryTotal").innerHTML =
+          fmt(total) + " <span>F CFA</span>";
+        document.getElementById("submitTotal").textContent = fmt(total) + " F";
+
+        const hint = document.getElementById("freeDeliveryHint");
+        if (subtotal >= threshold) {
+          hint.style.display = "flex";
+          hint.classList.remove("warning");
+          hint.innerHTML = `<i class="ti ti-circle-check" style="font-size:14px"></i><span>Livraison gratuite appliquée !</span>`;
+        } else {
+          const remaining = threshold - subtotal;
+          hint.style.display = "flex";
+          hint.classList.add("warning");
+          hint.innerHTML = `<i class="ti ti-truck" style="font-size:14px"></i><span>Ajoutez encore <strong>${fmt(remaining)} F</strong> pour bénéficier de la livraison gratuite !</span>`;
+        }
+
+        // WhatsApp link mis à jour avec le contenu du panier
+        const waText = encodeURIComponent(
+          `Bonjour, je souhaite commander :\n` +
+            cart.map((i) => `- ${i.name} (x${i.qty})`).join("\n") +
+            `\n\nTotal estimé : ${fmt(total)} F CFA`,
+        );
+        document.getElementById("btnWaOrder").href =
+          `https://wa.me/${WHATSAPP_NUMBER}?text=${waText}`;
+
+        updateCartBadge();
+
+        // Met aussi à jour le mini résumé checkout si affiché
+        if (
+          document.getElementById("checkoutSection").classList.contains("show")
+        ) {
+          renderCheckoutSummary();
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // CODE PROMO (placeholder simple)
+      // ══════════════════════════════════════════════════════════
+      function applyPromo() {
+        const code = document.getElementById("promoInput").value.trim();
+        if (!code) {
+          showToast("Veuillez entrer un code promo");
+          return;
+        }
+        showToast("Code promo invalide ou expiré");
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // AFFICHAGE CHECKOUT
+      // ══════════════════════════════════════════════════════════
+      function showCheckout() {
+        if (!cart.length) {
+          showToast("Votre panier est vide");
+          return;
+        }
+
+        renderDeliveryOptions();
+        renderCheckoutSummary();
+
+        document.getElementById("checkoutSection").classList.add("show");
+        document.getElementById("step1").classList.remove("active");
+        document.getElementById("step1").classList.add("done");
+        document.getElementById("step1").querySelector(".step-num").innerHTML =
+          '<i class="ti ti-check" style="font-size:14px"></i>';
+        document.getElementById("sep1").classList.add("done");
+        document.getElementById("step2").classList.add("active");
+
+        setTimeout(() => {
+          document
+            .getElementById("checkoutSection")
+            .scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      }
+
+      function renderDeliveryOptions() {
+        const prices = getDeliveryPrices();
+        const delaiAbidjan = settingsMap.livraison_delai_abidjan || "24h";
+        const delaiInterieur =
+          settingsMap.livraison_delai_interieur || "2-4 jours";
+        const subtotal = getSubtotal();
+        const threshold = getFreeDeliveryThreshold();
+        const isFree = subtotal >= threshold;
+
+        const opts = [
+          {
+            key: "abidjan",
+            title: "Livraison Abidjan",
+            desc: `Livré en ${delaiAbidjan}, du lundi au samedi`,
+            price: isFree ? 0 : prices.abidjan,
+          },
+          {
+            key: "retrait",
+            title: "Retrait en boutique",
+            desc: "Abidjan Plateau, RDC — disponible immédiatement",
+            price: 0,
+          },
+          {
+            key: "interieur",
+            title: "Intérieur du pays",
+            desc: `San Pedro, Bouaké, Yamoussoukro — ${delaiInterieur}`,
+            price: isFree ? 0 : prices.interieur,
+          },
+        ];
+
+        document.getElementById("deliveryOptions").innerHTML = opts
+          .map(
+            (o) => `
+    <label class="delivery-opt ${o.key === currentDeliveryKey ? "selected" : ""}" onclick="selectDelivery('${o.key}', this)">
+      <input type="radio" name="delivery" ${o.key === currentDeliveryKey ? "checked" : ""}>
+      <div class="delivery-opt-text">
+        <div class="delivery-opt-title">${o.title} <span class="delivery-opt-price ${o.price === 0 ? "free" : ""}">${o.price === 0 ? "Gratuit" : fmt(o.price) + " F"}</span></div>
+        <div class="delivery-opt-desc">${o.desc}</div>
+      </div>
+    </label>`,
+          )
+          .join("");
+      }
+
+      function selectDelivery(key, label) {
+        currentDeliveryKey = key;
+        document
+          .querySelectorAll(".delivery-opt")
+          .forEach((o) => o.classList.remove("selected"));
+        label.classList.add("selected");
+        label.querySelector("input").checked = true;
+        recalcTotals();
+      }
+
+      function renderCheckoutSummary() {
+        document.getElementById("csmItemsContainer").innerHTML = cart
+          .map(
+            (item) => `
+    <div class="csm-item">
+      <div class="csm-item-img"><img src="${item.image || "https://placehold.co/100x100/E5E7EB/9CA3AF?text=P"}" alt=""></div>
+      <div class="csm-item-info"><div class="csm-item-name">${escapeHtml(item.name)}</div><div class="csm-item-qty">Qté : ${item.qty}</div></div>
+      <div class="csm-item-price">${fmt(item.price * item.qty)} F</div>
+    </div>`,
+          )
+          .join("");
+
+        const subtotal = getSubtotal();
+        const threshold = getFreeDeliveryThreshold();
+        const prices = getDeliveryPrices();
+        const deliveryPrice =
+          subtotal >= threshold
+            ? 0
+            : (prices[currentDeliveryKey] ?? prices.abidjan);
+        const total = subtotal + deliveryPrice;
+
+        document.getElementById("csmSubtotal").textContent =
+          fmt(subtotal) + " F";
+        document.getElementById("csmDelivery").textContent =
+          deliveryPrice === 0 ? "Gratuite" : fmt(deliveryPrice) + " F";
+        document.getElementById("csmTotal").innerHTML =
+          fmt(total) + " <span>F</span>";
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // SOUMISSION COMMANDE (RPC submit_order)
+      // ══════════════════════════════════════════════════════════
+      async function submitOrder() {
+        const name = document.getElementById("custName").value.trim();
+        const phone = document.getElementById("custPhone").value.trim();
+        const email = document.getElementById("custEmail").value.trim();
+        const address = document.getElementById("custAddress").value.trim();
+        const comment = document.getElementById("custComment").value.trim();
+
+        if (!name || !phone || !address) {
+          showToast("Merci de remplir tous les champs obligatoires");
+          return;
+        }
+        if (!cart.length) {
+          showToast("Votre panier est vide");
+          return;
+        }
+
+        const btn = document.getElementById("btnSubmitOrder");
+        btn.disabled = true;
+        btn.innerHTML =
+          '<i class="ti ti-loader-2" style="animation:spin .8s linear infinite"></i> Envoi en cours…';
+
+        try {
+          const items = cart.map((i) => ({
+            product_id: i.id,
+            product_name: i.name,
+            unit_price: i.price,
+            quantity: i.qty || 1,
+          }));
+
+          const deliveryNote = {
+            abidjan: "Livraison Abidjan",
+            retrait: "Retrait en boutique",
+            interieur: "Livraison intérieur du pays",
+          }[currentDeliveryKey];
+
+          const fullComment = `[${deliveryNote}]${comment ? " — " + comment : ""}`;
+// Vérifier chaque item
+items.forEach((item, index) => {
+  console.log(`🔍 Item ${index}:`, {
+    product_id: item.product_id,
+    product_id_type: typeof item.product_id,
+    product_id_length: item.product_id?.length,
+    product_name: item.product_name,
+    unit_price: item.unit_price,
+    quantity: item.quantity
+  });
+});
+          const result = await sbRpc("submit_order", {
+            p_nom: name,
+            p_telephone: phone,
+            p_adresse: address,
+            p_email: email || null,
+            p_commentaire: fullComment,
+            p_items: items,
+          });
+
+          // Succès
+          document.getElementById("step2").classList.remove("active");
+          document.getElementById("step2").classList.add("done");
+          document
+            .getElementById("step2")
+            .querySelector(".step-num").innerHTML =
+            '<i class="ti ti-check" style="font-size:14px"></i>';
+          document.getElementById("sep2").classList.add("done");
+          document.getElementById("step3").classList.add("active");
+
+          document.getElementById("confirmOrderNum").textContent =
+            result.numero_commande || "CMD-EN-ATTENTE";
+          document.getElementById("confirmOverlay").classList.add("open");
+
+          // Vide le panier après commande réussie
+          cart = [];
+          localStorage.removeItem("dls_cart");
+          updateCartBadge();
+          persistCart();
+        } catch (e) {
+          console.error("submitOrder:", e);
+          showToast(
+            "Erreur lors de la commande. Veuillez réessayer ou nous contacter via WhatsApp.",
+          );
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = `<i class="ti ti-check"></i> Confirmer ma commande — <span id="submitTotal">${fmt(getSubtotal())} F</span>`;
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // NAVBAR + DRAWER (catégories dynamiques, cohérence avec les autres pages)
+      // ══════════════════════════════════════════════════════════
+      async function loadNavCategories() {
+        try {
+          const cats = await sbGet(
+            "categories?select=id,nom,slug,parent_id&order=nom.asc",
+          );
+          const mainCats = cats.filter((c) => !c.parent_id);
+
+          document.getElementById("navCategoriesLinks").innerHTML = mainCats
+            .slice(0, 5)
+            .map(
+              (c) =>
+                `<a href="catalogue.html?categorie=${c.slug}" class="nav-link">${escapeHtml(c.nom)}</a>`,
+            )
+            .join("");
+
+          document.getElementById("drawerCategoriesLinks").innerHTML = mainCats
+            .map(
+              (c) =>
+                `<a href="catalogue.html?categorie=${c.slug}" class="drawer-link"><i class="ti ti-chevron-right"></i> ${escapeHtml(c.nom)}</a>`,
+            )
+            .join("");
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // DRAWER MOBILE NAV
+      // ══════════════════════════════════════════════════════════
+      function openDrawer() {
+        document.getElementById("drawer").classList.add("open");
+        document.getElementById("drawerOverlay").classList.add("open");
+      }
+      function closeDrawer() {
+        document.getElementById("drawer").classList.remove("open");
+        document.getElementById("drawerOverlay").classList.remove("open");
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // RECHERCHE HEADER
+      // ══════════════════════════════════════════════════════════
+      function doHeaderSearch() {
+        const q = document.getElementById("headerSearchInput").value.trim();
+        if (q)
+          window.location.href = `catalogue.html?q=${encodeURIComponent(q)}`;
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // TOAST
+      // ══════════════════════════════════════════════════════════
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        document.getElementById("toastMsg").textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 3000);
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // INIT
+      // ══════════════════════════════════════════════════════════
+      (async function init() {
+        updateCartBadge();
+        await loadSettings();
+        await refreshStockStatus();
+        renderCart();
+        await loadNavCategories();
+      })();
+    </script>
+  </body>
+</html>

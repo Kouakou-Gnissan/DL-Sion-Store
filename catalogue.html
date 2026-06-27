@@ -1,0 +1,1411 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,shrink-to-fit=no"
+    />
+    <title>Catalogue — DL Sion Store.ci</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    />
+    <link rel="stylesheet" href="css/catalogue.css" />
+  </head>
+  <body>
+    <!-- ANNOUNCE -->
+    <div class="announce-bar">
+      <div class="announce-track">
+        <span>🚚 Livraison rapide Abidjan &amp; intérieur</span>
+        <span>💳 Paiement à la livraison disponible</span>
+        <span>📱 07 59 80 80 91 – Support 24h/7</span>
+        <span>✅ Garantie SAV sur tous les produits</span>
+        <span>🎁 Réductions sur achats multiples</span>
+        <span>🚚 Livraison rapide Abidjan &amp; intérieur</span>
+        <span>💳 Paiement à la livraison disponible</span>
+        <span>📱 07 59 80 80 91 – Support 24h/7</span>
+        <span>✅ Garantie SAV sur tous les produits</span>
+        <span>🎁 Réductions sur achats multiples</span>
+      </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+      <div class="header-top">
+        <div class="logo">
+          <div class="logo-icon" onclick="openDrawer()">
+            <svg viewBox="0 0 24 24">
+              <path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+            </svg>
+          </div>
+          <div>
+            <div class="logo-text">DL Sion <span>Store.ci</span></div>
+            <div class="logo-sub">N°1 Achat en ligne Côte d'Ivoire</div>
+          </div>
+        </div>
+        <div class="search-bar">
+          <input
+            type="text"
+            placeholder="Rechercher un produit, une marque…"
+            id="headerSearchInput"
+          />
+          <button onclick="doHeaderSearch()">
+            <i class="ti ti-search"></i> Rechercher
+          </button>
+        </div>
+        <div class="header-actions">
+          <a href="#" class="action-btn" style="display: none"
+            ><i class="ti ti-heart"></i><span>Favoris</span></a
+          >
+          <a href="#" class="action-btn" onclick="toggleCart(); return false;">
+            <i class="ti ti-shopping-cart"></i><span>Panier</span>
+            <span class="cart-badge" id="cartBadge">0</span>
+          </a>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <div class="nav-inner">
+          <button class="hamburger" onclick="openDrawer()">
+            <i class="ti ti-menu-2"></i> Catégories
+          </button>
+          <a href="index.html" class="nav-link">Accueil</a>
+          <div id="navCategoriesLinks" style="display: flex"></div>
+          <a href="categories.html" class="nav-link">Toutes les catégories</a>
+          <a href="#" class="nav-link nav-promo"
+            ><i class="ti ti-tag"></i> Promos</a
+          >
+          <span class="nav-phone"
+            ><i class="ti ti-phone-call"></i> (+225) 07 59 80 80 91</span
+          >
+        </div>
+      </nav>
+    </header>
+
+    <!-- DRAWER MOBILE NAV -->
+    <div
+      class="drawer-overlay"
+      id="drawerOverlay"
+      onclick="closeDrawer()"
+    ></div>
+    <div class="drawer" id="drawer">
+      <div class="drawer-head">
+        <div class="drawer-logo">DL Sion <span>Store.ci</span></div>
+        <button class="drawer-close" onclick="closeDrawer()">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+      <a href="index.html" class="drawer-link"
+        ><i class="ti ti-home"></i> Accueil</a
+      >
+      <a href="categories.html" class="drawer-link"
+        ><i class="ti ti-category"></i> Toutes les catégories</a
+      >
+      <div id="drawerCategoriesLinks"></div>
+    </div>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb" id="breadcrumb">
+      <a href="index.html">Accueil</a>
+      <i class="ti ti-chevron-right"></i>
+      <a href="categories.html">Catégories</a>
+    </div>
+
+    <!-- HERO CATÉGORIE (dynamique) -->
+    <div class="cat-hero" id="catHero">
+      <div class="cat-hero-skel"></div>
+    </div>
+
+    <!-- TITLE BAR -->
+    <div class="catalog-titlebar">
+      <div>
+        <h1 class="catalog-title" id="catalogTitle">Catalogue</h1>
+        <div class="catalog-subtitle" id="catalogSubtitle">Chargement…</div>
+      </div>
+    </div>
+
+    <!-- LAYOUT -->
+    <div class="catalog-layout">
+      <!-- SIDEBAR FILTRES (desktop) -->
+      <aside class="filters-sidebar">
+        <div class="filters-head">
+          <div class="filters-head-title">
+            <i class="ti ti-filter"></i> Filtres
+          </div>
+          <div class="filters-reset" onclick="resetFilters()">
+            Réinitialiser
+          </div>
+        </div>
+
+        <!-- Catégorie -->
+        <div class="filter-block">
+          <div class="filter-block-title" onclick="toggleFilterBlock(this)">
+            Catégorie <i class="ti ti-chevron-down arrow"></i>
+          </div>
+          <div class="filter-block-body" id="filterCategoryBody">
+            <label class="filter-option"
+              ><input
+                type="radio"
+                name="cat"
+                value=""
+                checked
+                onchange="onFilterChange()"
+              />
+              Toutes
+              <span class="filter-option-count" id="countAll">—</span></label
+            >
+          </div>
+        </div>
+
+        <!-- Marque -->
+        <div class="filter-block">
+          <div class="filter-block-title" onclick="toggleFilterBlock(this)">
+            Marque <i class="ti ti-chevron-down arrow"></i>
+          </div>
+          <div class="filter-block-body" id="filterBrandBody">
+            <p style="font-size: 12px; color: var(--t3)">Chargement…</p>
+          </div>
+        </div>
+
+        <!-- Prix -->
+        <div class="filter-block">
+          <div class="filter-block-title" onclick="toggleFilterBlock(this)">
+            Prix (F CFA) <i class="ti ti-chevron-down arrow"></i>
+          </div>
+          <div class="filter-block-body">
+            <div class="price-range-inputs">
+              <input
+                type="number"
+                placeholder="Min"
+                id="priceMin"
+                onchange="onFilterChange()"
+              />
+              <span class="price-range-sep">—</span>
+              <input
+                type="number"
+                placeholder="Max"
+                id="priceMax"
+                onchange="onFilterChange()"
+              />
+            </div>
+            <div class="price-presets">
+              <button
+                class="price-preset-btn"
+                onclick="applyPricePreset(0, 10000, this)"
+              >
+                &lt; 10 000
+              </button>
+              <button
+                class="price-preset-btn"
+                onclick="applyPricePreset(10000, 50000, this)"
+              >
+                10–50k
+              </button>
+              <button
+                class="price-preset-btn"
+                onclick="applyPricePreset(50000, 150000, this)"
+              >
+                50–150k
+              </button>
+              <button
+                class="price-preset-btn"
+                onclick="applyPricePreset(150000, null, this)"
+              >
+                150k+
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disponibilité -->
+        <div class="filter-block">
+          <div class="filter-block-title" onclick="toggleFilterBlock(this)">
+            Disponibilité <i class="ti ti-chevron-down arrow"></i>
+          </div>
+          <div class="filter-block-body">
+            <label class="filter-option"
+              ><input
+                type="checkbox"
+                id="stockIn"
+                checked
+                onchange="onFilterChange()"
+              />
+              En stock</label
+            >
+            <label class="filter-option"
+              ><input
+                type="checkbox"
+                id="stockLow"
+                checked
+                onchange="onFilterChange()"
+              />
+              Stock limité</label
+            >
+            <label class="filter-option"
+              ><input
+                type="checkbox"
+                id="stockOut"
+                onchange="onFilterChange()"
+              />
+              Inclure épuisés</label
+            >
+          </div>
+        </div>
+
+        <div style="padding: 16px 18px">
+          <button class="btn-apply-filters" onclick="applyMobileFilters()">
+            Voir les résultats
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <div class="catalog-main">
+        <!-- TOOLBAR -->
+        <div class="catalog-toolbar">
+          <div class="toolbar-left">
+            <button class="btn-mobile-filters" onclick="openMobileFilters()">
+              <i class="ti ti-adjustments-horizontal"></i> Filtres
+            </button>
+            <div class="results-count">
+              <strong id="resultsCount">0</strong> résultats
+            </div>
+          </div>
+          <div class="toolbar-right">
+            <select
+              class="sort-select"
+              id="sortSelect"
+              onchange="onFilterChange()"
+            >
+              <option value="relevance">Pertinence</option>
+              <option value="price_asc">Prix croissant</option>
+              <option value="price_desc">Prix décroissant</option>
+              <option value="newest">Nouveautés</option>
+              <option value="rating">Meilleures notes</option>
+            </select>
+            <div class="view-toggle">
+              <button
+                class="view-btn active"
+                id="viewGridBtn"
+                onclick="setView('grid')"
+              >
+                <i class="ti ti-grid-dots"></i>
+              </button>
+              <button
+                class="view-btn"
+                id="viewListBtn"
+                onclick="setView('list')"
+              >
+                <i class="ti ti-list"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACTIVE FILTERS CHIPS -->
+        <div class="active-filters" id="activeFiltersChips"></div>
+
+        <!-- GRID VIEW -->
+        <div class="products-grid" id="productsGrid">
+          <div class="cats-empty" style="grid-column: 1/-1">
+            <i
+              class="ti ti-loader-2"
+              style="animation: spin 0.8s linear infinite"
+            ></i>
+            <p>Chargement des produits…</p>
+          </div>
+        </div>
+
+        <!-- LIST VIEW (caché par défaut) -->
+        <div
+          class="products-list"
+          id="productsList"
+          style="display: none"
+        ></div>
+
+        <!-- PAGINATION -->
+        <div class="pagination" id="pagination"></div>
+      </div>
+      <!-- /catalog-main -->
+    </div>
+    <!-- /catalog-layout -->
+
+    <!-- MOBILE FILTERS DRAWER -->
+    <div
+      class="mfilters-overlay"
+      id="mfiltersOverlay"
+      onclick="closeMobileFilters()"
+    ></div>
+    <div class="mfilters-panel" id="mfiltersPanel">
+      <div class="mfilters-head">
+        <div class="mfilters-head-title">
+          <i class="ti ti-filter"></i> Filtres
+        </div>
+        <button class="mfilters-close" onclick="closeMobileFilters()">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+      <div class="mfilters-body" id="mfiltersBody">
+        <p style="padding: 16px; color: var(--t3); font-size: 12px">
+          Chargement des filtres…
+        </p>
+      </div>
+      <div class="mfilters-footer">
+        <button
+          class="btn-apply-filters"
+          style="display: block"
+          onclick="closeMobileFilters()"
+        >
+          Voir les résultats
+        </button>
+      </div>
+    </div>
+
+    <!-- FEATURES BAR -->
+    <div class="features-bar">
+      <div class="feat-inner">
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-truck"></i></div>
+          <div>
+            <div class="feat-title">Livraison rapide</div>
+            <div class="feat-desc">24h à Abidjan · 48h à l'intérieur</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-cash"></i></div>
+          <div>
+            <div class="feat-title">Paiement à la livraison</div>
+            <div class="feat-desc">Cash, Wave, Orange Money</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-shield-check"></i></div>
+          <div>
+            <div class="feat-title">Produits garantis</div>
+            <div class="feat-desc">Authenticité certifiée</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-headset"></i></div>
+          <div>
+            <div class="feat-title">Support 24h/7</div>
+            <div class="feat-desc">07 59 80 80 91</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-logo">DL Sion <span>Store.ci</span></div>
+      <div>
+        © 2025 DL Sion Store.ci — Abidjan, Côte d'Ivoire | Tous droits réservés
+      </div>
+    </footer>
+
+    <!-- MOBILE NAV -->
+    <nav class="mobile-nav">
+      <ul>
+        <li>
+          <a href="index.html"
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" /></svg
+            >Accueil</a
+          >
+        </li>
+        <li>
+          <a href="catalogue.html"
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" /></svg
+            >Chercher</a
+          >
+        </li>
+        <li>
+          <a href="categories.html"
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <line x1="8" y1="6" x2="21" y2="6" />
+              <line x1="8" y1="12" x2="21" y2="12" />
+              <line x1="8" y1="18" x2="21" y2="18" />
+              <line x1="3" y1="6" x2="3.01" y2="6" />
+              <line x1="3" y1="12" x2="3.01" y2="12" />
+              <line x1="3" y1="18" x2="3.01" y2="18" /></svg
+            >Catégories</a
+          >
+        </li>
+        <li>
+          <a href="catalogue.html" class="active">
+            <svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+            Catalogue
+          </a>
+        </li>
+        <li>
+          <a href="cart.html"
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path
+                d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+              /></svg
+            >Panier</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+        <!-- CART SIDEBAR -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+      <div class="cart-header">
+        <div class="cart-header-title">
+          <i class="ti ti-shopping-cart"></i> Mon panier
+        </div>
+        <button class="cart-close" onclick="toggleCart()">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+      <div class="cart-body" id="cartBody">
+        <div class="cart-empty">
+          <i class="ti ti-shopping-cart"></i>
+          <p>Votre panier est vide</p>
+        </div>
+      </div>
+      <div class="cart-footer" id="cartFooter" style="display: none">
+        <div class="cart-total-row">
+          <span class="cart-total-label">Total</span
+          ><span class="cart-total-amount" id="cartTotal">0 F CFA</span>
+        </div>
+        <button
+          class="btn-checkout"
+          onclick="window.location.href = 'cart.html'"
+        >
+          <i class="ti ti-credit-card"></i> Passer la commande
+        </button>
+      </div>
+    </div>
+
+    <!-- WHATSAPP + TOAST -->
+    <a href="https://wa.me/2250759808091" class="wa-btn" target="_blank"
+      ><i class="ti ti-brand-whatsapp"></i
+    ></a>
+    <div class="toast" id="toast">
+      <i class="ti ti-check"></i
+      ><span id="toastMsg">Produit ajouté au panier</span>
+    </div>
+
+    <script>
+      // ══════════════════════════════════════════════════════════
+      // CONFIG SUPABASE
+      // ══════════════════════════════════════════════════════════
+      const SUPA_URL = "https://yrdjnsteaoajypgzqrbs.supabase.co";
+      const SUPA_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyZGpuc3RlYW9hanlwZ3pxcmJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1NzYwMDQsImV4cCI6MjA5NjE1MjAwNH0.CtraI2nEk7qPGYtHt7BOKFIrfTCU_NoXG7jP6_2lxZY";
+      const H = {
+        apikey: SUPA_KEY,
+        Authorization: `Bearer ${SUPA_KEY}`,
+        "Content-Type": "application/json",
+      };
+
+      async function sbGet(endpoint) {
+        const r = await fetch(`${SUPA_URL}/rest/v1/${endpoint}`, {
+          headers: H,
+        });
+        if (!r.ok)
+          throw new Error(`Supabase error ${r.status}: ${await r.text()}`);
+        return r.json();
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // ÉTAT GLOBAL
+      // ══════════════════════════════════════════════════════════
+      let cart = JSON.parse(localStorage.getItem("dls_cart") || "[]");
+      let allBrands = [];
+      let allMainCategories = [];
+      let currentCategory = null; // catégorie active (objet) si filtrée
+      let currentSubcategory = null; // sous-catégorie active (objet) si filtrée
+      let allProducts = []; // produits déjà chargés pour la vue active
+      let filteredProducts = [];
+      let currentPage = 1;
+      const PAGE_SIZE = 12;
+      let currentView = "grid";
+
+      function fmt(n) {
+        return Number(n || 0).toLocaleString("fr-FR");
+      }
+      function escapeHtml(str) {
+        if (!str) return "";
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function getUrlParams() {
+        const p = new URLSearchParams(window.location.search);
+        return {
+          categorie: p.get("categorie"),
+          sous_categorie: p.get("sous_categorie"),
+          q: p.get("q"),
+        };
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // HERO CATÉGORIE DYNAMIQUE
+      // ══════════════════════════════════════════════════════════
+      async function loadHeroAndContext() {
+        const params = getUrlParams();
+        const heroEl = document.getElementById("catHero");
+        const breadcrumbEl = document.getElementById("breadcrumb");
+
+        // Cas recherche texte (pas de catégorie)
+        if (params.q && !params.categorie && !params.sous_categorie) {
+          renderHero({
+            nom: `Résultats pour "${params.q}"`,
+            description: `Découvrez tous les produits correspondant à votre recherche.`,
+            image_url: null,
+            icon: "ti-search",
+          });
+          document.getElementById("catalogTitle").textContent =
+            `Recherche : "${params.q}"`;
+          breadcrumbEl.innerHTML = `<a href="index.html">Accueil</a><i class="ti ti-chevron-right"></i><span>Résultats de recherche</span>`;
+          return;
+        }
+
+        // Cas sous-catégorie
+        if (params.sous_categorie) {
+          try {
+            const rows = await sbGet(
+              `categories?slug=eq.${params.sous_categorie}&limit=1`,
+            );
+            if (rows.length) {
+              currentSubcategory = rows[0];
+              // Récupère le parent pour le fil d'ariane
+              let parentCat = null;
+              if (currentSubcategory.parent_id) {
+                const parentRows = await sbGet(
+                  `categories?id=eq.${currentSubcategory.parent_id}&limit=1`,
+                );
+                parentCat = parentRows[0] || null;
+              }
+              renderHero(currentSubcategory);
+              document.getElementById("catalogTitle").textContent =
+                currentSubcategory.nom;
+              breadcrumbEl.innerHTML = `
+          <a href="index.html">Accueil</a><i class="ti ti-chevron-right"></i>
+          <a href="categories.html">Catégories</a><i class="ti ti-chevron-right"></i>
+          ${parentCat ? `<a href="catalogue.html?categorie=${parentCat.slug}">${escapeHtml(parentCat.nom)}</a><i class="ti ti-chevron-right"></i>` : ""}
+          <span>${escapeHtml(currentSubcategory.nom)}</span>`;
+              return;
+            }
+          } catch (e) {
+            console.error(e);
+          }
+        }
+
+        // Cas catégorie principale
+        if (params.categorie) {
+          try {
+            const rows = await sbGet(
+              `categories?slug=eq.${params.categorie}&limit=1`,
+            );
+            if (rows.length) {
+              currentCategory = rows[0];
+              renderHero(currentCategory);
+              document.getElementById("catalogTitle").textContent =
+                currentCategory.nom;
+              breadcrumbEl.innerHTML = `
+          <a href="index.html">Accueil</a><i class="ti ti-chevron-right"></i>
+          <a href="categories.html">Catégories</a><i class="ti ti-chevron-right"></i>
+          <span>${escapeHtml(currentCategory.nom)}</span>`;
+              return;
+            }
+          } catch (e) {
+            console.error(e);
+          }
+        }
+
+        // Cas par défaut : tout le catalogue
+        renderHero({
+          nom: "Tout le catalogue",
+          description:
+            "Explorez l'ensemble de nos produits informatiques, réseaux, sécurité et électroménager.",
+          image_url: null,
+          icon: "ti-apps",
+        });
+        document.getElementById("catalogTitle").textContent = "Catalogue";
+        breadcrumbEl.innerHTML = `<a href="index.html">Accueil</a><i class="ti ti-chevron-right"></i><span>Catalogue complet</span>`;
+      }
+
+      function renderHero(cat) {
+        const heroEl = document.getElementById("catHero");
+        const imgHTML = cat.image_url
+          ? `<img src="${cat.image_url}" alt="${escapeHtml(cat.nom)}">`
+          : `<i class="ti ${cat.icon || "ti-category"}"></i>`;
+
+        heroEl.innerHTML = `
+    <div class="cat-hero-inner">
+      <div class="cat-hero-text">
+        <div class="cat-hero-eyebrow"><i class="ti ti-category" style="font-size:10px"></i> Catégorie</div>
+        <div class="cat-hero-title">${escapeHtml(cat.nom)}</div>
+        <div class="cat-hero-desc">${escapeHtml(cat.description || "Découvrez notre sélection complète.")}</div>
+      </div>
+    </div>`;
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // CHARGEMENT DES PRODUITS
+      // ══════════════════════════════════════════════════════════
+      async function loadProducts() {
+        try {
+          let endpoint = "v_products_full?is_active=eq.true";
+
+          if (currentSubcategory) {
+            endpoint += `&sous_categorie_id=eq.${currentSubcategory.id}`;
+          } else if (currentCategory) {
+            endpoint += `&categorie_id=eq.${currentCategory.id}`;
+          } else {
+            const params = getUrlParams();
+            if (params.q) {
+              endpoint += `&nom=ilike.*${encodeURIComponent(params.q)}*`;
+            }
+          }
+
+          endpoint += "&limit=500";
+
+          allProducts = await sbGet(endpoint);
+          applyFiltersAndRender();
+        } catch (e) {
+          console.error("loadProducts:", e);
+          document.getElementById("productsGrid").innerHTML = `
+      <div class="catalog-empty" style="grid-column:1/-1">
+        <i class="ti ti-alert-triangle"></i>
+        <h3>Erreur de chargement</h3>
+        <p>Impossible de récupérer les produits pour le moment.</p>
+      </div>`;
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // FILTRES SIDEBAR (catégories + marques dynamiques)
+      // ══════════════════════════════════════════════════════════
+      async function loadFilterOptions() {
+        try {
+          const cats = await sbGet(
+            "categories?select=id,nom,slug,parent_id&order=nom.asc",
+          );
+          allMainCategories = cats.filter((c) => !c.parent_id);
+          const subCats = cats.filter((c) => c.parent_id);
+
+          // Compte produits par catégorie pour les options de filtre
+          const allProds = await sbGet(
+            "products?select=categorie_id,brand_id&is_active=eq.true",
+          );
+          const catCounts = {};
+          allProds.forEach((p) => {
+            if (p.categorie_id)
+              catCounts[p.categorie_id] = (catCounts[p.categorie_id] || 0) + 1;
+          });
+
+          document.getElementById("countAll").textContent = allProds.length;
+
+          // Sidebar : liste des catégories (radio)
+          const catBody = document.getElementById("filterCategoryBody");
+          const subsForCurrent = currentCategory
+            ? subCats.filter((s) => s.parent_id === currentCategory.id)
+            : [];
+
+          let catHtml = `<label class="filter-option"><input type="radio" name="cat" value="" ${!currentCategory && !currentSubcategory ? "checked" : ""} onchange="goToFilterCategory('')"> Toutes <span class="filter-option-count">${allProds.length}</span></label>`;
+          allMainCategories.forEach((c) => {
+            const isActive = currentCategory && currentCategory.id === c.id;
+            catHtml += `<label class="filter-option ${isActive ? "active" : ""}"><input type="radio" name="cat" value="${c.slug}" ${isActive ? "checked" : ""} onchange="goToFilterCategory('${c.slug}')"> ${escapeHtml(c.nom)} <span class="filter-option-count">${catCounts[c.id] || 0}</span></label>`;
+          });
+          catBody.innerHTML = catHtml;
+
+          // Marques
+          allBrands = await sbGet("brands?select=id,nom&order=nom.asc");
+          const brandCounts = {};
+          allProds.forEach((p) => {
+            if (p.brand_id)
+              brandCounts[p.brand_id] = (brandCounts[p.brand_id] || 0) + 1;
+          });
+
+          const brandBody = document.getElementById("filterBrandBody");
+          if (!allBrands.length) {
+            brandBody.innerHTML = `<p style="font-size:12px;color:var(--t3)">Aucune marque enregistrée</p>`;
+          } else {
+            brandBody.innerHTML = allBrands
+              .map(
+                (b) => `
+        <label class="filter-option">
+          <input type="checkbox" value="${b.id}" class="brand-filter-cb" onchange="onFilterChange()">
+          ${escapeHtml(b.nom)} <span class="filter-option-count">${brandCounts[b.id] || 0}</span>
+        </label>`,
+              )
+              .join("");
+          }
+
+          // Synchronise le drawer mobile avec les mêmes filtres
+          syncMobileFilters();
+        } catch (e) {
+          console.error("loadFilterOptions:", e);
+        }
+      }
+
+      function syncMobileFilters() {
+        document.getElementById("mfiltersBody").innerHTML = `
+    <div class="filter-block">
+      <div class="filter-block-title">Catégorie</div>
+      <div class="filter-block-body">${document.getElementById("filterCategoryBody").innerHTML}</div>
+    </div>
+    <div class="filter-block">
+      <div class="filter-block-title">Marque</div>
+      <div class="filter-block-body">${document.getElementById("filterBrandBody").innerHTML}</div>
+    </div>
+    <div class="filter-block">
+      <div class="filter-block-title">Prix (F CFA)</div>
+      <div class="filter-block-body">
+        <div class="price-range-inputs">
+          <input type="number" placeholder="Min" id="priceMinMobile" onchange="syncPriceFromMobile()">
+          <span class="price-range-sep">—</span>
+          <input type="number" placeholder="Max" id="priceMaxMobile" onchange="syncPriceFromMobile()">
+        </div>
+      </div>
+    </div>
+    <div class="filter-block">
+      <div class="filter-block-title">Disponibilité</div>
+      <div class="filter-block-body">
+        <label class="filter-option"><input type="checkbox" id="stockInMobile" checked onchange="syncStockFromMobile()"> En stock</label>
+        <label class="filter-option"><input type="checkbox" id="stockLowMobile" checked onchange="syncStockFromMobile()"> Stock limité</label>
+        <label class="filter-option"><input type="checkbox" id="stockOutMobile" onchange="syncStockFromMobile()"> Inclure épuisés</label>
+      </div>
+    </div>`;
+      }
+
+      function syncPriceFromMobile() {
+        document.getElementById("priceMin").value =
+          document.getElementById("priceMinMobile").value;
+        document.getElementById("priceMax").value =
+          document.getElementById("priceMaxMobile").value;
+        onFilterChange();
+      }
+      function syncStockFromMobile() {
+        document.getElementById("stockIn").checked =
+          document.getElementById("stockInMobile").checked;
+        document.getElementById("stockLow").checked =
+          document.getElementById("stockLowMobile").checked;
+        document.getElementById("stockOut").checked =
+          document.getElementById("stockOutMobile").checked;
+        onFilterChange();
+      }
+
+      function goToFilterCategory(slug) {
+        if (slug) window.location.href = `catalogue.html?categorie=${slug}`;
+        else window.location.href = `catalogue.html`;
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // APPLICATION DES FILTRES (marque, prix, stock, tri)
+      // ══════════════════════════════════════════════════════════
+      function applyFiltersAndRender() {
+ 
+        let result = [...allProducts];
+
+        // Marques sélectionnées
+        const selectedBrands = Array.from(
+          document.querySelectorAll(".brand-filter-cb:checked"),
+        ).map((cb) => cb.value);
+        if (selectedBrands.length) {
+          result = result.filter((p) => selectedBrands.includes(p.brand_id));
+        }
+
+        // Prix
+        const priceMin = parseFloat(document.getElementById("priceMin").value);
+        const priceMax = parseFloat(document.getElementById("priceMax").value);
+        if (!isNaN(priceMin)) result = result.filter((p) => p.prix >= priceMin);
+        if (!isNaN(priceMax)) result = result.filter((p) => p.prix <= priceMax);
+
+        // Disponibilité
+        const showIn = document.getElementById("stockIn").checked;
+        const showLow = document.getElementById("stockLow").checked;
+        const showOut = document.getElementById("stockOut").checked;
+        result = result.filter((p) => {
+          if (p.statut_stock === "in_stock") return showIn;
+          if (p.statut_stock === "low_stock") return showLow;
+          if (p.statut_stock === "out_of_stock") return showOut;
+          return true;
+        });
+
+        // Tri
+        const sort = document.getElementById("sortSelect").value;
+        if (sort === "price_asc") result.sort((a, b) => a.prix - b.prix);
+        else if (sort === "price_desc") result.sort((a, b) => b.prix - a.prix);
+        else if (sort === "newest")
+          result.sort(
+            (a, b) => new Date(b.created_at) - new Date(a.created_at),
+          );
+        else if (sort === "rating")
+          result.sort((a, b) => (b.rating_avg || 0) - (a.rating_avg || 0));
+
+        filteredProducts = result;
+        currentPage = 1;
+        renderActiveChips(selectedBrands);
+        renderProductsPage();
+      }
+
+      function onFilterChange() {
+        applyFiltersAndRender();
+      }
+
+      function applyPricePreset(min, max, btn) {
+        document
+          .querySelectorAll(".price-preset-btn")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById("priceMin").value = min || "";
+        document.getElementById("priceMax").value = max || "";
+        onFilterChange();
+      }
+
+      function resetFilters() {
+        document
+          .querySelectorAll(".brand-filter-cb")
+          .forEach((cb) => (cb.checked = false));
+        document.getElementById("priceMin").value = "";
+        document.getElementById("priceMax").value = "";
+        document.getElementById("stockIn").checked = true;
+        document.getElementById("stockLow").checked = true;
+        document.getElementById("stockOut").checked = false;
+        document
+          .querySelectorAll(".price-preset-btn")
+          .forEach((b) => b.classList.remove("active"));
+        document.getElementById("sortSelect").value = "relevance";
+        onFilterChange();
+        showToast("Filtres réinitialisés");
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // CHIPS FILTRES ACTIFS
+      // ══════════════════════════════════════════════════════════
+      function renderActiveChips(selectedBrandIds) {
+        const chips = [];
+
+        if (currentCategory)
+          chips.push({
+            label: currentCategory.nom,
+            onRemove: `window.location.href='catalogue.html'`,
+          });
+        if (currentSubcategory)
+          chips.push({
+            label: currentSubcategory.nom,
+            onRemove: `window.location.href='catalogue.html'`,
+          });
+
+        selectedBrandIds.forEach((id) => {
+          const brand = allBrands.find((b) => b.id === id);
+          if (brand)
+            chips.push({ label: brand.nom, onRemove: `uncheckBrand('${id}')` });
+        });
+
+        const priceMin = document.getElementById("priceMin").value;
+        const priceMax = document.getElementById("priceMax").value;
+        if (priceMin || priceMax) {
+          chips.push({
+            label: `${priceMin ? fmt(priceMin) + " F" : "0"} – ${priceMax ? fmt(priceMax) + " F" : "∞"}`,
+            onRemove: `clearPriceFilter()`,
+          });
+        }
+
+        const wrap = document.getElementById("activeFiltersChips");
+        wrap.innerHTML = chips
+          .map(
+            (c) => `
+    <div class="filter-chip">${escapeHtml(c.label)} <button onclick="${c.onRemove}"><i class="ti ti-x"></i></button></div>
+  `,
+          )
+          .join("");
+      }
+
+      function uncheckBrand(id) {
+        const cb = document.querySelector(`.brand-filter-cb[value="${id}"]`);
+        if (cb) cb.checked = false;
+        onFilterChange();
+      }
+      function clearPriceFilter() {
+        document.getElementById("priceMin").value = "";
+        document.getElementById("priceMax").value = "";
+        document
+          .querySelectorAll(".price-preset-btn")
+          .forEach((b) => b.classList.remove("active"));
+        onFilterChange();
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // RENDU PRODUITS (grille + liste) + PAGINATION
+      // ══════════════════════════════════════════════════════════
+      function renderProductsPage() {
+        document.getElementById("resultsCount").textContent =
+          filteredProducts.length;
+        document.getElementById("catalogSubtitle").innerHTML =
+          `<strong>${filteredProducts.length}</strong> produit${filteredProducts.length !== 1 ? "s" : ""} trouvé${filteredProducts.length !== 1 ? "s" : ""}`;
+
+        const start = (currentPage - 1) * PAGE_SIZE;
+        const pageItems = filteredProducts.slice(start, start + PAGE_SIZE);
+
+        if (!filteredProducts.length) {
+          const emptyHtml = `
+      <div class="catalog-empty" style="grid-column:1/-1">
+        <i class="ti ti-package-off"></i>
+        <h3>Aucun produit trouvé</h3>
+        <p>Essayez de modifier ou réinitialiser vos filtres.</p>
+        <button onclick="resetFilters()">Réinitialiser les filtres</button>
+      </div>`;
+          document.getElementById("productsGrid").innerHTML = emptyHtml;
+          document.getElementById("productsList").innerHTML = emptyHtml;
+          document.getElementById("pagination").innerHTML = "";
+          return;
+        }
+
+        document.getElementById("productsGrid").innerHTML = pageItems
+          .map(renderGridCard)
+          .join("");
+        document.getElementById("productsList").innerHTML = pageItems
+          .map(renderListRow)
+          .join("");
+
+        renderPagination();
+      }
+
+      const STOCK_LABELS = {
+        in_stock: "En stock",
+        low_stock: "Stock limité",
+        out_of_stock: "Épuisé",
+      };
+      const STOCK_CLASS = {
+        in_stock: "in",
+        low_stock: "low",
+        out_of_stock: "out",
+      };
+
+      function renderGridCard(p) {
+        const img =
+          p.image_principale ||
+          "https://placehold.co/400x400/E5E7EB/9CA3AF?text=Produit";
+        const badge =
+          p.pct_reduction > 0
+            ? `<span class="prod-badge">-${p.pct_reduction}%</span>`
+            : p.statut_stock === "out_of_stock"
+              ? `<span class="prod-badge-out">Épuisé</span>`
+              : "";
+        const oldPrice = p.prix_ancien
+          ? `<span class="price-old">${fmt(p.prix_ancien)} F</span>`
+          : "";
+        const stockClass = STOCK_CLASS[p.statut_stock] || "in";
+        const stockLabel = STOCK_LABELS[p.statut_stock] || "En stock";
+        const isOut = p.statut_stock === "out_of_stock";
+        const avg = parseFloat(p.rating_avg) || 0;
+        const fullStars = Math.round(avg);
+        const stars = "★".repeat(fullStars) + "☆".repeat(5 - fullStars);
+
+        return `
+    <div class="prod-card" onclick="window.location.href='product.html?id=${p.id}'">
+      <div class="prod-img-wrap">
+        <img src="${img}" alt="${escapeHtml(p.nom)}">
+        ${badge}
+        <div class="prod-wish" onclick="event.stopPropagation()"><i class="ti ti-heart"></i></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-brand">${escapeHtml(p.brand_nom || "")}</div>
+        <h3>${escapeHtml(p.nom)}</h3>
+        <div class="prod-stars"><span class="stars">${stars}</span><span class="review-count">(${p.rating_count || 0})</span></div>
+        <div class="prod-prices"><span class="price-new">${fmt(p.prix)} F</span>${oldPrice}</div>
+        <div class="stock-tag ${stockClass}"><i class="ti ti-circle-filled"></i> ${stockLabel}</div>
+        <button class="btn-order ${isOut ? "disabled" : ""}" ${isOut ? "disabled" : `onclick="event.stopPropagation();quickAdd('${p.id}','${escapeHtml(p.nom)}',${p.prix})"`}>${isOut ? "Indisponible" : "Commander"}</button>
+      </div>
+    </div>`;
+      }
+
+      function renderListRow(p) {
+        const img =
+          p.image_principale ||
+          "https://placehold.co/200x200/E5E7EB/9CA3AF?text=Produit";
+        const badge =
+          p.pct_reduction > 0
+            ? `<span class="prod-badge" style="position:absolute;top:8px;left:8px">-${p.pct_reduction}%</span>`
+            : "";
+        const oldPrice = p.prix_ancien
+          ? `<span class="price-old">${fmt(p.prix_ancien)} F</span>`
+          : "";
+        const stockClass = STOCK_CLASS[p.statut_stock] || "in";
+        const stockLabel = STOCK_LABELS[p.statut_stock] || "En stock";
+        const isOut = p.statut_stock === "out_of_stock";
+
+        return `
+    <div class="prod-row" onclick="window.location.href='product.html?id=${p.id}'">
+      <div class="prod-row-img"><img src="${img}" alt="${escapeHtml(p.nom)}">${badge}</div>
+      <div class="prod-row-body">
+        <div class="prod-row-top">
+          <div>
+            <div class="prod-brand">${escapeHtml(p.brand_nom || "")}</div>
+            <div class="prod-row-name">${escapeHtml(p.nom)}</div>
+          </div>
+        </div>
+        <div class="prod-row-desc">${escapeHtml(p.description || "")}</div>
+        <div class="prod-row-bottom">
+          <div class="prod-prices"><span class="price-new">${fmt(p.prix)} F</span>${oldPrice}</div>
+          <div class="prod-row-actions">
+            <div class="stock-tag ${stockClass}"><i class="ti ti-circle-filled"></i> ${stockLabel}</div>
+            <button class="btn-order-row" ${isOut ? 'disabled style="opacity:.5;cursor:not-allowed"' : `onclick="event.stopPropagation();quickAdd('${p.id}','${escapeHtml(p.nom)}',${p.prix})"`}>${isOut ? "Indisponible" : "Commander"}</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // PAGINATION
+      // ══════════════════════════════════════════════════════════
+      function renderPagination() {
+        const totalPages = Math.ceil(filteredProducts.length / PAGE_SIZE);
+        const wrap = document.getElementById("pagination");
+        if (totalPages <= 1) {
+          wrap.innerHTML = "";
+          return;
+        }
+
+        let html = `<button class="page-btn" ${currentPage === 1 ? "disabled" : ""} onclick="goPage(${currentPage - 1})"><i class="ti ti-chevron-left"></i></button>`;
+
+        const maxShown = 5;
+        let start = Math.max(1, currentPage - 2);
+        let end = Math.min(totalPages, start + maxShown - 1);
+        if (end - start < maxShown - 1) start = Math.max(1, end - maxShown + 1);
+
+        if (start > 1)
+          html += `<button class="page-btn" onclick="goPage(1)">1</button><span class="page-dots">…</span>`;
+        for (let i = start; i <= end; i++) {
+          html += `<button class="page-btn ${i === currentPage ? "active" : ""}" onclick="goPage(${i})">${i}</button>`;
+        }
+        if (end < totalPages)
+          html += `<span class="page-dots">…</span><button class="page-btn" onclick="goPage(${totalPages})">${totalPages}</button>`;
+
+        html += `<button class="page-btn" ${currentPage === totalPages ? "disabled" : ""} onclick="goPage(${currentPage + 1})"><i class="ti ti-chevron-right"></i></button>`;
+        wrap.innerHTML = html;
+      }
+
+      function goPage(p) {
+        currentPage = p;
+        renderProductsPage();
+        window.scrollTo({
+          top: document.querySelector(".catalog-toolbar").offsetTop - 100,
+          behavior: "smooth",
+        });
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // VIEW TOGGLE
+      // ══════════════════════════════════════════════════════════
+      function setView(mode) {
+        currentView = mode;
+        const grid = document.getElementById("productsGrid");
+        const list = document.getElementById("productsList");
+        document
+          .getElementById("viewGridBtn")
+          .classList.toggle("active", mode === "grid");
+        document
+          .getElementById("viewListBtn")
+          .classList.toggle("active", mode === "list");
+        grid.style.display = mode === "grid" ? "grid" : "none";
+        list.style.display = mode === "list" ? "flex" : "none";
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // FILTER BLOCK COLLAPSE
+      // ══════════════════════════════════════════════════════════
+      function toggleFilterBlock(titleEl) {
+        titleEl.closest(".filter-block").classList.toggle("collapsed");
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // MOBILE FILTERS DRAWER
+      // ══════════════════════════════════════════════════════════
+      function openMobileFilters() {
+        document.getElementById("mfiltersPanel").classList.add("open");
+        document.getElementById("mfiltersOverlay").classList.add("open");
+      }
+      function closeMobileFilters() {
+        document.getElementById("mfiltersPanel").classList.remove("open");
+        document.getElementById("mfiltersOverlay").classList.remove("open");
+      }
+      function applyMobileFilters() {
+        closeMobileFilters();
+        onFilterChange();
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // PANIER
+      // ══════════════════════════════════════════════════════════
+      function updateCartBadge() {
+        const totalQty = cart.reduce((s, i) => s + (i.qty || 1), 0);
+        document.getElementById("cartBadge").textContent = totalQty;
+      }
+      function quickAdd(id, nom, prix) {
+        const ex = cart.find((x) => x.id === id);
+        if (ex) ex.qty++;
+        else cart.push({ id, name: nom, price: prix, qty: 1 });
+        localStorage.setItem("dls_cart", JSON.stringify(cart));
+        updateCartBadge();
+        showToast(`"${nom.substring(0, 30)}…" ajouté au panier`);
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // NAVBAR + DRAWER (catégories dynamiques, identique aux autres pages)
+      // ══════════════════════════════════════════════════════════
+      async function loadNavCategories() {
+        try {
+          const cats = await sbGet(
+            "categories?select=id,nom,slug,parent_id&order=nom.asc",
+          );
+          const mainCats = cats.filter((c) => !c.parent_id);
+          const subCats = cats.filter((c) => c.parent_id);
+
+          document.getElementById("navCategoriesLinks").innerHTML = mainCats
+            .slice(0, 5)
+            .map(
+              (c) =>
+                `<a href="catalogue.html?categorie=${c.slug}" class="nav-link">${escapeHtml(c.nom)}</a>`,
+            )
+            .join("");
+
+          document.getElementById("drawerCategoriesLinks").innerHTML = mainCats
+            .map(
+              (c) =>
+                `<a href="catalogue.html?categorie=${c.slug}" class="drawer-link"><i class="ti ti-chevron-right"></i> ${escapeHtml(c.nom)}</a>`,
+            )
+            .join("");
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // RECHERCHE HEADER
+      // ══════════════════════════════════════════════════════════
+      function doHeaderSearch() {
+        const q = document.getElementById("headerSearchInput").value.trim();
+        if (q)
+          window.location.href = `catalogue.html?q=${encodeURIComponent(q)}`;
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // DRAWER MOBILE NAV
+      // ══════════════════════════════════════════════════════════
+      function openDrawer() {
+        document.getElementById("drawer").classList.add("open");
+        document.getElementById("drawerOverlay").classList.add("open");
+      }
+      function closeDrawer() {
+        document.getElementById("drawer").classList.remove("open");
+        document.getElementById("drawerOverlay").classList.remove("open");
+      }
+
+     // ──────────────────────────────────────────────────────────────
+      // CART FUNCTIONS
+      // ──────────────────────────────────────────────────────────────
+      function toggleCart() {
+        document.getElementById("cartOverlay").classList.toggle("open");
+        document.getElementById("cartSidebar").classList.toggle("open");
+      }
+
+      function updateCartBadge() {
+        const total = cart.reduce((s, i) => s + (i.qty || 1), 0);
+        document.getElementById("cartBadge").textContent = total;
+        renderCart();
+      }
+
+      function renderCart() {
+        const body = document.getElementById("cartBody");
+        const footer = document.getElementById("cartFooter");
+
+        if (!cart.length) {
+          body.innerHTML = `<div class="cart-empty"><i class="ti ti-shopping-cart"></i><p>Votre panier est vide</p></div>`;
+          footer.style.display = "none";
+          return;
+        }
+
+        footer.style.display = "block";
+        body.innerHTML = cart
+          .map(
+            (item, index) => `
+          <div class="cart-item">
+            <div class="cart-item-img">
+              <img src="${item.image || "https://placehold.co/60x60/E5E7EB/9CA3AF?text=?"}" alt="${escapeHtml(item.name)}">
+            </div>
+            <div class="cart-item-info">
+              <div class="cart-item-name">${escapeHtml(item.name)}</div>
+              <div class="cart-item-price">${(item.price * (item.qty || 1)).toLocaleString("fr-FR")} F CFA</div>
+              <div class="cart-qty">
+                <button class="qty-btn" onclick="changeQty(${index}, -1)"><i class="ti ti-minus"></i></button>
+                <span class="qty-num">${item.qty || 1}</span>
+                <button class="qty-btn" onclick="changeQty(${index}, 1)"><i class="ti ti-plus"></i></button>
+                <button class="cart-item-remove" onclick="removeItem(${index})"><i class="ti ti-trash"></i></button>
+              </div>
+            </div>
+          </div>
+                `,
+          )
+          .join("");
+
+        const total = cart.reduce((s, i) => s + i.price * (i.qty || 1), 0);
+        document.getElementById("cartTotal").innerHTML =
+          `${total.toLocaleString("fr-FR")} F CFA`;
+      }
+
+      function changeQty(index, delta) {
+        const item = cart[index];
+        if (!item) return;
+        item.qty = (item.qty || 1) + delta;
+        if (item.qty <= 0) {
+          cart.splice(index, 1);
+        }
+        localStorage.setItem("dls_cart", JSON.stringify(cart));
+        updateCartBadge();
+      }
+
+      function removeItem(index) {
+        cart.splice(index, 1);
+        localStorage.setItem("dls_cart", JSON.stringify(cart));
+        updateCartBadge();
+      }
+
+      function addToCart(product) {
+        const existing = cart.find((i) => i.id === product.id);
+        if (existing) {
+          existing.qty = (existing.qty || 1) + 1;
+        } else {
+          cart.push({
+            id: product.id,
+            name: product.nom,
+            price: product.prix,
+            image: product.image_principale || product.image,
+            qty: 1,
+          });
+        }
+        localStorage.setItem("dls_cart", JSON.stringify(cart));
+        updateCartBadge();
+        showToast(`"${product.nom.substring(0, 30)}…" ajouté au panier`);
+      }
+
+
+
+
+      // ══════════════════════════════════════════════════════════
+      // TOAST
+      // ══════════════════════════════════════════════════════════
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        document.getElementById("toastMsg").textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 3000);
+      }
+
+      window.addEventListener("pageshow", function (event) {
+        // Si la page vient du cache (bouton retour)
+        if (event.persisted) {
+          // Recharger complètement la page
+
+          location.reload();
+          console.log("je viens du cache");
+        }
+      });
+      // ══════════════════════════════════════════════════════════
+      // INIT - FONCTION DECLAREE (accessible partout)
+      // ══════════════════════════════════════════════════════════
+      async function init() {
+        console.log("🚀 Initialisation du catalogue...");
+
+        // Réinitialiser la disponibilité
+        setTimeout(() => {
+          document.getElementById("stockIn").checked = true;
+          document.getElementById("stockLow").checked = true;
+          document.getElementById("stockOut").checked = false;
+
+          // Synchroniser avec le mobile
+          document.getElementById("stockInMobile").checked = true;
+          document.getElementById("stockLowMobile").checked = true;
+          document.getElementById("stockOutMobile").checked = false;
+
+          // Recharger les produits avec les bons filtres
+          onFilterChange();
+        }, 100);
+
+        // Vider le DOM
+        document.getElementById("productsGrid").innerHTML = `
+    <div class="cats-empty" style="grid-column: 1/-1">
+      <i class="ti ti-loader-2" style="animation: spin 0.8s linear infinite"></i>
+      <p>Chargement des produits…</p>
+    </div>
+  `;
+        document.getElementById("productsList").innerHTML = "";
+        document.getElementById("pagination").innerHTML = "";
+
+        updateCartBadge();
+        await loadHeroAndContext();
+        await loadFilterOptions();
+        await loadNavCategories();
+        await loadProducts();
+        console.log("✅ Catalogue chargé");
+      }
+      // ══════════════════════════════════════════════════════════
+      // GESTION DU CHARGEMENT ET DU RETOUR
+      // ══════════════════════════════════════════════════════════
+
+      // 1. Premier chargement
+      document.addEventListener("DOMContentLoaded", init);
+
+      // 2. Retour du navigateur (BFCache)
+      window.addEventListener("pageshow", function (event) {
+        if (event.persisted) {
+          console.log("🔄 Retour détecté, rechargement...");
+          init();
+        }
+      });
+    </script>
+  </body>
+</html>

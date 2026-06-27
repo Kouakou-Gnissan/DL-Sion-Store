@@ -1,0 +1,1429 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,shrink-to-fit=no"
+    />
+    <title>
+      DL Sion Store.ci – Achat en ligne Côte d'Ivoire | Électronique, TV,
+      Téléphones
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <!-- ANNOUNCE BAR -->
+    <div class="announce-bar">
+      <div class="announce-track" id="ticker">
+        <span>🚚 Livraison rapide Abidjan &amp; intérieur</span>
+        <span>💳 Paiement à la livraison disponible</span>
+        <span>📱 07 59 80 80 91 – Support 24h/7</span>
+        <span>🎁 Réductions sur achats multiples</span>
+        <span>✅ Garantie SAV sur tous les produits</span>
+        <span>🚚 Livraison rapide Abidjan &amp; intérieur</span>
+        <span>💳 Paiement à la livraison disponible</span>
+        <span>📱 07 59 80 80 91 – Support 24h/7</span>
+        <span>🎁 Réductions sur achats multiples</span>
+        <span>✅ Garantie SAV sur tous les produits</span>
+      </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+      <div class="header-top">
+        <div class="logo">
+          <div class="logo-icon" onclick="openDrawer()">
+            <svg viewBox="0 0 24 24">
+              <path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+            </svg>
+          </div>
+          <div>
+            <div class="logo-text">DL Sion <span>Store.ci</span></div>
+            <div class="logo-sub">N°1 Achat en ligne Côte d'Ivoire</div>
+          </div>
+        </div>
+        <div class="search-bar">
+          <input
+            type="text"
+            id="headerSearchInput"
+            placeholder="Rechercher un produit, une marque…"
+          />
+          <button onclick="doHeaderSearch()">
+            <i class="ti ti-search"></i> Rechercher
+          </button>
+        </div>
+        <div class="header-actions">
+          <div class="header-phone">
+            <i class="ti ti-phone-call"></i>
+            <div class="header-phone-text">
+              <div class="lbl">Appelez-nous</div>
+              <div class="num">07 59 80 80 91</div>
+            </div>
+          </div>
+          <a href="favoris.html" class="action-btn" style="display: none">
+            <i class="ti ti-heart" style="font-size: 22px"></i>
+            <span>Favoris</span>
+          </a>
+          <a
+            href="#"
+            class="action-btn"
+            onclick="
+              toggleCart();
+              return false;
+            "
+          >
+            <i class="ti ti-shopping-cart" style="font-size: 22px"></i>
+            <span>Panier</span>
+            <span class="cart-badge" id="cartBadge">0</span>
+          </a>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <div class="nav-inner">
+          <button class="hamburger" onclick="openDrawer()">
+            <i class="ti ti-menu-2"></i> Catégories
+          </button>
+          <a href="index.html" class="nav-link active">Accueil</a>
+          <div id="navCategoriesLinks" style="display: flex"></div>
+          <a href="categories.html" class="nav-link">Catégories</a>
+          <a href="promotions.html" class="nav-link nav-promo"
+            ><i class="ti ti-tag"></i> Promos</a
+          >
+          <span class="nav-phone"
+            ><i class="ti ti-phone-call" style="font-size: 13px"></i> (+225) 07
+            59 80 80 91</span
+          >
+        </div>
+      </nav>
+    </header>
+
+    <!-- DRAWER MENU -->
+    <div
+      class="drawer-overlay"
+      id="drawerOverlay"
+      onclick="closeDrawer()"
+    ></div>
+    <div class="drawer" id="drawer">
+      <div class="drawer-head">
+        <div class="drawer-logo">DL Sion <span>Store.ci</span></div>
+        <button class="drawer-close" onclick="closeDrawer()">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+      <div class="drawer-search">
+        <div class="drawer-search-inner">
+          <input type="text" placeholder="Rechercher…" id="drawerSearchInput" />
+          <button onclick="doDrawerSearch()">
+            <i class="ti ti-search"></i>
+          </button>
+        </div>
+      </div>
+      <nav class="drawer-nav" id="drawerNav">
+        <div id="drawerCategoriesLinks"></div>
+      </nav>
+    </div>
+
+    <!-- HERO SLIDER (dynamique) -->
+    <section class="hero">
+      <div class="hero-main" id="heroMain">
+        <div class="hero-slide active">
+          <div
+            class="hero-slide-bg"
+            style="
+              background: linear-gradient(135deg, #111827 0%, #1e3a5f 100%);
+            "
+          ></div>
+          <div class="hero-content">
+            <div class="hero-badge">
+              <i class="ti ti-bolt" style="font-size: 11px"></i> Promo Limitée
+            </div>
+            <h1 class="hero-title">
+              Fauteuil Gaming<br /><em>ERGONOMIQUE PRO</em>
+            </h1>
+            <p class="hero-sub">
+              Confort pro à petit prix ! Votre dos va vous dire merci.
+            </p>
+            <div class="hero-btns">
+              <a href="catalogue.html" class="hero-cta"
+                ><i class="ti ti-shopping-cart" style="font-size: 14px"></i>
+                Profitez maintenant !</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="hero-slide">
+          <div
+            class="hero-slide-bg"
+            style="
+              background: linear-gradient(135deg, #0f2239 0%, #1e3a5f 100%);
+            "
+          ></div>
+          <div class="hero-content">
+            <div class="hero-badge">
+              <i class="ti ti-tag" style="font-size: 11px"></i> Spécial Ramadan
+            </div>
+            <h1 class="hero-title">
+              Équipez votre<br />maison à <em>petit prix !</em>
+            </h1>
+            <p class="hero-sub">
+              Jusqu'à <strong style="color: var(--yellow)">-50%</strong> sur
+              l'électroménager sélectionné
+            </p>
+            <div class="hero-btns">
+              <a href="catalogue.html" class="hero-cta"
+                >J'en profite maintenant !</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="hero-slide">
+          <div
+            class="hero-slide-bg"
+            style="
+              background: linear-gradient(135deg, #162d4a 0%, #111827 100%);
+            "
+          ></div>
+          <div class="hero-content">
+            <div class="hero-badge">
+              <i class="ti ti-volume" style="font-size: 11px"></i> Son Ultra
+              Puissant
+            </div>
+            <h1 class="hero-title">
+              Le vrai son du<br /><em>cinéma à la maison</em>
+            </h1>
+            <p class="hero-sub">
+              Home Cinéma LG — 1000W Bluetooth en PROMO LIMITÉE
+            </p>
+            <div class="hero-btns">
+              <a href="catalogue.html" class="hero-cta"
+                >Profiter de l'offre !</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="hero-dots">
+          <div class="dot active" onclick="goSlide(0)"></div>
+          <div class="dot" onclick="goSlide(1)"></div>
+          <div class="dot" onclick="goSlide(2)"></div>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="side-card" style="min-height: 130px">
+          <div
+            class="side-card-bg"
+            style="background: linear-gradient(135deg, #1e3a5f, #0f2239)"
+          ></div>
+          <div class="side-card-body">
+            <div class="side-card-tag">
+              <i class="ti ti-bolt" style="font-size: 11px"></i> Offre spéciale
+            </div>
+            <div class="side-card-title">PC Portables<br />dès 150 000 F</div>
+            <div class="side-card-price">Voir →</div>
+          </div>
+        </div>
+        <div class="side-card" style="min-height: 130px">
+          <div
+            class="side-card-bg"
+            style="background: linear-gradient(135deg, #162d4a, #1e3a5f)"
+          ></div>
+          <div class="side-card-body">
+            <div class="side-card-tag">
+              <i class="ti ti-flame" style="font-size: 11px"></i> Stock limité
+            </div>
+            <div class="side-card-title">Accessoires<br />jusqu'à -30%</div>
+            <div class="side-card-price">J'en profite →</div>
+          </div>
+        </div>
+        <div class="side-card" style="min-height: 110px">
+          <div
+            class="side-card-bg"
+            style="background: linear-gradient(135deg, #111827, #1e3a5f)"
+          ></div>
+          <div class="side-card-body">
+            <div class="side-card-tag">
+              <i class="ti ti-star" style="font-size: 11px"></i> Nouveau
+            </div>
+            <div class="side-card-title">
+              Téléphones &amp;<br />tablettes 2025
+            </div>
+            <div class="side-card-price">Découvrir →</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROMO BANNER -->
+    <div class="promo-banner">
+      <div class="promo-inner">
+        <div>
+          <div class="promo-eyebrow">
+            <i class="ti ti-flame"></i> Festival DL SION TECH
+          </div>
+          <div class="promo-label">
+            Dépêchez-vous !<br /><span>L'offre se termine dans :</span>
+          </div>
+        </div>
+        <div class="promo-timer">
+          <div class="timer-box">
+            <span class="num" id="th">08</span><span class="lbl">Heures</span>
+          </div>
+          <span class="timer-sep">:</span>
+          <div class="timer-box">
+            <span class="num" id="tm">45</span><span class="lbl">Min</span>
+          </div>
+          <span class="timer-sep">:</span>
+          <div class="timer-box">
+            <span class="num" id="ts">30</span><span class="lbl">Sec</span>
+          </div>
+        </div>
+        <a href="catalogue.html?promo=true" class="promo-cta"
+          ><i class="ti ti-tag"></i> Voir les offres flash</a
+        >
+      </div>
+    </div>
+
+    <!-- VENTES FLASH -->
+    <div class="section" id="flashSalesSection">
+      <div class="section-head">
+        <h2 class="section-title">⚡ Ventes Flash</h2>
+        <a href="catalogue.html?promo=true" class="see-all"
+          >Voir tout <i class="ti ti-arrow-right"></i
+        ></a>
+      </div>
+      <div class="scroll-wrap">
+        <button class="scroll-btn scroll-prev" onclick="scrollLeft('flash')">
+          <i class="ti ti-chevron-left"></i>
+        </button>
+        <div class="prod-scroll" id="flash"></div>
+        <button class="scroll-btn scroll-next" onclick="scrollRight('flash')">
+          <i class="ti ti-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- CATEGORIES CAROUSEL -->
+    <div class="section">
+      <div class="section-head">
+        <h2 class="section-title">Meilleures Catégories</h2>
+        <a href="categories.html" class="see-all"
+          >Tout voir <i class="ti ti-arrow-right"></i
+        ></a>
+      </div>
+      <div class="cat-scroll-wrap">
+        <button
+          class="scroll-btn scroll-prev"
+          onclick="scrollLeft('catscroll')"
+        >
+          <i class="ti ti-chevron-left"></i>
+        </button>
+        <div class="cat-scroll" id="catscroll"></div>
+        <button
+          class="scroll-btn scroll-next"
+          onclick="scrollRight('catscroll')"
+        >
+          <i class="ti ti-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- BANNER STRIP -->
+    <div class="banner-strip">
+      <div class="strip-card">
+        <div
+          class="strip-bg"
+          style="background: linear-gradient(135deg, #0f2239, #1e3a5f)"
+        ></div>
+        <div class="strip-overlay"></div>
+        <div class="strip-content">
+          <p>☕ Petits appareils</p>
+          <h3>Réchauffez vos instants avec nos bouilloires</h3>
+          <a href="catalogue.html?categorie=bouilloires" class="strip-cta"
+            ><i class="ti ti-arrow-right" style="font-size: 11px"></i> Voir les
+            offres</a
+          >
+        </div>
+      </div>
+      <div class="strip-card">
+        <div
+          class="strip-bg"
+          style="background: linear-gradient(135deg, #111827, #1e3a5f)"
+        ></div>
+        <div class="strip-overlay"></div>
+        <div class="strip-content">
+          <p>🎮 Gaming</p>
+          <h3>Le meilleur des jeux vidéos</h3>
+          <a href="catalogue.html?categorie=jeux" class="strip-cta"
+            ><i class="ti ti-arrow-right" style="font-size: 11px"></i>
+            Explorer</a
+          >
+        </div>
+      </div>
+      <div class="strip-card">
+        <div
+          class="strip-bg"
+          style="background: linear-gradient(135deg, #162d4a, #111827)"
+        ></div>
+        <div class="strip-overlay"></div>
+        <div class="strip-content">
+          <p>🔊 Son &amp; Musique</p>
+          <h3>Nos meilleurs systèmes audio</h3>
+          <a href="catalogue.html?categorie=audio" class="strip-cta"
+            ><i class="ti ti-arrow-right" style="font-size: 11px"></i>
+            Découvrir</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- TOP MOBILES -->
+    <div class="section" id="topMobilesSection">
+      <div class="section-head">
+        <h2 class="section-title">Le meilleur du Mobile</h2>
+        <a href="catalogue.html?categorie=telephones" class="see-all"
+          >Voir tous <i class="ti ti-arrow-right"></i
+        ></a>
+      </div>
+      <div class="scroll-wrap">
+        <button class="scroll-btn scroll-prev" onclick="scrollLeft('mob')">
+          <i class="ti ti-chevron-left"></i>
+        </button>
+        <div class="prod-scroll" id="mob"></div>
+        <button class="scroll-btn scroll-next" onclick="scrollRight('mob')">
+          <i class="ti ti-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- TOP INFORMATIQUE -->
+    <div class="section" id="topInformatiqueSection">
+      <div class="section-head">
+        <h2 class="section-title">Top Informatique</h2>
+        <a href="catalogue.html?categorie=ordinateurs" class="see-all"
+          >Voir tous <i class="ti ti-arrow-right"></i
+        ></a>
+      </div>
+      <div class="scroll-wrap">
+        <button class="scroll-btn scroll-prev" onclick="scrollLeft('info')">
+          <i class="ti ti-chevron-left"></i>
+        </button>
+        <div class="prod-scroll" id="info"></div>
+        <button class="scroll-btn scroll-next" onclick="scrollRight('info')">
+          <i class="ti ti-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- TOP ACCESSOIRES -->
+    <div class="section" id="topAccessoiresSection">
+      <div class="section-head">
+        <h2 class="section-title">Accessoires Informatiques</h2>
+        <a
+          href="catalogue.html?categorie=accessoires-informatiques"
+          class="see-all"
+          >Voir tous <i class="ti ti-arrow-right"></i
+        ></a>
+      </div>
+      <div class="scroll-wrap">
+        <button class="scroll-btn scroll-prev" onclick="scrollLeft('acc')">
+          <i class="ti ti-chevron-left"></i>
+        </button>
+        <div class="prod-scroll" id="acc"></div>
+        <button class="scroll-btn scroll-next" onclick="scrollRight('acc')">
+          <i class="ti ti-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- PRODUITS LES PLUS VENDUS -->
+    <div class="section" id="topVentesSection">
+      <div class="section-head">
+        <h2 class="section-title">Produits les plus vendus</h2>
+      </div>
+      <div class="scroll-wrap">
+        <button class="scroll-btn scroll-prev" onclick="scrollLeft('top')">
+          <i class="ti ti-chevron-left"></i>
+        </button>
+        <div class="prod-scroll" id="top"></div>
+        <button class="scroll-btn scroll-next" onclick="scrollRight('top')">
+          <i class="ti ti-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- AVIS CLIENTS -->
+    <div class="reviews-section">
+      <div class="reviews-inner">
+        <div class="reviews-head">
+          <h2 class="reviews-title">⭐ Avis de nos clients</h2>
+          <div style="display: flex; align-items: center; gap: 16px">
+            <div class="reviews-avg">
+              <span class="big-score">4.8</span>
+              <div>
+                <span class="stars-row">★★★★★</span>
+                <span class="total">+2 400 avis vérifiés</span>
+              </div>
+            </div>
+            <div class="reviews-arrows">
+              <div class="r-arrow" onclick="reviewsPrev()">
+                <i class="ti ti-chevron-left"></i>
+              </div>
+              <div class="r-arrow" onclick="reviewsNext()">
+                <i class="ti ti-chevron-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reviews-carousel">
+          <div class="reviews-track" id="reviewsTrack">
+            <div class="review-card">
+              <div class="review-top">
+                <div class="review-avatar-placeholder">K</div>
+                <div>
+                  <div class="review-name">Kouamé Brou</div>
+                  <div class="review-location">Cocody, Abidjan</div>
+                </div>
+              </div>
+              <div class="review-stars">★★★★★</div>
+              <div class="review-text">
+                Livraison en moins de 24h, le téléphone était bien emballé et
+                exactement comme décrit. Je recommande fortement DL Sion Store à
+                tous mes amis !
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="review-top">
+                <div
+                  class="review-avatar-placeholder"
+                  style="background: #1e3a5f; color: var(--yellow)"
+                >
+                  A
+                </div>
+                <div>
+                  <div class="review-name">Aminata Coulibaly</div>
+                  <div class="review-location">Yopougon, Abidjan</div>
+                </div>
+              </div>
+              <div class="review-stars">★★★★★</div>
+              <div class="review-text">
+                J'ai commandé une TV Samsung et elle est arrivée parfaitement.
+                Le service client est très réactif, j'ai été rappelée pour
+                confirmer avant même la livraison. Bravo !
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="review-top">
+                <div
+                  class="review-avatar-placeholder"
+                  style="background: #0f2239; color: var(--yellow)"
+                >
+                  S
+                </div>
+                <div>
+                  <div class="review-name">Séraphin Yao</div>
+                  <div class="review-location">Plateau, Abidjan</div>
+                </div>
+              </div>
+              <div class="review-stars">★★★★★</div>
+              <div class="review-text">
+                Meilleur prix sur le marché pour ce laptop HP. Installation
+                faite gratuitement et tutoriel offert. C'est la boutique qu'il
+                faut à Abidjan pour l'informatique.
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="review-top">
+                <div
+                  class="review-avatar-placeholder"
+                  style="background: #162d4a; color: var(--yellow)"
+                >
+                  F
+                </div>
+                <div>
+                  <div class="review-name">Fatou Diallo</div>
+                  <div class="review-location">Marcory, Abidjan</div>
+                </div>
+              </div>
+              <div class="review-stars">★★★★☆</div>
+              <div class="review-text">
+                Très satisfaite de mon achat ! Le réfrigérateur fonctionne
+                parfaitement. Petite attente à la livraison mais le SAV a bien
+                géré. Je reviendrai sans hésiter.
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="review-top">
+                <div
+                  class="review-avatar-placeholder"
+                  style="background: #1e3a5f; color: var(--yellow)"
+                >
+                  M
+                </div>
+                <div>
+                  <div class="review-name">Mamadou Traoré</div>
+                  <div class="review-location">Abobo, Abidjan</div>
+                </div>
+              </div>
+              <div class="review-stars">★★★★★</div>
+              <div class="review-text">
+                Commande passée le soir, livrée le lendemain matin. Emballage
+                soigné, produit authentique avec facture. DL Sion c'est du
+                sérieux, je ne vais nulle part ailleurs !
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="review-top">
+                <div
+                  class="review-avatar-placeholder"
+                  style="background: #111827; color: var(--yellow)"
+                >
+                  N
+                </div>
+                <div>
+                  <div class="review-name">Nadia Koffi</div>
+                  <div class="review-location">Treichville, Abidjan</div>
+                </div>
+              </div>
+              <div class="review-stars">★★★★★</div>
+              <div class="review-text">
+                Le casque Oraimo est incroyable pour ce prix ! Son cristallin,
+                batterie qui dure toute la journée. Les promotions flash sont
+                vraiment honnêtes ici.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reviews-nav" id="reviewsNav"></div>
+      </div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="features">
+      <div class="feat-inner">
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-truck"></i></div>
+          <div>
+            <div class="feat-title">Livraison rapide</div>
+            <div class="feat-desc">24h à Abidjan · 48h à l'intérieur</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-shield-check"></i></div>
+          <div>
+            <div class="feat-title">Paiement sécurisé</div>
+            <div class="feat-desc">Cash, Wave, Orange Money</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-gift"></i></div>
+          <div>
+            <div class="feat-title">Réduction en ligne</div>
+            <div class="feat-desc">Remise sur achats multiples</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i class="ti ti-headset"></i></div>
+          <div>
+            <div class="feat-title">Support 24h/7</div>
+            <div class="feat-desc">SAV garanti sur tous les produits</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRANDS (DYNAMIQUE) -->
+    <div class="brands">
+      <div class="brands-label">Nos marques partenaires</div>
+      <div class="brands-track-wrap">
+        <div class="brands-track" id="brandsTrack"></div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-newsletter">
+        <div class="newsletter-inner">
+          <div class="newsletter-text">
+            <div class="title">
+              <i class="ti ti-mail" style="color: var(--yellow)"></i>
+              Abonnez-vous à notre newsletter
+            </div>
+            <div class="sub">
+              Recevez nos meilleures offres, promos exclusives et nouveautés
+              directement dans votre boîte mail.
+            </div>
+          </div>
+          <div class="newsletter-form">
+            <input
+              type="email"
+              placeholder="Votre adresse e-mail…"
+              id="newsletterEmail"
+            />
+            <button onclick="subscribeNewsletter()">
+              <i class="ti ti-send"></i>
+              <span class="btn-text-newsletter">S'abonner</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="footer-main">
+        <div class="foot-brand">
+          <span class="logo-text">DL Sion <span>Store.ci</span></span>
+          <p>
+            Votre boutique en ligne N°1 en Côte d'Ivoire. Téléphones, TV,
+            électroménager, informatique — meilleurs prix garantis, livraison
+            rapide à Abidjan.
+          </p>
+          <div class="foot-contact">
+            <a href="tel:+2250759808091"
+              ><i class="ti ti-phone"></i> (+225) 07 59 80 80 91</a
+            >
+            <a href="mailto:contact@dlsionstore.ci"
+              ><i class="ti ti-mail"></i> contact@dlsionstore.ci</a
+            >
+            <a href="#"><i class="ti ti-map-pin"></i> Abidjan Plateau, RDC</a>
+          </div>
+          <div class="foot-socials">
+            <a href="#" class="social-btn"
+              ><i class="ti ti-brand-facebook"></i
+            ></a>
+            <a href="#" class="social-btn"
+              ><i class="ti ti-brand-instagram"></i
+            ></a>
+            <a href="#" class="social-btn"
+              ><i class="ti ti-brand-whatsapp"></i
+            ></a>
+            <a href="#" class="social-btn"
+              ><i class="ti ti-brand-tiktok"></i
+            ></a>
+          </div>
+        </div>
+        <div class="foot-col">
+          <h4>Catégories</h4>
+          <ul id="footerCategoriesList"></ul>
+        </div>
+        <div class="foot-col">
+          <h4>Infos légales</h4>
+          <ul>
+            <li><a href="conditions.html">Conditions d'utilisation</a></li>
+            <li><a href="retour.html">Politique de retour</a></li>
+            <li><a href="livraison.html">Politique de livraison</a></li>
+            <li><a href="confidentialite.html">Confidentialité</a></li>
+          </ul>
+        </div>
+        <div class="foot-col" style="display: none">
+          <h4>Mon compte</h4>
+          <ul>
+            <li><a href="login.html">Se connecter</a></li>
+            <li><a href="compte.html">Mes commandes</a></li>
+            <li><a href="favoris.html">Mes favoris</a></li>
+            <li><a href="suivi.html">Suivre ma livraison</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">
+          © 2025 DL Sion Store.ci — Tous droits réservés | Abidjan, Côte
+          d'Ivoire
+        </div>
+        <div class="footer-pay">
+          <span class="pay-badge">Cash</span>
+          <span class="pay-badge">Wave</span>
+          <span class="pay-badge">Orange Money</span>
+          <span class="pay-badge">MTN MoMo</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- MOBILE NAV -->
+    <nav class="mobile-nav">
+      <ul>
+        <li>
+          <a href="index.html" class="active"
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" /></svg
+            >Accueil</a
+          >
+        </li>
+        <li>
+          <a href="catalogue.html"
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" /></svg
+            >Chercher</a
+          >
+        </li>
+        <li>
+          <a href="categories.html"
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <line x1="8" y1="6" x2="21" y2="6" />
+              <line x1="8" y1="12" x2="21" y2="12" />
+              <line x1="8" y1="18" x2="21" y2="18" />
+              <line x1="3" y1="6" x2="3.01" y2="6" />
+              <line x1="3" y1="12" x2="3.01" y2="12" />
+              <line x1="3" y1="18" x2="3.01" y2="18" /></svg
+            >Catégories</a
+          >
+        </li>
+        <li>
+          <a href="catalogue.html">
+            <svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+            Catalogue
+          </a>
+        </li>
+        <li>
+          <a href="cart.html"
+            ><svg
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              fill="none"
+              stroke-width="1.8"
+            >
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path
+                d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+              /></svg
+            >Panier</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!-- WHATSAPP -->
+    <a href="https://wa.me/2250759808091" class="wa-btn" target="_blank"
+      ><i class="ti ti-brand-whatsapp"></i
+    ></a>
+
+    <!-- CART SIDEBAR -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+      <div class="cart-header">
+        <div class="cart-header-title">
+          <i class="ti ti-shopping-cart"></i> Mon panier
+        </div>
+        <button class="cart-close" onclick="toggleCart()">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+      <div class="cart-body" id="cartBody">
+        <div class="cart-empty">
+          <i class="ti ti-shopping-cart"></i>
+          <p>Votre panier est vide</p>
+        </div>
+      </div>
+      <div class="cart-footer" id="cartFooter" style="display: none">
+        <div class="cart-total-row">
+          <span class="cart-total-label">Total</span
+          ><span class="cart-total-amount" id="cartTotal">0 F CFA</span>
+        </div>
+        <button
+          class="btn-checkout"
+          onclick="window.location.href = 'cart.html'"
+        >
+          <i class="ti ti-credit-card"></i> Passer la commande
+        </button>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">
+      <i class="ti ti-check"></i> <span id="toastMsg">Produit ajouté</span>
+    </div>
+
+    <script>
+      // ──────────────────────────────────────────────────────────────
+      // SUPABASE CONFIG
+      // ──────────────────────────────────────────────────────────────
+      const SUPA_URL = "https://yrdjnsteaoajypgzqrbs.supabase.co";
+      const SUPA_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyZGpuc3RlYW9hanlwZ3pxcmJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1NzYwMDQsImV4cCI6MjA5NjE1MjAwNH0.CtraI2nEk7qPGYtHt7BOKFIrfTCU_NoXG7jP6_2lxZY";
+      const H = {
+        apikey: SUPA_KEY,
+        Authorization: `Bearer ${SUPA_KEY}`,
+        "Content-Type": "application/json",
+      };
+
+      async function sbGet(endpoint) {
+        const r = await fetch(`${SUPA_URL}/rest/v1/${endpoint}`, {
+          headers: H,
+        });
+        if (!r.ok)
+          throw new Error(`Supabase error ${r.status}: ${await r.text()}`);
+        return r.json();
+      }
+
+      // ──────────────────────────────────────────────────────────────
+      // ÉTAT GLOBAL
+      // ──────────────────────────────────────────────────────────────
+      let cart = JSON.parse(localStorage.getItem("dls_cart") || "[]");
+      let allCategories = [];
+      let allSubcategories = [];
+
+      // ──────────────────────────────────────────────────────────────
+      // HERO SLIDER
+      // ──────────────────────────────────────────────────────────────
+      let slideIdx = 0;
+      const slides = document.querySelectorAll(".hero-slide");
+      const dots = document.querySelectorAll(".dot");
+      function goSlide(n) {
+        slides[slideIdx].classList.remove("active");
+        dots[slideIdx].classList.remove("active");
+        slideIdx = n;
+        slides[slideIdx].classList.add("active");
+        dots[slideIdx].classList.add("active");
+      }
+      setInterval(() => goSlide((slideIdx + 1) % slides.length), 4500);
+
+      // ──────────────────────────────────────────────────────────────
+      // COUNTDOWN
+      // ──────────────────────────────────────────────────────────────
+      (function startTimer() {
+        let end = Date.now() + (8 * 3600 + 45 * 60 + 30) * 1000;
+        setInterval(() => {
+          let diff = Math.max(0, end - Date.now());
+          let h = Math.floor(diff / 3600000);
+          let m = Math.floor((diff % 3600000) / 60000);
+          let s = Math.floor((diff % 60000) / 1000);
+          document.getElementById("th").textContent = String(h).padStart(
+            2,
+            "0",
+          );
+          document.getElementById("tm").textContent = String(m).padStart(
+            2,
+            "0",
+          );
+          document.getElementById("ts").textContent = String(s).padStart(
+            2,
+            "0",
+          );
+        }, 1000);
+      })();
+
+      // ──────────────────────────────────────────────────────────────
+      // SCROLL BUTTONS
+      // ──────────────────────────────────────────────────────────────
+      function scrollLeft(id) {
+        const el = document.getElementById(id);
+        if (el) el.scrollBy({ left: -420, behavior: "smooth" });
+      }
+      function scrollRight(id) {
+        const el = document.getElementById(id);
+        if (el) el.scrollBy({ left: 420, behavior: "smooth" });
+      }
+
+      // ──────────────────────────────────────────────────────────────
+      // DRAWER MENU
+      // ──────────────────────────────────────────────────────────────
+      function openDrawer() {
+        document.getElementById("drawer").classList.add("open");
+        document.getElementById("drawerOverlay").classList.add("open");
+      }
+      function closeDrawer() {
+        document.getElementById("drawer").classList.remove("open");
+        document.getElementById("drawerOverlay").classList.remove("open");
+      }
+
+      function toggleDrawerCat(head) {
+        const cat = head.closest(".drawer-cat");
+        if (cat) cat.classList.toggle("open");
+      }
+
+      function doDrawerSearch() {
+        const q = document.getElementById("drawerSearchInput").value.trim();
+        if (q)
+          window.location.href = `catalogue.html?q=${encodeURIComponent(q)}`;
+      }
+
+      function doHeaderSearch() {
+        const q = document.getElementById("headerSearchInput").value.trim();
+        if (q)
+          window.location.href = `catalogue.html?q=${encodeURIComponent(q)}`;
+      }
+
+      // ──────────────────────────────────────────────────────────────
+      // CART FUNCTIONS
+      // ──────────────────────────────────────────────────────────────
+      function toggleCart() {
+        document.getElementById("cartOverlay").classList.toggle("open");
+        document.getElementById("cartSidebar").classList.toggle("open");
+      }
+
+      function updateCartBadge() {
+        const total = cart.reduce((s, i) => s + (i.qty || 1), 0);
+        document.getElementById("cartBadge").textContent = total;
+        renderCart();
+      }
+
+      function renderCart() {
+        const body = document.getElementById("cartBody");
+        const footer = document.getElementById("cartFooter");
+
+        if (!cart.length) {
+          body.innerHTML = `<div class="cart-empty"><i class="ti ti-shopping-cart"></i><p>Votre panier est vide</p></div>`;
+          footer.style.display = "none";
+          return;
+        }
+
+        footer.style.display = "block";
+        body.innerHTML = cart
+          .map(
+            (item, index) => `
+          <div class="cart-item">
+            <div class="cart-item-img">
+              <img src="${item.image || "https://placehold.co/60x60/E5E7EB/9CA3AF?text=?"}" alt="${escapeHtml(item.name)}">
+            </div>
+            <div class="cart-item-info">
+              <div class="cart-item-name">${escapeHtml(item.name)}</div>
+              <div class="cart-item-price">${(item.price * (item.qty || 1)).toLocaleString("fr-FR")} F CFA</div>
+              <div class="cart-qty">
+                <button class="qty-btn" onclick="changeQty(${index}, -1)"><i class="ti ti-minus"></i></button>
+                <span class="qty-num">${item.qty || 1}</span>
+                <button class="qty-btn" onclick="changeQty(${index}, 1)"><i class="ti ti-plus"></i></button>
+                <button class="cart-item-remove" onclick="removeItem(${index})"><i class="ti ti-trash"></i></button>
+              </div>
+            </div>
+          </div>
+                `,
+          )
+          .join("");
+
+        const total = cart.reduce((s, i) => s + i.price * (i.qty || 1), 0);
+        document.getElementById("cartTotal").innerHTML =
+          `${total.toLocaleString("fr-FR")} F CFA`;
+      }
+
+      function changeQty(index, delta) {
+        const item = cart[index];
+        if (!item) return;
+        item.qty = (item.qty || 1) + delta;
+        if (item.qty <= 0) {
+          cart.splice(index, 1);
+        }
+        localStorage.setItem("dls_cart", JSON.stringify(cart));
+        updateCartBadge();
+      }
+
+      function removeItem(index) {
+        cart.splice(index, 1);
+        localStorage.setItem("dls_cart", JSON.stringify(cart));
+        updateCartBadge();
+      }
+
+      function addToCart(product) {
+        const existing = cart.find((i) => i.id === product.id);
+        if (existing) {
+          existing.qty = (existing.qty || 1) + 1;
+        } else {
+          cart.push({
+            id: product.id,
+            name: product.nom,
+            price: product.prix,
+            image: product.image_principale || product.image,
+            qty: 1,
+          });
+        }
+        localStorage.setItem("dls_cart", JSON.stringify(cart));
+        updateCartBadge();
+        showToast(`"${product.nom.substring(0, 30)}…" ajouté au panier`);
+      }
+
+      // ──────────────────────────────────────────────────────────────
+      // NEWSLETTER
+      // ──────────────────────────────────────────────────────────────
+      function subscribeNewsletter() {
+        const email = document.getElementById("newsletterEmail").value.trim();
+        if (!email || !email.includes("@")) {
+          showToast("Veuillez entrer un email valide.");
+          return;
+        }
+        showToast("✅ Merci ! Vous êtes abonné(e) à nos offres.");
+        document.getElementById("newsletterEmail").value = "";
+      }
+
+      // ──────────────────────────────────────────────────────────────
+      // TOAST
+      // ──────────────────────────────────────────────────────────────
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        document.getElementById("toastMsg").textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 3000);
+      }
+
+      // ──────────────────────────────────────────────────────────────
+      // ESCAPE HTML
+      // ──────────────────────────────────────────────────────────────
+      function escapeHtml(str) {
+        if (!str) return "";
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      // ──────────────────────────────────────────────────────────────
+      // LOAD CATEGORIES & SUBCATEGORIES
+      // ──────────────────────────────────────────────────────────────
+      async function loadCategoriesData() {
+        try {
+          const all = await sbGet(
+            "categories?select=id,nom,slug,parent_id,image_url&order=nom.asc",
+          );
+          allCategories = all.filter((c) => !c.parent_id);
+          allSubcategories = all.filter((c) => c.parent_id);
+        } catch (e) {
+          console.error("loadCategoriesData:", e);
+        }
+      }
+
+      // ──────────────────────────────────────────────────────────────
+      // LOAD BRANDS
+      // ──────────────────────────────────────────────────────────────
+      async function loadBrands() {
+        try {
+          const brands = await sbGet(
+            "brands?select=nom,logo_url&order=nom.asc",
+          );
+          const track = document.getElementById("brandsTrack");
+          if (!brands.length) {
+            track.innerHTML = '<div class="brand-item">Aucune marque</div>';
+            return;
+          }
+          const doubled = [...brands, ...brands];
+          track.innerHTML = doubled
+            .map(
+              (b) => `
+            <div class="brand-item">
+              ${b.logo_url ? `<img src="${b.logo_url}" alt="${escapeHtml(b.nom)}">` : escapeHtml(b.nom)}
+            </div>
+          `,
+            )
+            .join("");
+        } catch (e) {
+          console.error("loadBrands:", e);
+        }
+      }
+
+      // ──────────────────────────────────────────────────────────────
+      // RENDER PRODUCT CARDS (réutilisable)
+      // ──────────────────────────────────────────────────────────────
+      function renderProductCards(products, containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        if (!products || !products.length) {
+          container.innerHTML = `<p style="color:var(--text3);padding:20px;text-align:center">Aucun produit disponible.</p>`;
+          return;
+        }
+
+        container.innerHTML = products
+          .map((p) => {
+            const img =
+              p.image_principale ||
+              "https://placehold.co/400x400/E5E7EB/9CA3AF?text=DL+Sion";
+            const brand = p.brand_nom || "";
+            const reduction =
+              p.prix_ancien && p.prix_ancien > p.prix
+                ? Math.round((1 - p.prix / p.prix_ancien) * 100)
+                : 0;
+            const isSoldOut = p.statut_stock === "out_of_stock";
+
+            // Calcul des étoiles à partir de rating_avg (0 à 5)
+            const avgRating = parseFloat(p.rating_avg) || 0;
+            const fullStars = Math.round(avgRating);
+            const starString =
+              "★".repeat(fullStars) + "☆".repeat(5 - fullStars);
+            const reviewCount = parseInt(p.rating_count) || 0;
+
+            return `
+            <div class="prod-card" onclick="window.location.href='product.html?id=${p.id}'" style="cursor:pointer">
+                <div class="prod-img-wrap">
+                <img src="${img}" alt="${escapeHtml(p.nom)}" loading="lazy">
+                ${reduction > 0 ? `<span class="prod-badge">-${reduction}%</span>` : ""}
+                </div>
+                <div class="prod-info">
+                <div class="prod-brand">${escapeHtml(brand)}</div>
+                <h3>${escapeHtml(p.nom)}</h3>
+                <div class="prod-stars">
+                    <span class="stars">${starString}</span>
+                    <span class="review-count">(${reviewCount})</span>
+                </div>
+                <div class="prod-prices">
+                    <span class="price-new">${p.prix.toLocaleString("fr-FR")} F</span>
+                    ${p.prix_ancien && p.prix_ancien > p.prix ? `<span class="price-old">${p.prix_ancien.toLocaleString("fr-FR")} F</span>` : ""}
+                </div>
+                <button class="btn-order ${isSoldOut ? "sold-out" : ""}" onclick="event.stopPropagation(); ${isSoldOut ? "" : `addToCart({id:'${p.id}', nom:'${escapeHtml(p.nom)}', prix:${p.prix}, image_principale:'${img}'})`}">
+                    ${isSoldOut ? "Épuisé" : "Je commande"}
+                </button>
+                </div>
+            </div>
+            `;
+          })
+          .join("");
+      }
+      // ──────────────────────────────────────────────────────────────
+      // LOAD PRODUCTS BY SECTION
+      // ──────────────────────────────────────────────────────────────
+      async function loadSectionProducts(endpoint, containerId, limit = 6) {
+        try {
+          const products = await sbGet(endpoint);
+          renderProductCards(products.slice(0, limit), containerId);
+        } catch (e) {
+          console.error(`loadSectionProducts ${containerId}:`, e);
+          document.getElementById(containerId).innerHTML =
+            `<p style="color:var(--text3);padding:20px;text-align:center">Erreur de chargement</p>`;
+        }
+      }
+
+      // ──────────────────────────────────────────────────────────────
+      // RENDER CATEGORIES CAROUSEL
+      // ──────────────────────────────────────────────────────────────
+      function renderCategoriesCarousel(categories) {
+        const container = document.getElementById("catscroll");
+        if (!container) return;
+
+        if (!categories || !categories.length) {
+          container.innerHTML = `<p style="color:var(--text3);padding:20px;text-align:center">Aucune catégorie disponible.</p>`;
+          return;
+        }
+
+        container.innerHTML = categories
+          .map((cat) => {
+            const img =
+              cat.image_url ||
+              "https://placehold.co/160x110/1E3A5F/F5C518?text=" +
+                encodeURIComponent(cat.nom.charAt(0));
+            return `
+            <div class="cat-card" onclick="window.location.href='catalogue.html?categorie=${cat.slug}'">
+              <div class="cat-img"><img src="${img}" alt="${escapeHtml(cat.nom)}" loading="lazy"></div>
+              <div class="cat-body">
+                <div class="cat-name">${escapeHtml(cat.nom)}</div>
+              </div>
+            </div>
+          `;
+          })
+          .join("");
+      }
+
+      // ──────────────────────────────────────────────────────────────
+      // RENDER DRAWER CATEGORIES (accordéon)
+      // ──────────────────────────────────────────────────────────────
+      function renderDrawerCategories() {
+        const container = document.getElementById("drawerCategoriesLinks");
+        if (!container) return;
+
+        container.innerHTML = allCategories
+          .map((cat) => {
+            const subs = allSubcategories.filter((s) => s.parent_id === cat.id);
+            const subsHTML = subs.length
+              ? subs
+                  .map(
+                    (s) => `
+            <a href="catalogue.html?sous_categorie=${s.slug}" class="drawer-sub-item">
+              <i class="ti ti-point"></i> ${escapeHtml(s.nom)}
+            </a>
+          `,
+                  )
+                  .join("")
+              : `<div class="drawer-sub-empty">Aucune sous-catégorie</div>`;
+
+            return `
+            <div class="drawer-cat">
+              <div class="drawer-cat-head" onclick="toggleDrawerCat(this)">
+                <div class="drawer-cat-head-left">
+                  <i class="ti ti-folder" style="font-size:16px;color:var(--navy)"></i>
+                  ${escapeHtml(cat.nom)}
+                </div>
+                <i class="ti ti-chevron-down arrow"></i>
+              </div>
+              <div class="drawer-sub">
+                <a href="catalogue.html?categorie=${cat.slug}" class="drawer-cat-viewall">
+                  <i class="ti ti-apps"></i> Voir tous les produits ${escapeHtml(cat.nom)}
+                </a>
+                ${subsHTML}
+              </div>
+            </div>
+          `;
+          })
+          .join("");
+      }
+
+      // ──────────────────────────────────────────────────────────────
+      // RENDER NAV CATEGORIES (desktop)
+      // ──────────────────────────────────────────────────────────────
+      function renderNavCategories() {
+        const container = document.getElementById("navCategoriesLinks");
+        if (!container) return;
+        const topCats = allCategories.slice(0, 5);
+        container.innerHTML = topCats
+          .map(
+            (c) => `
+          <a href="catalogue.html?categorie=${c.slug}" class="nav-link">${escapeHtml(c.nom)}</a>
+        `,
+          )
+          .join("");
+      }
+
+      // ── REVIEWS CAROUSEL ──────────────────────────────
+      const reviewCards = document.querySelectorAll(".review-card");
+      let reviewIdx = 0;
+      let reviewsPerView =
+        window.innerWidth < 600 ? 1 : window.innerWidth < 900 ? 2 : 3;
+      const reviewTrack = document.getElementById("reviewsTrack");
+      const reviewsNav = document.getElementById("reviewsNav");
+      const totalReviewSlides = Math.ceil(reviewCards.length / reviewsPerView);
+
+      function buildReviewDots() {
+        reviewsNav.innerHTML = "";
+        for (let i = 0; i < totalReviewSlides; i++) {
+          const d = document.createElement("div");
+          d.className = "reviews-dot" + (i === 0 ? " active" : "");
+          d.onclick = () => goReview(i);
+          reviewsNav.appendChild(d);
+        }
+      }
+
+      function goReview(n) {
+        reviewIdx = Math.max(0, Math.min(n, totalReviewSlides - 1));
+        const cardW = reviewCards[0].offsetWidth + 16;
+        reviewTrack.style.transform = `translateX(-${reviewIdx * cardW * reviewsPerView}px)`;
+        document
+          .querySelectorAll(".reviews-dot")
+          .forEach((d, i) => d.classList.toggle("active", i === reviewIdx));
+      }
+      function reviewsNext() {
+        goReview(reviewIdx < totalReviewSlides - 1 ? reviewIdx + 1 : 0);
+      }
+      function reviewsPrev() {
+        goReview(reviewIdx > 0 ? reviewIdx - 1 : totalReviewSlides - 1);
+      }
+
+      buildReviewDots();
+
+      // Auto-scroll reviews every 4 seconds
+      setInterval(reviewsNext, 4000);
+
+      // ──────────────────────────────────────────────────────────────
+      // RENDER FOOTER CATEGORIES
+      // ──────────────────────────────────────────────────────────────
+      function renderFooterCategories() {
+        const container = document.getElementById("footerCategoriesList");
+        if (!container) return;
+        const topCats = allCategories.slice(0, 6);
+        container.innerHTML = topCats
+          .map(
+            (c) => `
+          <li><a href="catalogue.html?categorie=${c.slug}">${escapeHtml(c.nom)}</a></li>
+        `,
+          )
+          .join("");
+      }
+
+      // ──────────────────────────────────────────────────────────────
+      // GET CATEGORY ID BY SLUG
+      // ──────────────────────────────────────────────────────────────
+      function getCategoryIdBySlug(slug) {
+        const cat = allCategories.find((c) => c.slug === slug);
+        return cat?.id || null;
+      }
+
+      function getSubcategoryIdBySlug(slug) {
+        const sub = allSubcategories.find((c) => c.slug === slug);
+        return sub?.id || null;
+      }
+
+      // ──────────────────────────────────────────────────────────────
+      // INIT
+      // ──────────────────────────────────────────────────────────────
+      async function init() {
+        updateCartBadge();
+
+        // Charger les catégories
+        await loadCategoriesData();
+
+        // Rendre les menus
+        renderDrawerCategories();
+        renderNavCategories();
+        renderFooterCategories();
+
+        // Charger les marques
+        await loadBrands();
+
+        // Charger les sections de produits
+        await loadSectionProducts(
+          "v_products_full?is_active=eq.true&order=created_at.desc&limit=10",
+          "flash",
+        );
+        await loadSectionProducts(
+          "v_products_full?is_active=eq.true&is_featured=eq.true&order=created_at.desc&limit=10",
+          "top",
+        );
+        await loadSectionProducts(
+          "v_products_full?is_active=eq.true&categorie_id=eq." +
+            (getCategoryIdBySlug("telephones") || "") +
+            "&order=created_at.desc&limit=8",
+          "mob",
+        );
+        await loadSectionProducts(
+          "v_products_full?is_active=eq.true&categorie_id=eq." +
+            (getCategoryIdBySlug("ordinateurs") || "") +
+            "&order=created_at.desc&limit=8",
+          "info",
+        );
+        await loadSectionProducts(
+          "v_products_full?is_active=eq.true&categorie_id=eq." +
+            (getCategoryIdBySlug("accessoires-informatiques") || "") +
+            "&order=created_at.desc&limit=8",
+          "acc",
+        );
+
+        // Catégories carousel
+        renderCategoriesCarousel(allCategories.slice(0, 10));
+      }
+
+      // ──────────────────────────────────────────────────────────────
+      // START
+      // ──────────────────────────────────────────────────────────────
+      document.addEventListener("DOMContentLoaded", init);
+    </script>
+  </body>
+</html>
