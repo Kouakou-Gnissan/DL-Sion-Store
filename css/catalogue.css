@@ -17,6 +17,7 @@
   --orange: #ea580c;
   --red: #dc2626;
   --r: 10px;
+  --rmobile: 5px;
   --sh: 0 2px 10px rgba(0, 0, 0, 0.08);
   --sh2: 0 8px 30px rgba(0, 0, 0, 0.13);
   --fh: "Outfit", sans-serif;
@@ -382,7 +383,6 @@ header {
 
 /* ══ HERO CATÉGORIE ═══════════════════════════════════ */
 .cat-hero {
-  
   margin: 0 auto 20px;
   padding: 0 20px;
   background: linear-gradient(135deg, var(--navy) 0%, var(--navy3) 100%);
@@ -1275,7 +1275,6 @@ footer .footer-logo span {
   color: var(--y);
 }
 
-
 /* ══════════════════════════════════════════
    CART SIDEBAR
 ══════════════════════════════════════════ */
@@ -1579,11 +1578,11 @@ footer .footer-logo span {
   }
 }
 @media (max-width: 768px) {
-
- body {
+  body {
     padding-bottom: 56px !important;
   }
   .header-top {
+    padding: 12px 10px;
     flex-wrap: wrap;
     gap: 10px;
   }
@@ -1592,6 +1591,10 @@ footer .footer-logo span {
     flex: 0 0 100%;
     max-width: 100%;
   }
+  .search-bar .label-search {
+    display: none;
+  }
+
   .hamburger {
     display: flex;
   }
@@ -1635,12 +1638,22 @@ footer .footer-logo span {
   .feat-item:last-child {
     border-bottom: none;
   }
+  .products-grid {
+    gap: 7px;
+  }
+  .prod-card {
+    border-radius: var(--rmobile);
+  }
+  .prod-info {
+    padding: 7px;
+  }
+
   /* Liste : bande horizontale conservée, juste plus compacte */
   .prod-row-img {
     width: 88px;
   }
 
-   .prod-row-img img {
+  .prod-row-img img {
     width: 88px;
     padding: 0 5px;
   }
@@ -1676,10 +1689,10 @@ footer .footer-logo span {
 @media (max-width: 600px) {
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 7px;
   }
   .catalog-layout {
-    padding: 0 14px 40px;
+    padding: 0 10px 40px;
   }
   .catalog-titlebar {
     padding: 0 14px 14px;

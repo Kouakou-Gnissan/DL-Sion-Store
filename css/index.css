@@ -17,6 +17,7 @@
   --text2: #4b5563;
   --text3: #9ca3af;
   --radius: 10px;
+  --radiusmobile: 5px;
   --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.14);
   --font-head: "Outfit", sans-serif;
@@ -2125,10 +2126,23 @@ footer {
     margin: 10px auto;
     padding: 0 10px;
   }
+
+  .prod-scroll {
+    gap: 7px;
+  }
+
   .scroll-btn {
     display: none;
   }
 
+  .prod-card {
+    border-radius: var(--radiusmobile);
+  }
+
+  .prod-info {
+  padding: 7px;
+  }
+  
   .banner-strip {
     grid-template-columns: 1fr;
     margin: 10px auto;
