@@ -1194,6 +1194,7 @@ footer .footer-logo span {
   }
 
   .header-top {
+    padding: 12px 10px;
     flex-wrap: wrap;
     gap: 10px;
   }
@@ -1206,6 +1207,11 @@ footer .footer-logo span {
     flex: 0 0 100%;
     max-width: 100%;
   }
+
+  .search-bar span {
+    display: none !important;
+  }
+
   .hamburger {
     display: flex;
   }
@@ -1220,8 +1226,12 @@ footer .footer-logo span {
   .nav-phone {
     display: none;
   }
+  .container {
+    padding: 32px 10px 50px;
+  }
   .cats-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
   .cats-hero-title {
     font-size: 22px;
@@ -1232,6 +1242,9 @@ footer .footer-logo span {
   }
   .cats-search-mini {
     width: 100%;
+  }
+  .brands {
+    padding:  10px;
   }
   .feat-item {
     border-right: none;

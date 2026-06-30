@@ -2103,8 +2103,8 @@ footer {
     flex: 0 0 100%;
     max-width: 100%;
   }
-  .search-bar .label-search {
-    display: none;
+ .search-bar span {
+    display: none !important;
   }
   .header-phone {
     display: none;
@@ -2142,7 +2142,7 @@ footer {
   .prod-info {
   padding: 7px;
   }
-  
+
   .banner-strip {
     grid-template-columns: 1fr;
     margin: 10px auto;

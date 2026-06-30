@@ -968,7 +968,7 @@ header {
 
 /* Promo code */
 .promo-box {
-  display: flex;
+  display: none;
   gap: 8px;
   margin-bottom: 16px;
 }
@@ -1539,12 +1539,17 @@ footer .footer-logo span {
   .header-top {
     flex-wrap: wrap;
     gap: 10px;
+    padding: 12px 10px;
   }
   .search-bar {
     order: 3;
     flex: 0 0 100%;
     max-width: 100%;
   }
+  .search-bar span {
+    display: none !important;
+  }
+ 
   .hamburger {
     display: flex;
   }
@@ -1556,6 +1561,9 @@ footer .footer-logo span {
   }
   .nav-phone {
     display: none;
+  }
+  .cart-layout {
+    padding: 0 10px 50px;
   }
   .cart-title {
     font-size: 21px;
@@ -1581,7 +1589,7 @@ footer .footer-logo span {
 @media (max-width: 600px) {
   .cart-layout,
   .checkout-section {
-    padding: 0 14px 40px;
+    padding: 0 10px 40px;
   }
   .cart-titlebar,
   .steps-bar {

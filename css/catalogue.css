@@ -1324,7 +1324,7 @@ footer .footer-logo span {
   gap: 7px;
 }
 .cart-header-title i {
-  color: var(--yellow);
+  color: var(--y);
 }
 .cart-close {
   font-size: 20px;
@@ -1356,7 +1356,7 @@ footer .footer-logo span {
   margin-bottom: 12px;
   display: block;
   opacity: 0.25;
-  color: var(--yellow);
+  color: var(--y);
 }
 .cart-item {
   display: flex;
@@ -1414,8 +1414,8 @@ footer .footer-logo span {
   transition: all 0.2s;
 }
 .qty-btn:hover {
-  border-color: var(--yellow);
-  color: var(--yellow);
+  border-color: var(--y);
+  color: var(--y);
 }
 .cart-item-remove {
   background: none;
@@ -1449,7 +1449,7 @@ footer .footer-logo span {
   color: var(--night);
 }
 .btn-checkout {
-  background: var(--yellow);
+  background: var(--y);
   color: var(--night);
   border: none;
   border-radius: 8px;
@@ -1465,7 +1465,7 @@ footer .footer-logo span {
   transition: background 0.2s;
 }
 .btn-checkout:hover {
-  background: var(--yellow-dark);
+  background: var(--yd);
 }
 
 /* ══ WHATSAPP + TOAST ════════════════════════════════ */
@@ -1591,8 +1591,8 @@ footer .footer-logo span {
     flex: 0 0 100%;
     max-width: 100%;
   }
-  .search-bar .label-search {
-    display: none;
+  .search-bar span {
+    display: none !important;
   }
 
   .hamburger {
@@ -1684,6 +1684,11 @@ footer .footer-logo span {
   }
   .price-new {
     font-size: 14px;
+  }
+
+  .cart-sidebar {
+    width: 100%;
+    max-width: 380px;
   }
 }
 @media (max-width: 600px) {
