@@ -1955,7 +1955,9 @@ footer .footer-logo span {
   .product-page {
     padding: 0 10px 40px;
   }
-
+  .scroll-btn {
+    display: none;
+  }
   .prod-title {
     font-size: 18px;
   }
@@ -1986,5 +1988,28 @@ footer .footer-logo span {
   }
   .desc-features {
     grid-template-columns: 1fr;
+  }
+
+  /* Description tab */
+  .desc-lead {
+    font-size: 10px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .desc-feat i {
+    font-size: 11px;
+  }
+  .desc-feat p {
+    font-size: 9px;
+  }
+  .desc-section-title {
+    font-size: 10px;
+  }
+  .specs-table td {
+    font-size: 10px;
+  }
+  .cart-sidebar {
+    width: 100%;
+    max-width: 380px;
   }
 }

@@ -196,6 +196,7 @@ header {
   font-family: var(--font-body);
   font-size: 13px;
   color: var(--text);
+  
 }
 .search-bar button {
   background: var(--navy);

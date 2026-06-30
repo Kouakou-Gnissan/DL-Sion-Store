@@ -20,7 +20,9 @@
       href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/search.css" />
   </head>
   <body>
     <!-- ANNOUNCE BAR -->
@@ -53,15 +55,25 @@
             <div class="logo-sub">N°1 Achat en ligne Côte d'Ivoire</div>
           </div>
         </div>
-        <div class="search-bar">
-          <input
-            type="text"
-            id="headerSearchInput"
-            placeholder="Rechercher un produit, une marque…"
-          />
-          <button onclick="doHeaderSearch()">
-            <i class="ti ti-search"></i><span class="label-search">Rechercher</span> 
-          </button>
+        <div class="search-wrapper">
+          <div class="search-bar">
+            <input
+              type="text"
+              placeholder="Rechercher un produit, une marque…"
+              id="headerSearchInput"
+              autocomplete="off"
+            />
+            <button onclick="window.doHeaderSearch()">
+              <i class="ti ti-search"></i> <span>Rechercher</span> 
+            </button>
+          </div>
+          <!-- DROPDOWN (grand écran) -->
+          <div class="search-results-panel" id="searchResultsPanel">
+            <div class="search-loading-drop" id="dropLoading">
+              <span class="spinner-sm"></span> Recherche en cours…
+            </div>
+            <div id="dropResults"></div>
+          </div>
         </div>
         <div class="header-actions">
           <div class="header-phone">
@@ -745,6 +757,31 @@
       </div>
     </footer>
 
+    <!-- OVERLAY MOBILE -->
+    <div class="search-overlay" id="searchOverlay">
+      <div class="search-overlay-header">
+        <button class="close-btn" onclick="window.closeMobileSearch()">
+          <i class="ti ti-arrow-left"></i>
+        </button>
+        <input
+          type="text"
+          placeholder="Rechercher…"
+          id="mobileSearchInput"
+          autocomplete="off"
+          oninput="window.handleMobileSearch(this.value)"
+        />
+        <button onclick="window.doMobileSearch()">
+          <i class="ti ti-search" style="font-size: 18px; color: #1e3a5f"></i>
+        </button>
+      </div>
+      <div class="search-overlay-body" id="mobileSearchResults">
+        <div class="mobile-empty">
+          <i class="ti ti-search"></i>
+          <p>Tapez votre recherche…</p>
+        </div>
+      </div>
+    </div>
+
     <!-- MOBILE NAV -->
     <nav class="mobile-nav">
       <ul>
@@ -1425,5 +1462,6 @@
       // ──────────────────────────────────────────────────────────────
       document.addEventListener("DOMContentLoaded", init);
     </script>
+    <script src="js/search.js"></script>
   </body>
 </html>

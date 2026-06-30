@@ -1244,7 +1244,7 @@ footer .footer-logo span {
     width: 100%;
   }
   .brands {
-    padding:  10px;
+    padding: 10px;
   }
   .feat-item {
     border-right: none;
@@ -1253,6 +1253,10 @@ footer .footer-logo span {
   }
   .feat-item:last-child {
     border-bottom: none;
+  }
+  .cart-sidebar {
+    width: 100%;
+    max-width: 380px;
   }
 }
 @media (max-width: 480px) {
