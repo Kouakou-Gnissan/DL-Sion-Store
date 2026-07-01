@@ -911,7 +911,7 @@ async function saveProduct() {
         mainImgFile,
         document.getElementById("mainImgProgressFill"),
         document.getElementById("mainImgProgressLabel"),
-        document.getElementById("mainImgProgress")
+        document.getElementById("mainImgProgress"),
       );
     }
 
@@ -923,7 +923,13 @@ async function saveProduct() {
         if (galleryExistingUrls[i]) {
           await deleteStorageFile(galleryExistingUrls[i]);
         }
-        imageUrls[i] = await uploadFile("products", galleryFiles[i], null, null, null);
+        imageUrls[i] = await uploadFile(
+          "products",
+          galleryFiles[i],
+          null,
+          null,
+          null,
+        );
       } else {
         imageUrls[i] = galleryExistingUrls[i]; // Garder l'image existante
       }
@@ -934,9 +940,11 @@ async function saveProduct() {
       reference: ref || null,
       prix: parseFloat(prix),
       prix_ancien: prixAncien ? parseFloat(prixAncien) : null,
-      description: document.getElementById("productDescription")?.value.trim() || null,
+      description:
+        document.getElementById("productDescription")?.value.trim() || null,
       categorie_id: catId || null,
-      sous_categorie_id: document.getElementById("productSousCategorie")?.value || null,
+      sous_categorie_id:
+        document.getElementById("productSousCategorie")?.value || null,
       brand_id: document.getElementById("productBrand")?.value || null,
       image_principale: imageUrl || null,
       image_1: imageUrls[0],
@@ -953,7 +961,10 @@ async function saveProduct() {
       const { error } = await sb.from("products").update(payload).eq("id", id);
       if (error) throw error;
     } else {
-      const { data, error } = await sb.from("products").insert(payload).select();
+      const { data, error } = await sb
+        .from("products")
+        .insert(payload)
+        .select();
       if (error) throw error;
     }
 
@@ -1284,7 +1295,6 @@ async function executeDelete() {
       }
 
       await sb.from("products").delete().eq("id", id);
-      
     } else if (type === "category") {
       const { data: category } = await sb
         .from("categories")
@@ -1296,7 +1306,6 @@ async function executeDelete() {
         await deleteStorageFile(category.image_url);
       }
       await sb.from("categories").delete().eq("id", id);
-      
     } else if (type === "subcategory") {
       const { data: subcat } = await sb
         .from("categories")
@@ -1428,11 +1437,11 @@ function resetGallerySlot(idx) {
   if (galleryExistingUrls[idx]) {
     deleteStorageFile(galleryExistingUrls[idx]);
   }
-  
+
   galleryFiles[idx] = null;
   galleryExistingUrls[idx] = null;
   galleryExistingIds[idx] = null;
-  
+
   const slot = document.getElementById(`slot-${idx}`);
   if (slot) {
     slot.innerHTML = `<input type="file" accept="image/*" onchange="previewGalleryImage(event,${idx})"><i class="ti ti-plus"></i><span class="slot-badge">${idx + 1}</span>`;

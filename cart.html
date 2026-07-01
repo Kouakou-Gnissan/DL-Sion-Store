@@ -17,6 +17,7 @@
       href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
     />
     <link rel="stylesheet" href="css/cart.css" />
+    <link rel="stylesheet" href="css/search.css" />
   </head>
   <body>
     <!-- ANNOUNCE -->
@@ -49,15 +50,25 @@
             <div class="logo-sub">N°1 Achat en ligne Côte d'Ivoire</div>
           </div>
         </div>
-        <div class="search-bar">
-          <input
-            type="text"
-            placeholder="Rechercher un produit, une marque…"
-            id="headerSearchInput"
-          />
-          <button onclick="doHeaderSearch()">
-            <i class="ti ti-search"></i><span>Rechercher</span> 
-          </button>
+        <div class="search-wrapper">
+          <div class="search-bar">
+            <input
+              type="text"
+              placeholder="Rechercher un produit, une marque…"
+              id="headerSearchInput"
+              autocomplete="off"
+            />
+            <button onclick="window.doHeaderSearch()">
+              <i class="ti ti-search"></i> <span>Rechercher</span>
+            </button>
+          </div>
+          <!-- DROPDOWN (grand écran) -->
+          <div class="search-results-panel" id="searchResultsPanel">
+            <div class="search-loading-drop" id="dropLoading">
+              <span class="spinner-sm"></span> Recherche en cours…
+            </div>
+            <div id="dropResults"></div>
+          </div>
         </div>
         <div class="header-actions">
           <a href="#" class="action-btn" style="display: none"
@@ -422,6 +433,31 @@
       </div>
     </footer>
 
+    <!-- OVERLAY MOBILE -->
+    <div class="search-overlay" id="searchOverlay">
+      <div class="search-overlay-header">
+        <button class="close-btn" onclick="window.closeMobileSearch()">
+          <i class="ti ti-arrow-left"></i>
+        </button>
+        <input
+          type="text"
+          placeholder="Rechercher…"
+          id="mobileSearchInput"
+          autocomplete="off"
+          oninput="window.handleMobileSearch(this.value)"
+        />
+        <button onclick="window.doMobileSearch()">
+          <i class="ti ti-search" style="font-size: 18px; color: #1e3a5f"></i>
+        </button>
+      </div>
+      <div class="search-overlay-body" id="mobileSearchResults">
+        <div class="mobile-empty">
+          <i class="ti ti-search"></i>
+          <p>Tapez votre recherche…</p>
+        </div>
+      </div>
+    </div>
+
     <!-- MOBILE NAV -->
     <nav class="mobile-nav">
       <ul>
@@ -439,7 +475,7 @@
           >
         </li>
         <li>
-          <a href="catalogue.html"
+          <a href="#" id="searchBtn"
             ><svg
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -984,17 +1020,17 @@
           }[currentDeliveryKey];
 
           const fullComment = `[${deliveryNote}]${comment ? " — " + comment : ""}`;
-// Vérifier chaque item
-items.forEach((item, index) => {
-  console.log(`🔍 Item ${index}:`, {
-    product_id: item.product_id,
-    product_id_type: typeof item.product_id,
-    product_id_length: item.product_id?.length,
-    product_name: item.product_name,
-    unit_price: item.unit_price,
-    quantity: item.quantity
-  });
-});
+          // Vérifier chaque item
+          items.forEach((item, index) => {
+            console.log(`🔍 Item ${index}:`, {
+              product_id: item.product_id,
+              product_id_type: typeof item.product_id,
+              product_id_length: item.product_id?.length,
+              product_name: item.product_name,
+              unit_price: item.unit_price,
+              quantity: item.quantity,
+            });
+          });
           const result = await sbRpc("submit_order", {
             p_nom: name,
             p_telephone: phone,
@@ -1105,5 +1141,6 @@ items.forEach((item, index) => {
         await loadNavCategories();
       })();
     </script>
+    <script src="js/search.js"></script>
   </body>
 </html>

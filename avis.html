@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+    />
+    <title>Gestion des Avis — DL Sion Store.ci Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    />
+    <link rel="stylesheet" href="css/gestion-avis.css" />
+  </head>
+  <body>
+    <!-- Mobile Menu Button -->
+    <button
+      class="mobile-menu-btn"
+      id="mobileMenuBtn"
+      onclick="toggleMobileMenu()"
+    >
+      <i class="ti ti-menu-2"></i>
+    </button>
+    <div
+      class="sidebar-overlay"
+      id="sidebarOverlay"
+      onclick="closeMobileMenu()"
+    ></div>
+
+    <div class="admin-layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+          <div class="logo-text">DL Sion<span>Store.ci</span></div>
+          <div class="logo-sub">Administration</div>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="nav-section">Principal</div>
+          <a href="dashboard.html" class="nav-link"
+            ><i class="ti ti-dashboard"></i> Tableau de bord</a
+          >
+          <a href="commandes.html" class="nav-link"
+            ><i class="ti ti-shopping-cart"></i> Commandes</a
+          >
+          <a href="gestion-catalogue.html" class="nav-link"
+            ><i class="ti ti-packages"></i> Catalogue</a
+          >
+          <div class="nav-section">Gestion</div>
+          <a href="clients.html" class="nav-link"
+            ><i class="ti ti-users"></i> Clients</a
+          >
+          <a href="marques.html" class="nav-link"
+            ><i class="ti ti-certificate"></i> Marques</a
+          >
+          <a href="avis.html" class="nav-link active"
+            ><i class="ti ti-star"></i> Avis</a
+          >
+          <a href="comptes.html" class="nav-link"
+            ><i class="ti ti-user-shield"></i> Comptes admin</a
+          >
+        </nav>
+        <div class="sidebar-footer">
+          <div class="sidebar-user">
+            <div class="user-avatar" id="userAvatar">A</div>
+            <div>
+              <div class="user-name" id="userName">Administrateur</div>
+              <div class="user-role" id="userRole">admin</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <div class="main">
+        <div class="topbar">
+          <div class="topbar-title">
+            <i
+              class="ti ti-star"
+              style="color: var(--primary); margin-right: 8px"
+            ></i
+            >Gestion des Avis
+          </div>
+          <div class="topbar-actions">
+            <button class="btn btn-ghost btn-sm" onclick="refreshAll()">
+              <i class="ti ti-refresh"></i> Actualiser
+            </button>
+            <a href="../index.html" class="btn btn-ghost btn-sm" target="_blank"
+              ><i class="ti ti-external-link"></i> Voir la boutique</a
+            >
+          </div>
+        </div>
+
+        <div class="content">
+          <!-- FILTRES TOOLBAR -->
+          <div class="toolbar">
+            <div class="search-box">
+              <i class="ti ti-search"></i>
+              <input
+                type="text"
+                placeholder="Rechercher un avis ou un produit…"
+                id="searchAvis"
+                oninput="filterAvis()"
+              />
+            </div>
+            <select
+              class="filter-select"
+              id="filterStatus"
+              onchange="filterAvis()"
+            >
+              <option value="all">Tous les avis</option>
+              <option value="approved">Approuvés</option>
+              <option value="pending">En attente</option>
+              <option value="verified">Vérifiés</option>
+              <option value="unverified">Non vérifiés</option>
+            </select>
+            <select
+              class="filter-select"
+              id="filterRating"
+              onchange="filterAvis()"
+            >
+              <option value="all">Toutes notes</option>
+              <option value="5">★★★★★ (5)</option>
+              <option value="4">★★★★☆ (4)</option>
+              <option value="3">★★★☆☆ (3)</option>
+              <option value="2">★★☆☆☆ (2)</option>
+              <option value="1">★☆☆☆☆ (1)</option>
+            </select>
+            <button class="btn btn-primary" onclick="exportAvis()">
+              <i class="ti ti-download"></i> Exporter
+            </button>
+          </div>
+
+          <!-- STATISTIQUES -->
+          <div class="stats-row" id="statsRow">
+            <div class="stat-card">
+              <div class="stat-icon"><i class="ti ti-messages"></i></div>
+              <div>
+                <div class="stat-number" id="statTotal">0</div>
+                <div class="stat-label">Total avis</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background:#e8f5e9;color:#2e7d32">
+                <i class="ti ti-check"></i>
+              </div>
+              <div>
+                <div class="stat-number" id="statApproved">0</div>
+                <div class="stat-label">Approuvés</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background:#fff3e0;color:#e65100">
+                <i class="ti ti-clock"></i>
+              </div>
+              <div>
+                <div class="stat-number" id="statPending">0</div>
+                <div class="stat-label">En attente</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background:#e8f5e9;color:#2e7d32">
+                <i class="ti ti-circle-check"></i>
+              </div>
+              <div>
+                <div class="stat-number" id="statVerified">0</div>
+                <div class="stat-label">Vérifiés</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background:#fce4ec;color:#c62828">
+                <i class="ti ti-circle-x"></i>
+              </div>
+              <div>
+                <div class="stat-number" id="statUnverified">0</div>
+                <div class="stat-label">Non vérifiés</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TABLEAU -->
+          <div class="table-wrap" style="position: relative">
+            <div class="loading-overlay" id="loadingAvis">
+              <div class="spinner"></div>
+            </div>
+            <div class="table-header">
+              <span class="table-title">Liste des avis</span>
+              <span class="table-count" id="countAvis">0 avis</span>
+            </div>
+            <div style="overflow-x: auto">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width:40px">#</th>
+                    <th>Client</th>
+                    <th>Produit</th>
+                    <th>Note</th>
+                    <th>Avis</th>
+                    <th>Statut</th>
+                    <th>Date</th>
+                    <th style="width:130px;text-align:right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="avisBody"></tbody>
+              </table>
+            </div>
+            <div class="table-pagination">
+              <span class="page-info" id="pageInfoAvis"></span>
+              <div class="page-btns" id="pageBtnsAvis"></div>
+            </div>
+          </div>
+        </div>
+        <!-- /content -->
+      </div>
+      <!-- /main -->
+    </div>
+    <!-- /layout -->
+
+    <!-- ══ MODAL DETAIL AVIS ══ -->
+    <div class="modal-overlay" id="modalAvisDetail">
+      <div class="modal modal-lg">
+        <div class="modal-header">
+          <div class="modal-title">
+            <i class="ti ti-star"></i>
+            <span>Détail de l'avis</span>
+          </div>
+          <button class="modal-close" onclick="closeModal('modalAvisDetail')">
+            <i class="ti ti-x"></i>
+          </button>
+        </div>
+        <div class="modal-body" id="avisDetailBody">
+          <div style="text-align:center;padding:40px;color:var(--text3)">
+            <i class="ti ti-loader-2" style="animation:spin .8s linear infinite;font-size:24px;display:block;margin-bottom:12px"></i>
+            Chargement…
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeModal('modalAvisDetail')">
+            Fermer
+          </button>
+          <button class="btn btn-primary" id="btnApproveAvis" onclick="approveAvis()" style="display:none">
+            <i class="ti ti-check"></i> Approuver
+          </button>
+          <button class="btn btn-success" id="btnVerifyAvis" onclick="verifyAvis()" style="display:none">
+            <i class="ti ti-circle-check"></i> Marquer vérifié
+          </button>
+          <button class="btn" id="btnDeleteAvis" onclick="deleteAvis()" style="background:var(--danger);color:#fff">
+            <i class="ti ti-trash"></i> Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ MODAL CONFIRMATION ══ -->
+    <div class="modal-overlay" id="modalConfirm">
+      <div class="modal confirm-modal">
+        <div class="modal-body" style="padding: 28px 24px">
+          <div class="confirm-icon">
+            <i class="ti ti-trash" id="confirmIcon"></i>
+          </div>
+          <div class="confirm-text">
+            <div class="confirm-title" id="confirmTitle">
+              Confirmer la suppression
+            </div>
+            <div class="confirm-desc" id="confirmDesc">
+              Cette action est irréversible.
+            </div>
+          </div>
+          <div
+            class="confirm-warning"
+            id="confirmWarning"
+            style="display: none"
+          >
+            <i class="ti ti-alert-triangle"></i>
+            <span id="confirmWarningText"></span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeModal('modalConfirm')">
+            Annuler
+          </button>
+          <button
+            class="btn"
+            id="btnConfirmDelete"
+            style="background: var(--danger); color: #fff"
+          >
+            <i class="ti ti-trash"></i> Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOASTS -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/gestion-avis.js"></script>
+  </body>
+</html>

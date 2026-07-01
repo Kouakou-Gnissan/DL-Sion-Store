@@ -64,7 +64,7 @@
               autocomplete="off"
             />
             <button onclick="window.doHeaderSearch()">
-              <i class="ti ti-search"></i> <span>Rechercher</span> 
+              <i class="ti ti-search"></i> <span>Rechercher</span>
             </button>
           </div>
           <!-- DROPDOWN (grand écran) -->
@@ -275,34 +275,159 @@
       </div>
     </section>
 
-    <!-- PROMO BANNER -->
-    <div class="promo-banner">
-      <div class="promo-inner">
-        <div>
-          <div class="promo-eyebrow">
-            <i class="ti ti-flame"></i> Festival DL SION TECH
-          </div>
-          <div class="promo-label">
-            Dépêchez-vous !<br /><span>L'offre se termine dans :</span>
+
+
+    <!-- CAROUSEL BANNER -->
+    <div class="carousel-wrapper">
+      <div class="carousel-track" id="carouselTrack">
+        <!-- CARTE 1 - TV MANIA -->
+        <div class="carousel-card card-1">
+          <div
+            class="card-bg"
+            style="
+              background-image: url(&quot;https://picsum.photos/seed/tv/800/500&quot;);
+            "
+          ></div>
+          <div class="card-overlay"></div>
+          <div class="card-content">
+            <div>
+              <div class="card-badge"><i class="ti ti-bolt"></i> TV MANIA</div>
+              <div class="card-title">
+                TOUT CASSER,<br />
+                <span class="highlight">FRACASSER!</span>
+              </div>
+            </div>
+            <div class="card-bottom">
+              <div class="card-price">À PARTIR DE 26 000 F</div>
+              <button class="card-cta">
+                J'ACHÈTE <i class="ti ti-arrow-right"></i>
+              </button>
+            </div>
           </div>
         </div>
-        <div class="promo-timer">
-          <div class="timer-box">
-            <span class="num" id="th">08</span><span class="lbl">Heures</span>
-          </div>
-          <span class="timer-sep">:</span>
-          <div class="timer-box">
-            <span class="num" id="tm">45</span><span class="lbl">Min</span>
-          </div>
-          <span class="timer-sep">:</span>
-          <div class="timer-box">
-            <span class="num" id="ts">30</span><span class="lbl">Sec</span>
+
+        <!-- CARTE 2 - OFFRE SPÉCIALE -->
+        <div class="carousel-card card-2">
+          <div
+            class="card-bg"
+            style="
+              background-image: url(&quot;https://picsum.photos/seed/phone/800/500&quot;);
+            "
+          ></div>
+          <div class="card-overlay"></div>
+          <div class="card-content">
+            <div>
+              <div class="card-badge">
+                <i class="ti ti-flame"></i> OFFRE SPÉCIALE
+              </div>
+              <div class="card-title">
+                RÊVE AU<br />
+                <span class="highlight"> MAX</span>
+              </div>
+            </div>
+            <div class="card-bottom">
+              <div class="card-price">JUSQU'À -70%</div>
+              <button class="card-cta">
+                J'ACHÈTE <i class="ti ti-arrow-right"></i>
+              </button>
+            </div>
           </div>
         </div>
-        <a href="catalogue.html?promo=true" class="promo-cta"
-          ><i class="ti ti-tag"></i> Voir les offres flash</a
-        >
+
+        <!-- CARTE 3 - PROMO FLASH -->
+        <div class="carousel-card card-3">
+          <div
+            class="card-bg"
+            style="
+              background-image: url(&quot;https://picsum.photos/seed/laptop/800/500&quot;);
+            "
+          ></div>
+          <div class="card-overlay"></div>
+          <div class="card-content">
+            <div>
+              <div class="card-badge">
+                <i class="ti ti-clock"></i> TERMINE DANS
+              </div>
+              <div class="card-title">
+                PROMO<br />
+                <span class="highlight">FLASH</span>
+              </div>
+            </div>
+            <div class="card-bottom">
+              <div class="card-timer">
+                <i class="ti ti-clock" style="font-size: 14px"></i>
+                <span class="time" id="timerDisplay">14h : 15m : 17s</span>
+              </div>
+              <button class="card-cta">
+                VOIR PLUS <i class="ti ti-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARTE 4 - SON PUISSANT -->
+        <div class="carousel-card card-4">
+          <div
+            class="card-bg"
+            style="
+              background-image: url(&quot;https://picsum.photos/seed/headphones/800/500&quot;);
+            "
+          ></div>
+          <div class="card-overlay"></div>
+          <div class="card-content">
+            <div>
+              <div class="card-badge"><i class="ti ti-discount"></i> -50%</div>
+              <div class="card-title">
+                SON<br />
+                <span class="highlight">PUISSANT</span>
+              </div>
+            </div>
+            <div class="card-bottom">
+              <div class="card-price">À PARTIR DE 12 900 F</div>
+              <button class="card-cta">
+                J'ACHÈTE <i class="ti ti-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARTE 5 - GAMING ULTIMATE -->
+        <div class="carousel-card card-5">
+          <div
+            class="card-bg"
+            style="
+              background-image: url(&quot;https://picsum.photos/seed/gaming/800/500&quot;);
+            "
+          ></div>
+          <div class="card-overlay"></div>
+          <div class="card-content">
+            <div>
+              <div class="card-badge"><i class="ti ti-star"></i> NOUVEAU</div>
+              <div class="card-title">
+                GAMING<br />
+                <span class="highlight">ULTIMATE</span>
+              </div>
+            </div>
+            <div class="card-bottom">
+              <div class="card-price">DÈS 89 900 F</div>
+              <button class="card-cta">
+                DÉCOUVRIR <i class="ti ti-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <!-- BOUTONS -->
+      <button class="carousel-btn prev" onclick="moveCarousel(-1)">
+        <i class="ti ti-chevron-left"></i>
+      </button>
+      <button class="carousel-btn next" onclick="moveCarousel(1)">
+        <i class="ti ti-chevron-right"></i>
+      </button>
+
+      <!-- INDICATEURS -->
+      <div class="carousel-dots" id="carouselDots"></div>
     </div>
 
     <!-- VENTES FLASH -->
@@ -799,7 +924,7 @@
           >
         </li>
         <li>
-          <a href="catalogue.html"
+          <a href="#" id="searchBtn"
             ><svg
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -948,30 +1073,6 @@
       }
       setInterval(() => goSlide((slideIdx + 1) % slides.length), 4500);
 
-      // ──────────────────────────────────────────────────────────────
-      // COUNTDOWN
-      // ──────────────────────────────────────────────────────────────
-      (function startTimer() {
-        let end = Date.now() + (8 * 3600 + 45 * 60 + 30) * 1000;
-        setInterval(() => {
-          let diff = Math.max(0, end - Date.now());
-          let h = Math.floor(diff / 3600000);
-          let m = Math.floor((diff % 3600000) / 60000);
-          let s = Math.floor((diff % 60000) / 1000);
-          document.getElementById("th").textContent = String(h).padStart(
-            2,
-            "0",
-          );
-          document.getElementById("tm").textContent = String(m).padStart(
-            2,
-            "0",
-          );
-          document.getElementById("ts").textContent = String(s).padStart(
-            2,
-            "0",
-          );
-        }, 1000);
-      })();
 
       // ──────────────────────────────────────────────────────────────
       // SCROLL BUTTONS
@@ -1461,6 +1562,111 @@
       // START
       // ──────────────────────────────────────────────────────────────
       document.addEventListener("DOMContentLoaded", init);
+
+
+      // ──────────────────────────────────────────────────────────────
+      // CAROUSEL BANNER
+      // ──────────────────────────────────────────────────────────────
+      const track = document.getElementById("carouselTrack");
+      const cards = document.querySelectorAll(".carousel-card");
+      const dotsContainer = document.getElementById("carouselDots");
+      let currentIndex = 0;
+      let totalCards = cards.length;
+      let cardsPerView = 3;
+      let autoSlideInterval;
+
+      function getCardsPerView() {
+        if (window.innerWidth <= 700) return 1;
+        if (window.innerWidth <= 1024) return 2;
+        return 3;
+      }
+
+      function updateDots() {
+        const totalDots = Math.ceil(totalCards / cardsPerView);
+        dotsContainer.innerHTML = "";
+        for (let i = 0; i < totalDots; i++) {
+          const dot = document.createElement("button");
+          dot.className =
+            "carousel-dot" + (i === currentIndex ? " active" : "");
+          dot.onclick = () => goToSlide(i);
+          dotsContainer.appendChild(dot);
+        }
+      }
+
+      function goToSlide(index) {
+        const maxIndex = Math.ceil(totalCards / cardsPerView) - 1;
+        if (index < 0) index = 0;
+        if (index > maxIndex) index = maxIndex;
+        currentIndex = index;
+        const cardWidth = cards[0].offsetWidth + 14;
+        const offset = currentIndex * cardWidth * cardsPerView;
+        track.style.transform = `translateX(-${offset}px)`;
+        updateDots();
+      }
+
+      function moveCarousel(direction) {
+        const maxIndex = Math.ceil(totalCards / cardsPerView) - 1;
+        let newIndex = currentIndex + direction;
+        if (newIndex < 0) newIndex = maxIndex;
+        if (newIndex > maxIndex) newIndex = 0;
+        goToSlide(newIndex);
+        resetAutoSlide();
+      }
+
+      function resetAutoSlide() {
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = setInterval(() => {
+          moveCarousel(1);
+        }, 4000);
+      }
+
+      // ─── TIMER ───
+      function startTimer() {
+        let endTime = Date.now() + (14 * 3600 + 15 * 60 + 17) * 1000;
+        const display = document.getElementById("timerDisplay");
+
+        function updateTimer() {
+          const diff = Math.max(0, endTime - Date.now());
+          const h = String(Math.floor(diff / 3600000)).padStart(2, "0");
+          const m = String(Math.floor((diff % 3600000) / 60000)).padStart(
+            2,
+            "0",
+          );
+          const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
+          display.textContent = `${h}h : ${m}m : ${s}s`;
+          if (diff <= 0) clearInterval(timerInterval);
+        }
+
+        updateTimer();
+        const timerInterval = setInterval(updateTimer, 1000);
+        return timerInterval;
+      }
+
+      // ─── RESIZE ───
+      function handleResize() {
+        const newCardsPerView = getCardsPerView();
+        if (newCardsPerView !== cardsPerView) {
+          cardsPerView = newCardsPerView;
+          goToSlide(currentIndex);
+          updateDots();
+        }
+      }
+
+      // ─── INIT ───
+      cardsPerView = getCardsPerView();
+      updateDots();
+      goToSlide(0);
+      resetAutoSlide();
+      startTimer();
+
+      window.addEventListener("resize", handleResize);
+
+      // Pause sur hover
+      const wrapper = document.querySelector(".carousel-wrapper");
+      wrapper.addEventListener("mouseenter", () =>
+        clearInterval(autoSlideInterval),
+      );
+      wrapper.addEventListener("mouseleave", resetAutoSlide);
     </script>
     <script src="js/search.js"></script>
   </body>

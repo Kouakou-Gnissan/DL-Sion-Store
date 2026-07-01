@@ -17,6 +17,7 @@
       href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
     />
     <link rel="stylesheet" href="css/product.css" />
+    <link rel="stylesheet" href="css/search.css" />
   </head>
   <body>
     <!-- ANNOUNCE -->
@@ -49,21 +50,38 @@
             <div class="logo-sub">N°1 Achat en ligne Côte d'Ivoire</div>
           </div>
         </div>
-        <div class="search-bar">
-          <input
-            type="text"
-            placeholder="Rechercher un produit, une marque…"
-            id="headerSearchInput"
-          />
-          <button onclick="doHeaderSearch()">
-            <i class="ti ti-search"></i> <span>Rechercher</span> 
-          </button>
+        <div class="search-wrapper">
+          <div class="search-bar">
+            <input
+              type="text"
+              placeholder="Rechercher un produit, une marque…"
+              id="headerSearchInput"
+              autocomplete="off"
+            />
+            <button onclick="window.doHeaderSearch()">
+              <i class="ti ti-search"></i> <span>Rechercher</span>
+            </button>
+          </div>
+          <!-- DROPDOWN (grand écran) -->
+          <div class="search-results-panel" id="searchResultsPanel">
+            <div class="search-loading-drop" id="dropLoading">
+              <span class="spinner-sm"></span> Recherche en cours…
+            </div>
+            <div id="dropResults"></div>
+          </div>
         </div>
         <div class="header-actions">
           <a href="#" class="action-btn" style="display: none"
             ><i class="ti ti-heart"></i><span>Favoris</span></a
           >
-          <a href="#" class="action-btn" onclick="toggleCart(); return false;">
+          <a
+            href="#"
+            class="action-btn"
+            onclick="
+              toggleCart();
+              return false;
+            "
+          >
             <i class="ti ti-shopping-cart"></i><span>Panier</span>
             <span class="cart-badge" id="cartBadge">0</span>
           </a>
@@ -102,7 +120,9 @@
       <div class="drawer-search">
         <div class="drawer-search-inner">
           <input type="text" placeholder="Rechercher…" id="drawerSearchInput" />
-          <button onclick="doDrawerSearch()"><i class="ti ti-search"></i></button>
+          <button onclick="doDrawerSearch()">
+            <i class="ti ti-search"></i>
+          </button>
         </div>
       </div>
       <a href="index.html" class="drawer-link"
@@ -222,7 +242,11 @@
                 <i class="ti ti-brand-whatsapp"></i> Via WhatsApp
               </a>
             </div>
-            <button class="btn-wishlist" style="display: none;" onclick="toggleWishlist()">
+            <button
+              class="btn-wishlist"
+              style="display: none"
+              onclick="toggleWishlist()"
+            >
               <i class="ti ti-heart" id="wishIcon"></i> Ajouter aux favoris
             </button>
           </div>
@@ -554,6 +578,31 @@
       </div>
     </footer>
 
+    <!-- OVERLAY MOBILE -->
+    <div class="search-overlay" id="searchOverlay">
+      <div class="search-overlay-header">
+        <button class="close-btn" onclick="window.closeMobileSearch()">
+          <i class="ti ti-arrow-left"></i>
+        </button>
+        <input
+          type="text"
+          placeholder="Rechercher…"
+          id="mobileSearchInput"
+          autocomplete="off"
+          oninput="window.handleMobileSearch(this.value)"
+        />
+        <button onclick="window.doMobileSearch()">
+          <i class="ti ti-search" style="font-size: 18px; color: #1e3a5f"></i>
+        </button>
+      </div>
+      <div class="search-overlay-body" id="mobileSearchResults">
+        <div class="mobile-empty">
+          <i class="ti ti-search"></i>
+          <p>Tapez votre recherche…</p>
+        </div>
+      </div>
+    </div>
+
     <!-- STICKY MOBILE CTA -->
     <div class="sticky-cta" id="stickyCta">
       <div class="sticky-cta-inner">
@@ -567,8 +616,7 @@
       </div>
     </div>
 
-
-        <!-- MOBILE NAV -->
+    <!-- MOBILE NAV -->
     <nav class="mobile-nav">
       <ul>
         <li>
@@ -585,7 +633,7 @@
           >
         </li>
         <li>
-          <a href="catalogue.html"
+          <a href="#" id="searchBtn"
             ><svg
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -598,7 +646,7 @@
           >
         </li>
         <li>
-          <a href="categories.html" 
+          <a href="categories.html"
             ><svg
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -615,7 +663,7 @@
           >
         </li>
         <li>
-          <a href="catalogue.html" class="active"> 
+          <a href="catalogue.html" class="active">
             <svg
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -631,9 +679,7 @@
           </a>
         </li>
         <li>
-          <a
-            href="cart.html"
-
+          <a href="cart.html"
             ><svg
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -650,7 +696,6 @@
         </li>
       </ul>
     </nav>
-
 
     <!-- CART SIDEBAR -->
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
@@ -674,7 +719,10 @@
           <span class="cart-total-label">Total</span>
           <span class="cart-total-amount" id="cartTotal">0 F CFA</span>
         </div>
-        <button class="btn-checkout" onclick="window.location.href='commande.html'">
+        <button
+          class="btn-checkout"
+          onclick="window.location.href = 'commande.html'"
+        >
           <i class="ti ti-credit-card"></i> Passer la commande
         </button>
       </div>
@@ -701,7 +749,6 @@
       .form-control-review:focus {
         border-color: var(--y);
       }
-
     </style>
 
     <script>
@@ -757,9 +804,9 @@
       // ── MIGRATION PANIER ──────────────────────────────────────────
       function migrateCartImages() {
         let hasChanges = false;
-        cart = cart.map(item => {
+        cart = cart.map((item) => {
           if (!item.image) {
-            item.image = 'https://placehold.co/60x60/E5E7EB/9CA3AF?text=?';
+            item.image = "https://placehold.co/60x60/E5E7EB/9CA3AF?text=?";
             hasChanges = true;
           }
           return item;
@@ -1372,9 +1419,11 @@
         }
 
         footer.style.display = "block";
-        body.innerHTML = cart.map((item, index) => {
-          const imgSrc = item.image || 'https://placehold.co/60x60/E5E7EB/9CA3AF?text=?';
-          return `
+        body.innerHTML = cart
+          .map((item, index) => {
+            const imgSrc =
+              item.image || "https://placehold.co/60x60/E5E7EB/9CA3AF?text=?";
+            return `
           <div class="cart-item">
             <div class="cart-item-img">
               <img src="${imgSrc}" alt="${escapeHtml(item.name)}" onerror="this.src='https://placehold.co/60x60/E5E7EB/9CA3AF?text=?'">
@@ -1391,10 +1440,12 @@
             </div>
           </div>
         `;
-        }).join("");
+          })
+          .join("");
 
-        const total = cart.reduce((s, i) => s + (i.price * (i.qty || 1)), 0);
-        document.getElementById("cartTotal").innerHTML = `${total.toLocaleString("fr-FR")} F CFA`;
+        const total = cart.reduce((s, i) => s + i.price * (i.qty || 1), 0);
+        document.getElementById("cartTotal").innerHTML =
+          `${total.toLocaleString("fr-FR")} F CFA`;
       }
 
       function changeQtyCart(index, delta) {
@@ -1424,7 +1475,9 @@
             id: product.id,
             name: product.nom,
             price: product.prix,
-            image: product.image_principale || 'https://placehold.co/60x60/E5E7EB/9CA3AF?text=?',
+            image:
+              product.image_principale ||
+              "https://placehold.co/60x60/E5E7EB/9CA3AF?text=?",
             qty: qty,
           });
         localStorage.setItem("dls_cart", JSON.stringify(cart));
@@ -1546,5 +1599,6 @@
         setupStickyObserver();
       })();
     </script>
+    <script src="js/search.js"></script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 // ── RECHERCHE EN TEMPS RÉEL ──────────────────────────────
-(function() {
+(function () {
   "use strict";
 
   const SUPA_URL = "https://yrdjnsteaoajypgzqrbs.supabase.co";
@@ -43,14 +43,14 @@
     // Produits
     fetch(
       `${SUPA_URL}/rest/v1/v_products_full?is_active=eq.true&nom=ilike.*${encodeURIComponent(q)}*&limit=6`,
-      { headers }
+      { headers },
     )
       .then((r) => r.json())
       .then((products) => {
         // Catégories
         fetch(
           `${SUPA_URL}/rest/v1/categories?nom=ilike.*${encodeURIComponent(q)}*&limit=5`,
-          { headers }
+          { headers },
         )
           .then((r) => r.json())
           .then((categories) => {
@@ -81,9 +81,11 @@
               categories.forEach((c) => {
                 html += `
                   <span class="cat-pill" onclick="window.location.href='catalogue.html?categorie=${c.slug}'">
-                    ${c.image_url
-                      ? `<img src="${c.image_url}" alt="${escapeHtml(c.nom)}">`
-                      : `<i class="ti ti-folder"></i>`}
+                    ${
+                      c.image_url
+                        ? `<img src="${c.image_url}" alt="${escapeHtml(c.nom)}">`
+                        : `<i class="ti ti-folder"></i>`
+                    }
                     <span class="cat-pill-name">${escapeHtml(c.nom)}</span>
                   </span>
                 `;
@@ -91,7 +93,12 @@
               html += `</div>`;
             }
 
-            if (categories && categories.length > 0 && products && products.length > 0) {
+            if (
+              categories &&
+              categories.length > 0 &&
+              products &&
+              products.length > 0
+            ) {
               html += `<div style="border-top:1px solid #e5e7eb;margin:6px 16px"></div>`;
             }
 
@@ -166,14 +173,14 @@
     // Produits
     fetch(
       `${SUPA_URL}/rest/v1/v_products_full?is_active=eq.true&nom=ilike.*${encodeURIComponent(q)}*&limit=15`,
-      { headers }
+      { headers },
     )
       .then((r) => r.json())
       .then((products) => {
         // Catégories
         fetch(
           `${SUPA_URL}/rest/v1/categories?nom=ilike.*${encodeURIComponent(q)}*&limit=10`,
-          { headers }
+          { headers },
         )
           .then((r) => r.json())
           .then((categories) => {
@@ -200,9 +207,11 @@
               categories.forEach((c) => {
                 html += `
                   <div class="mobile-cat-item" onclick="window.location.href='catalogue.html?categorie=${c.slug}';closeMobileSearch()">
-                    ${c.image_url
-                      ? `<img src="${c.image_url}" alt="${escapeHtml(c.nom)}">`
-                      : `<i class="ti ti-folder" style="font-size:18px;color:#1E3A5F"></i>`}
+                    ${
+                      c.image_url
+                        ? `<img src="${c.image_url}" alt="${escapeHtml(c.nom)}">`
+                        : `<i class="ti ti-folder" style="font-size:18px;color:#1E3A5F"></i>`
+                    }
                     <span class="name">${escapeHtml(c.nom)}</span>
                   </div>
                 `;
@@ -262,7 +271,7 @@
     if (!input) return;
 
     // ── Grand écran : dropdown ──
-    input.addEventListener("input", function() {
+    input.addEventListener("input", function () {
       clearTimeout(searchTimeout);
       const q = this.value.trim();
 
@@ -282,7 +291,7 @@
     // ── Petit écran : overlay ──
     const searchBar = input.closest(".search-bar") || input.parentElement;
     if (searchBar) {
-      searchBar.addEventListener("click", function(e) {
+      searchBar.addEventListener("click", function (e) {
         if (window.innerWidth <= 768 && e.target.tagName !== "BUTTON") {
           e.preventDefault();
           openMobileSearch(input);
@@ -290,8 +299,19 @@
       });
     }
 
+    const searchBtn = document.getElementById("searchBtn");
+    if (searchBtn) {
+      searchBtn.addEventListener("click", function (e) {
+        if (window.innerWidth <= 768 && e.target.tagName !== "BUTTON") {
+          e.preventDefault();
+          openMobileSearch(input);
+        }
+      });
+    }
+
+
     // ── Fermeture du dropdown ──
-    document.addEventListener("click", function(e) {
+    document.addEventListener("click", function (e) {
       const wrapper = input.closest(".search-wrapper");
       const panel = document.getElementById("searchResultsPanel");
       if (wrapper && !wrapper.contains(e.target)) {
@@ -300,7 +320,7 @@
     });
 
     // ── ESC ──
-    document.addEventListener("keydown", function(e) {
+    document.addEventListener("keydown", function (e) {
       if (e.key === "Escape") {
         const panel = document.getElementById("searchResultsPanel");
         if (panel) panel.classList.remove("open");

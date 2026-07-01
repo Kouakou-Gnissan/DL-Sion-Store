@@ -196,7 +196,6 @@ header {
   font-family: var(--font-body);
   font-size: 13px;
   color: var(--text);
-  
 }
 .search-bar button {
   background: var(--navy);
@@ -758,97 +757,575 @@ header {
 }
 
 /* ══════════════════════════════════════════
-   PROMO BANNER
+   CAROUSEL BANNER
 ══════════════════════════════════════════ */
-.promo-banner {
+
+.carousel-wrapper {
   max-width: 1280px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
   margin: 14px auto;
   padding: 0 20px;
 }
-.promo-inner {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--navy3) 100%);
-  border-radius: 14px;
-  padding: 20px 32px;
+
+/* ── LE CARROUSEL ── */
+.carousel-track {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  border: 1px solid rgba(245, 197, 24, 0.15);
+  gap: 14px;
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
 }
-.promo-eyebrow {
-  font-size: 11px;
-  color: var(--yellow);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+
+/* ── CARTE ── */
+.carousel-card {
+  min-width: calc(33.333% - 10px);
+  flex: 0 0 calc(33.333% - 10px);
+  aspect-ratio: 16/8;
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+  box-shadow: var(--shadow);
 }
-.promo-label {
+
+.carousel-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: var(--shadow-lg);
+  z-index: 5;
+}
+
+/* Arrière-plan image */
+.card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s ease;
+}
+
+.carousel-card:hover .card-bg {
+  transform: scale(1.08);
+}
+
+/* Overlay - différent par carte */
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transition: all 0.4s ease;
+}
+
+/* ── STYLES DE CARTE SPÉCIFIQUES ── */
+/* CARTE 1 - TV MANIA */
+
+.card-1 .card-title {
   font-family: var(--font-head);
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 900;
-  color: var(--white);
-  line-height: 1.15;
-}
-.promo-label span {
-  color: var(--yellow);
-}
-.promo-timer {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-.timer-box {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(245, 197, 24, 0.2);
-  border-radius: 8px;
-  padding: 10px 14px;
-  text-align: center;
-  min-width: 58px;
-}
-.timer-box .num {
-  font-family: var(--font-head);
-  font-size: 24px;
-  font-weight: 900;
-  color: var(--white);
-  display: block;
-  line-height: 1;
-}
-.timer-box .lbl {
-  font-size: 9px;
-  color: rgba(255, 255, 255, 0.45);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-top: 2px;
-  display: block;
+  letter-spacing: -1px;
+  line-height: 1.05;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  animation: titleShake 0.3s ease-in-out infinite;
+  margin-bottom: 6px;
 }
-.timer-sep {
+.card-1 .card-title .highlight {
   color: var(--yellow);
-  font-size: 22px;
-  font-weight: 900;
-  margin-bottom: 10px;
+  display: inline-block;
+  animation: textGlow 2s ease-in-out infinite;
 }
-.promo-cta {
+.card-1 .card-badge {
   background: var(--yellow);
   color: var(--night);
-  padding: 12px 24px;
-  border-radius: 8px;
+  animation: badgePulse 0.5s ease-in-out infinite;
+  margin-bottom: 8px;
+}
+.card-1 .card-price {
+  color: var(--white);
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+.card-1 .card-cta {
+  background: var(--yellow);
+  color: var(--night);
+}
+.card-1 .card-cta:hover {
+  background: var(--yellow-dark);
+  transform: scale(1.05);
+}
+
+/* CARTE 2 - OFFRE SPÉCIALE */
+
+.card-2 .card-title {
+  font-family: var(--font-head);
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  animation: titleFloat 0.5s ease-in-out infinite;
+  margin-bottom: 6px;
+}
+.card-2 .card-title .highlight {
+  color: var(--orange);
+  display: inline-block;
+  animation: textScale 0.2s ease-in-out infinite;
+}
+.card-2 .card-badge {
+  background: var(--orange);
+  color: var(--white);
+  animation: badgeGlow 0.3s ease-in-out infinite;
+  margin-bottom: 8px;
+}
+.card-2 .card-price {
+  color: var(--orange);
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+.card-2 .card-cta {
+  background: var(--orange);
+  color: var(--white);
+}
+.card-2 .card-cta:hover {
+  background: #c2410c;
+  transform: scale(1.05);
+}
+
+/* CARTE 3 - PROMO FLASH */
+
+.card-3 .card-title {
+  font-family: var(--font-head);
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  animation: titlePulse 0.5s ease-in-out infinite;
+  margin-bottom: 6px;
+}
+.card-3 .card-title .highlight {
+  color: var(--yellow);
+  display: inline-block;
+  animation: textFlash 0.2s ease-in-out infinite;
+}
+.card-3 .card-badge {
+  background: var(--red);
+  color: var(--white);
+  animation: badgeBlink 0.2s ease-in-out infinite;
+  margin-bottom: 6px;
+}
+.card-3 .card-timer {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  font-size: 11px;
+  padding: 4px 14px;
+  margin-bottom: 2px;
+}
+.card-3 .card-timer .time {
+  color: var(--yellow);
+  font-size: 15px;
+}
+.card-3 .card-cta {
+  background: var(--yellow);
+  color: var(--night);
+}
+.card-3 .card-cta:hover {
+  background: var(--yellow-dark);
+  transform: scale(1.05);
+}
+
+/* CARTE 4 - SON PUISSANT */
+
+.card-4 .card-title {
+  font-family: var(--font-body);
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  animation: titleSlide 0.5s ease-in-out infinite;
+  margin-bottom: 6px;
+}
+.card-4 .card-title .highlight {
+  color: var(--white);
+  display: inline-block;
+  animation: textBounce 0.5s ease-in-out infinite;
+}
+.card-4 .card-badge {
+  background: var(--yellow);
+  color: var(--white);
+  animation: badgeRotate 0.3s ease-in-out infinite;
+  margin-bottom: 6px;
+}
+.card-4 .card-price {
+  color: var(--white);
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+.card-4 .card-cta {
+  background: var(--white);
+  color: var(--night);
+}
+.card-4 .card-cta:hover {
+  background: var(--green);
+  color: var(--white);
+  transform: scale(1.05);
+}
+
+/* CARTE 5 - GAMING ULTIMATE */
+
+.card-5 .card-title {
+  font-family: var(--font-head);
+  font-size: 28px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.05;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  animation: titleGlitch 0.4s ease-in-out infinite;
+  margin-bottom: 6px;
+}
+.card-5 .card-title .highlight {
+  color: var(--yellow-dark);
+  display: inline-block;
+  animation: textNeon 0.2s ease-in-out infinite;
+}
+.card-5 .card-badge {
+  background:var(--yellow-dark);
+  color: var(--white);
+  animation: badgePulse 0.2s ease-in-out infinite;
+  margin-bottom: 8px;
+}
+.card-5 .card-price {
+  color:var(--yellow-dark);
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+.card-5 .card-cta {
+  background: var(--yellow-dark);
+  color: var(--white);
+}
+.card-5 .card-cta:hover {
+  background: var(--yellow-dark);
+  transform: scale(1.05);
+}
+
+/* ── STYLES COMMUNS ── */
+.card-content {
+  position: relative;
+  z-index: 2;
+  padding: 22px 26px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--white);
+}
+
+.card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 4px 14px;
+  border-radius: 100px;
+  width: fit-content;
+  box-shadow: var(--shadow);
+}
+
+.card-title {
+  max-width: 85%;
+}
+
+.card-price {
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 900;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.card-price span {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  text-shadow: none;
+}
+
+.card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-weight: 800;
   font-size: 13px;
+  padding: 9px 20px;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
   font-family: var(--font-head);
-  transition: all 0.2s;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+}
+
+.card-cta:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-timer {
   display: flex;
   align-items: center;
-  gap: 7px;
-  flex-shrink: 0;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 5px 14px;
+  border-radius: 100px;
+  width: fit-content;
 }
-.promo-cta:hover {
-  background: var(--yellow-dark);
-  transform: translateY(-1px);
+
+.card-timer .time {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 14px;
 }
+
+.card-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes titleShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px) rotate(-0.5deg);
+  }
+  75% {
+    transform: translateX(2px) rotate(0.5deg);
+  }
+}
+
+@keyframes titleFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes titlePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes titleSlide {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes titleGlitch {
+  0%,
+  100% {
+    transform: skew(0);
+  }
+  10% {
+    transform: skew(-2deg);
+  }
+  20% {
+    transform: skew(2deg);
+  }
+  30% {
+    transform: skew(0);
+  }
+}
+
+@keyframes textGlow {
+  0%,
+  100% {
+    text-shadow: 0 0 20px rgba(245, 197, 24, 0.3);
+  }
+  50% {
+    text-shadow:
+      0 0 60px rgba(245, 197, 24, 0.8),
+      0 0 100px rgba(245, 197, 24, 0.3);
+  }
+}
+
+@keyframes textScale {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes textFlash {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes textBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes textNeon {
+  0%,
+  100% {
+    text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+  }
+  50% {
+    text-shadow:
+      0 0 40px rgba(168, 85, 247, 0.8),
+      0 0 80px rgba(168, 85, 247, 0.3);
+  }
+}
+
+@keyframes badgePulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: var(--shadow);
+  }
+  50% {
+    transform: scale(1.06);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+@keyframes badgeGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(234, 88, 12, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(234, 88, 12, 0.6);
+  }
+}
+
+@keyframes badgeBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes badgeRotate {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(2deg);
+  }
+  75% {
+    transform: rotate(-2deg);
+  }
+}
+
+/* ── BOUTONS NAVIGATION ── */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--white);
+  border: none;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  z-index: 10;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--text);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.carousel-btn:hover {
+  background: var(--yellow);
+  color: var(--night);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 30px rgba(245, 197, 24, 0.4);
+}
+
+.carousel-btn.prev {
+  left: 12px;
+}
+.carousel-btn.next {
+  right: 12px;
+}
+
+/* ── INDICATEURS ── */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.carousel-dot.active {
+  background: var(--yellow);
+  width: 28px;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(245, 197, 24, 0.4);
+}
+
 
 /* ══════════════════════════════════════════
    SECTION GENERAL
@@ -2081,7 +2558,27 @@ footer {
     display: none;
   }
 
-
+  /* Carousel banner */
+  .carousel-card {
+    min-width: calc(50% - 7px);
+    flex: 0 0 calc(50% - 7px);
+  }
+  .card-title {
+    font-size: 24px !important;
+  }
+  .card-price {
+    font-size: 16px !important;
+  }
+  .card-cta {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+  .card-bottom {
+    gap: 4px;
+  }
+  .card-content {
+    padding: 18px 20px;
+  }
 
   .footer-main {
     grid-template-columns: 1fr 1fr;
@@ -2104,7 +2601,7 @@ footer {
     flex: 0 0 100%;
     max-width: 100%;
   }
- .search-bar span {
+  .search-bar span {
     display: none !important;
   }
   .header-phone {
@@ -2128,6 +2625,67 @@ footer {
     padding: 0 10px;
   }
 
+  /* Carousel banner */
+  .carousel-card {
+    min-width: calc(100% - 0px);
+    flex: 0 0 calc(100% - 0px);
+    border-radius: var(--radiusmobile);
+  }
+  .card-content {
+    padding: 16px 20px;
+  }
+  .card-title {
+    font-size: 22px !important;
+    max-width: 90%;
+  }
+  .card-price {
+    font-size: 16px !important;
+  }
+  .card-cta {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+  .carousel-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+  }
+  .carousel-btn.prev {
+    left: 6px;
+  }
+  .carousel-btn.next {
+    right: 6px;
+  }
+  .card-badge {
+    font-size: 9px;
+    padding: 3px 10px;
+  }
+  .card-timer {
+    font-size: 10px;
+    padding: 4px 12px;
+  }
+  .card-timer .time {
+    font-size: 12px;
+  }
+  .card-1 .card-title {
+    font-size: 24px !important;
+  }
+  .card-2 .card-title {
+    font-size: 22px !important;
+  }
+  .card-3 .card-title {
+    font-size: 26px !important;
+  }
+  .card-4 .card-title {
+    font-size: 24px !important;
+  }
+  .card-5 .card-title {
+    font-size: 22px !important;
+  }
+  .card-bottom {
+    gap: 4px;
+  }
+
   .prod-scroll {
     gap: 7px;
   }
@@ -2141,7 +2699,7 @@ footer {
   }
 
   .prod-info {
-  padding: 7px;
+    padding: 7px;
   }
 
   .banner-strip {
@@ -2216,11 +2774,102 @@ footer {
     display: none;
   }
   .hero-title {
+    font-size: 16px;
     margin-bottom: 6px;
   }
 
   .hero-sub {
+    font-size: 11px;
     margin-bottom: 14px;
+  }
+
+  .hero-cta {
+    padding: 9px 18px;
+  }
+
+  /* Carousel banner */
+  .carousel-wrapper {
+    border-radius: var(--radiusmobile);
+  }
+  .carousel-card {
+    border-radius: var(--radiusmobile);
+  }
+  .card-content {
+    padding: 12px 14px;
+  }
+  .card-title {
+    font-size: 18px !important;
+    max-width: 100%;
+    margin-bottom: 4px !important;
+  }
+  .card-price {
+    font-size: 14px !important;
+    margin-bottom: 4px !important;
+  }
+  .card-cta {
+    padding: 5px 12px;
+    font-size: 10px;
+    gap: 4px;
+  }
+  .card-badge {
+    font-size: 8px;
+    padding: 2px 10px;
+    gap: 4px;
+    margin-bottom: 4px !important;
+  }
+  .card-timer {
+    font-size: 9px;
+    padding: 3px 10px;
+    gap: 4px;
+  }
+  .card-timer .time {
+    font-size: 10px;
+  }
+  .carousel-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  .carousel-btn.prev {
+    left: 4px;
+  }
+  .carousel-btn.next {
+    right: 4px;
+  }
+  .carousel-dots {
+    gap: 5px;
+    margin-top: 12px;
+  }
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+  }
+  .carousel-dot.active {
+    width: 20px;
+  }
+  .card-1 .card-title {
+    font-size: 20px !important;
+  }
+  .card-2 .card-title {
+    font-size: 18px !important;
+  }
+  .card-3 .card-title {
+    font-size: 22px !important;
+  }
+  .card-4 .card-title {
+    font-size: 20px !important;
+  }
+  .card-5 .card-title {
+    font-size: 18px !important;
+  }
+  .card-bottom {
+    gap: 3px;
+  }
+  .card-cta i {
+    font-size: 10px;
+  }
+  .carousel-dots {
+    margin-top: 10px;
   }
 
   .feat-inner {

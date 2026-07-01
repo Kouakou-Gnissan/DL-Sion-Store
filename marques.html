@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+    />
+    <title>Gestion des Marques — DL Sion Store.ci Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    />
+    <link rel="stylesheet" href="css/gestion-marques.css" />
+  </head>
+  <body>
+    <!-- Mobile Menu Button -->
+    <button
+      class="mobile-menu-btn"
+      id="mobileMenuBtn"
+      onclick="toggleMobileMenu()"
+    >
+      <i class="ti ti-menu-2"></i>
+    </button>
+    <div
+      class="sidebar-overlay"
+      id="sidebarOverlay"
+      onclick="closeMobileMenu()"
+    ></div>
+
+    <div class="admin-layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+          <div class="logo-text">DL Sion<span>Store.ci</span></div>
+          <div class="logo-sub">Administration</div>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="nav-section">Principal</div>
+          <a href="dashboard.html" class="nav-link"
+            ><i class="ti ti-dashboard"></i> Tableau de bord</a
+          >
+          <a href="commandes.html" class="nav-link"
+            ><i class="ti ti-shopping-cart"></i> Commandes</a
+          >
+          <a href="gestion-catalogue.html" class="nav-link"
+            ><i class="ti ti-packages"></i> Catalogue</a
+          >
+          <div class="nav-section">Gestion</div>
+          <a href="clients.html" class="nav-link"
+            ><i class="ti ti-users"></i> Clients</a
+          >
+          <a href="marques.html" class="nav-link active"
+            ><i class="ti ti-certificate"></i> Marques</a
+          >
+          <a href="comptes.html" class="nav-link"
+            ><i class="ti ti-user-shield"></i> Comptes admin</a
+          >
+        </nav>
+        <div class="sidebar-footer">
+          <div class="sidebar-user">
+            <div class="user-avatar" id="userAvatar">A</div>
+            <div>
+              <div class="user-name" id="userName">Administrateur</div>
+              <div class="user-role" id="userRole">admin</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <div class="main">
+        <div class="topbar">
+          <div class="topbar-title">
+            <i
+              class="ti ti-certificate"
+              style="color: var(--primary); margin-right: 8px"
+            ></i
+            >Gestion des Marques
+          </div>
+          <div class="topbar-actions">
+            <button class="btn btn-ghost btn-sm" onclick="refreshAll()">
+              <i class="ti ti-refresh"></i> Actualiser
+            </button>
+            <a href="../index.html" class="btn btn-ghost btn-sm" target="_blank"
+              ><i class="ti ti-external-link"></i> Voir la boutique</a
+            >
+          </div>
+        </div>
+
+        <div class="content">
+          <!-- TOOLBAR -->
+          <div class="toolbar">
+            <div class="search-box">
+              <i class="ti ti-search"></i
+              ><input
+                type="text"
+                placeholder="Rechercher une marque…"
+                id="searchBrands"
+                oninput="filterBrands()"
+              />
+            </div>
+            <button class="btn btn-primary" onclick="openBrandModal()">
+              <i class="ti ti-plus"></i> Nouvelle marque
+            </button>
+          </div>
+
+          <!-- TABLEAU -->
+          <div class="table-wrap" style="position: relative">
+            <div class="loading-overlay" id="loadingBrands">
+              <div class="spinner"></div>
+            </div>
+            <div class="table-header">
+              <span class="table-title">Liste des marques</span>
+              <span class="table-count" id="countBrands">0 marque</span>
+            </div>
+            <div style="overflow-x: auto">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 50px">Logo</th>
+                    <th>Nom</th>
+                    <th>Produits</th>
+                    <th style="width: 120px; text-align: right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="brandsBody"></tbody>
+              </table>
+            </div>
+            <div class="table-pagination">
+              <span class="page-info" id="pageInfoBrands"></span>
+              <div class="page-btns" id="pageBtnsBrands"></div>
+            </div>
+          </div>
+        </div>
+        <!-- /content -->
+      </div>
+      <!-- /main -->
+    </div>
+    <!-- /layout -->
+
+    <!-- ══ MODAL MARQUE ══ -->
+    <div class="modal-overlay" id="modalBrand">
+      <div class="modal">
+        <div class="modal-header">
+          <div class="modal-title">
+            <i class="ti ti-certificate"></i>
+            <span id="modalBrandTitle">Nouvelle marque</span>
+          </div>
+          <button class="modal-close" onclick="closeModal('modalBrand')">
+            <i class="ti ti-x"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="brandId" />
+          <div class="form-grid">
+            <div class="form-group full">
+              <label class="form-label"
+                >Nom de la marque <span class="req">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="brandNom"
+                placeholder="Ex: Samsung, HP, LG…"
+              />
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Logo</label>
+              <div class="img-upload-zone" id="brandLogoZone">
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="brandLogoInput"
+                  onchange="previewBrandLogo(event)"
+                />
+                <div id="brandLogoPreviewWrap">
+                  <div class="img-upload-icon">
+                    <i class="ti ti-photo-up"></i>
+                  </div>
+                  <div class="img-upload-text">Cliquer ou glisser un logo</div>
+                  <div class="img-upload-hint">
+                    JPG, PNG, WEBP — max 2 Mo — recommandé 200×200px
+                  </div>
+                </div>
+              </div>
+              <div class="upload-progress" id="brandLogoProgress">
+                <div class="progress-bar">
+                  <div
+                    class="progress-fill"
+                    id="brandLogoProgressFill"
+                    style="width: 0%"
+                  ></div>
+                </div>
+                <div class="progress-label" id="brandLogoProgressLabel">
+                  Upload en cours…
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeModal('modalBrand')">
+            Annuler
+          </button>
+          <button
+            class="btn btn-primary"
+            id="btnSaveBrand"
+            onclick="saveBrand()"
+          >
+            <i class="ti ti-device-floppy"></i> Enregistrer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ MODAL CONFIRMATION ══ -->
+    <div class="modal-overlay" id="modalConfirm">
+      <div class="modal confirm-modal">
+        <div class="modal-body" style="padding: 28px 24px">
+          <div class="confirm-icon">
+            <i class="ti ti-trash" id="confirmIcon"></i>
+          </div>
+          <div class="confirm-text">
+            <div class="confirm-title" id="confirmTitle">
+              Confirmer la suppression
+            </div>
+            <div class="confirm-desc" id="confirmDesc">
+              Cette action est irréversible.
+            </div>
+          </div>
+          <div
+            class="confirm-warning"
+            id="confirmWarning"
+            style="display: none"
+          >
+            <i class="ti ti-alert-triangle"></i>
+            <span id="confirmWarningText"></span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeModal('modalConfirm')">
+            Annuler
+          </button>
+          <button
+            class="btn"
+            id="btnConfirmDelete"
+            style="background: var(--danger); color: #fff"
+          >
+            <i class="ti ti-trash"></i> Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOASTS -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/gestion-marques.js"></script>
+  </body>
+</html>
